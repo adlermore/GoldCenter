@@ -11,12 +11,6 @@ import request from "@/utils/hooks/request";
 
 function QuoteForm() {
 
-  //dynamic Option Data
-  const [serviceDateOptions, setServiceDateOption] = useState([]);
-  const [serviceOptions, setServiceOption] = useState([]);
-
-  //Context Connection
-  const { activeService } = useContext(JsonContext);
   const [disabledBtn, setDisabledBtn] = useState(false);
 
   //validation init
@@ -28,15 +22,9 @@ function QuoteForm() {
   const quoteSubmit = async (dataForm) => {
 
     setDisabledBtn(true);
-    // const selectedServices = dataForm.services?.map(option => option.value);
-    // const selectedServicesDate = dataForm.serviceDate?.value;
-
     const newData = {
       ...dataForm,
       register_by : 'email'
-      // services: selectedServices,
-      // serviceDate: selectedServicesDate,
-      // service_timeframe_id: selectedServicesDate
     }
 
     request('https://black.dev.itfabers.com/api' + '/v2/auth/signup', 'POST', newData)
@@ -111,133 +99,6 @@ function QuoteForm() {
           {errorsQuote?.password?.message}
         </p>
       </div>
-      {/* <div className="grid grid-cols-2 gap-20 horizontal-row laptop:gap-0 laptop:grid-cols-1">    
-        <div
-          className={errorsQuote.phone ? "form_block has_error" : "form_block"}
-        >
-          <div className="quoteForm_label text-base font-semibold mb-[5px]">
-            Phone Number{" "}
-            <span className="text-sm font-regular">(required)</span>
-          </div>
-          <InputMask
-            {...quoteForm("phone", { required: true })}
-            mask="(999)-999-9999"
-            placeholder="Enter your phone number"
-            type="tel"
-            autoComplete="on"
-            className="form-control"
-            defaultValue={''}
-          />
-          <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-            {errorsQuote?.phone?.message}
-          </p>
-        </div>
-      </div> */}
-      {/* <div className="grid grid-cols-2 gap-20 horizontal-row laptop:gap-0 laptop:grid-cols-1">
-        <div className={errorsQuote?.vehicle_year ? "form_block has_error" : "form_block"} >
-          <div className="quoteForm_label text-base font-semibold mb-[5px]">
-            Vehicle Year{" "}
-            <span className="text-sm font-regular">(required)</span>
-          </div>
-          <input
-            placeholder="Enter your vehicle year"
-            autoComplete="on"
-            className="form-control"
-            type="number"
-            name="vehicle_year"
-            {...quoteForm("vehicle_year", { required: true })}
-          />
-          <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-            {errorsQuote?.vehicle_year?.message}
-          </p>
-        </div>
-        <div className={errorsQuote?.vehicle_make_or_model ? "form_block has_error" : "form_block"}>
-          <div className="quoteForm_label text-base font-semibold mb-[5px]">
-            Vehicle Make or Model{" "}
-            <span className="text-sm font-regular">(required)</span>
-          </div>
-          <input
-            placeholder="Enter your vehicle make and model"
-            autoComplete="on"
-            className="form-control"
-            name="vehicle_make_or_model"
-            {...quoteForm("vehicle_make_or_model", { required: true })}
-          />
-          <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-            This field is required
-          </p>
-        </div>
-      </div> */}
-      {/* {serviceOptions.length > 0 ? (
-        <div
-          className={
-            errorsQuote?.services?.message ? "form_block sellect_section has_error" : "form_block"}
-        >
-          <div className="quoteForm_label text-base font-semibold mb-[5px]">
-            Choose the service you prefer{" "}
-            <span className="text-sm font-regular">(required)</span>
-          </div>
-          <Controller
-            name="services"
-            control={control}
-            defaultValue={activeService && [serviceOptions.find(option => option.value === activeService)]}
-            rules={{
-              required: serviceOptions.find(option => option.value === activeService)
-                ? false
-                : "Select one or more here...",
-            }}
-            render={({ field }) => (
-              <ReactSelect
-                isMulti
-                className="register_sellect"
-                options={serviceOptions}
-                placeholder="Select one or more here..."
-                {...field}
-              />
-            )}
-          />
-          <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-            This field is required
-          </p>
-        </div>
-      ) : (
-        <div className="form_block">
-          <div className="quoteForm_label text-base font-semibold mb-[5px]">
-            Choose the service you prefer{" "}
-            <span className="text-sm font-regular">(required)</span>
-          </div>
-          <input
-            className="form-control !pl-[20px] opacity-40"
-            placeholder="Select one or more here"
-          />
-        </div>
-      )} */}
-      {/* <div
-        className={errorsQuote?.serviceDate?.message ? "form_block sellect_section has_error" : "form_block"} >
-        <div className="quoteForm_label text-base font-semibold mb-[5px]">
-          How soon do you need service?{" "}
-          <span className="text-sm font-regular">(required)</span>
-        </div>
-        <Controller
-          name="serviceDate"
-          control={control}
-          rules={{
-            required: "Select one here...e",
-          }}
-          render={({ field }) => (
-            <ReactSelect
-              instanceId
-              className="register_sellect"
-              options={serviceDateOptions}
-              placeholder="Select one here..."
-              {...field}
-            />
-          )}
-        />
-        <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-          This field is required
-        </p>
-      </div> */}
       <button
         type="submit"
         className={
