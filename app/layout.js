@@ -4,8 +4,10 @@ import Footer from "@/components/layout/Footer.jsx";
 import { JsonContextProvider } from "@/context/jsonContext";
 import QuotePopup from "@/components/quote/QuotePopup.jsx";
 import SuccessPopup from "@/components/layout/SuccessPopup.jsx";
+
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Providers } from '../redux/providers';
 
 export const metadata = {
   title: "Gold Center",
@@ -22,11 +24,13 @@ export default async function RootLayout({ children }) {
     <JsonContextProvider>
       <html lang="en">
         <body className='flex flex-col'>
-          <Header  />
-          <SuccessPopup />
-          <div className="flex-1 main-wrapper">{children}</div>
-          <QuotePopup />
-          <Footer  />
+          <Providers>
+            {/* <Header /> */}
+            <SuccessPopup />
+            <div className="flex-1 main-wrapper">{children}</div>
+            <QuotePopup />
+            {/* <Footer /> */}
+          </Providers>
         </body>
       </html>
     </JsonContextProvider>

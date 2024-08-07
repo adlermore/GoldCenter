@@ -15,6 +15,38 @@ ul {
   list-style: none;
 }
 
+.multiSlider_container{
+  margin-top: 40px;
+  .slick-slider{
+    height: 100%;
+  }
+  .slick-slide{
+      height: 100%;
+      padding: 0 15px;
+      > div{
+        background: red;
+        height: 400px;
+        padding: 20px;
+      }
+  }
+}
+.multyChild_slider{
+  height: 100%;
+  .slick-slider{
+    height: 100%;
+  }
+  .slick-slide{
+      height: 100%;
+      > div{
+        background: blue;
+        height: 300px;
+        color: white;
+        padding: 20px;
+      }
+  }
+}
+
+
 a {
   color: inherit;
   text-decoration: none;
