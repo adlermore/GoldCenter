@@ -16,6 +16,7 @@ function Header({ settingsData }) {
 
   const pathname = usePathname();
   const [isOpen, setOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   //mobile Menu Trigger
   useEffect(() => {
@@ -30,6 +31,20 @@ function Header({ settingsData }) {
       document.body.style.overflowY = "scroll";
       document.body.classList.remove('menu_opened');
     }
+
+    const handleScroll = () => {
+      if (window.scrollY > 10) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+     return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
 
   }, [isOpen, pathname]);
 
@@ -56,7 +71,7 @@ function Header({ settingsData }) {
   };
 
   return (
-    <header className='absolute top-0 h-[85px] left-0 right-0 z-[99]'>
+    <header className={`fixed duration-500 ${isScrolled && 'bg-black'} top-0 h-[85px] left-0 right-0 z-[99]`}>
       <div className='cover_container h-full flex items-center gap-20' >
         <Link href='/' className='z-20'>
           <Image
