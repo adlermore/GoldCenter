@@ -9,6 +9,11 @@ import { usePathname } from 'next/navigation'
 import { Twirl as Hamburger } from "hamburger-react";
 import mainLogo from '@/public/images/logoImage.png'
 import SiteSwitch from '../SiteSwitch'
+import IconArrowBottom from '@/public/icons/IconArrowBottom'
+import IconUser from '@/public/icons/IconUser'
+import IconShop from '@/public/icons/IconShop'
+import IconHeart from '@/public/icons/IconHeart'
+import IconSearch from '@/public/icons/IconSearch'
 
 function Header({ settingsData }) {
 
@@ -99,6 +104,31 @@ function Header({ settingsData }) {
             </div>
           </div>
         </div>
+        <div className='flex items-center gap-[15px]'>
+          <div>
+            <IconSearch />
+          </div>
+          <div>
+            <IconHeart 
+              className='text-white [&>path]:fill-white'
+             />
+          </div>
+          <div>
+            <IconShop />
+          </div>
+          <div>
+            <IconUser />
+          </div>
+          <div className='flex items-center text-white gap-[7px]'>
+            EN
+            <IconArrowBottom/>
+          </div>
+          <div className='flex items-center text-white gap-[7px]'>
+            AMD
+            <IconArrowBottom/>
+          </div>
+        </div>
+     
         <div className={isOpen ? ' flex items-center gap-20 ml-auto relative z-20 mobile:bg-white  mobile:absolute mobile:p-8 mobile:justify-between mobile:top-[-100%] mobile:w-full mobile:left-0  mobile:z-[1] mobile:shadow-inner mobile:duration-[0.3s]  ' : ' mobile:duration-[0.3s]  mobile:z-[1] mobile:shadow-inner  flex items-center gap-20 ml-auto relative z-20 mobile:bg-white  mobile:absolute mobile:p-8 mobile:justify-between mobile:top-[-100%] mobile:w-full mobile:left-0 '}>
           <a href='/' className='text-base laptopHorizontal:text-sm mobile:whitespace-nowrap mobile:px-8  uppercase flex mobile:text-xs bg-white px-16 laptopHorizontal:px-10 items-center  text-black h-40  font-semibold ' onClick={(e) => registerPopupOpen(e)} >Registration</a>
           <a href='/' className='text-base laptopHorizontal:text-sm mobile:whitespace-nowrap mobile:px-8  uppercase flex mobile:text-xs bg-white px-16 laptopHorizontal:px-10 items-center  text-black h-40  font-semibold ' onClick={(e) => loginPopupOpen(e)} >Login</a>
