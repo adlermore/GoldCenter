@@ -1,10 +1,10 @@
 
 import { z } from 'zod';
-import { name, email, phone } from './common'
+import { name, email_or_phone, phone } from './common'
 
-export const quoteSchema = z.object({
+export const loginSchema = z.object({
   name,
-  email,
+  email_or_phone,
 
   // phone,
   password: z.string().min(1, { message: 'This field is required' })

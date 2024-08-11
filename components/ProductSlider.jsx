@@ -11,13 +11,12 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 function ProductSlider({ sliderData }) {
 
-  const { setActivePopup, serActiveService } = useContext(JsonContext);
+  const { setActivePopup } = useContext(JsonContext);
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(null);
 
   const handleServiceBook = (e, serviceIndex) => {
     e.preventDefault();
-    serActiveService(serviceIndex);
     setActivePopup('quote');
     setTimeout(() => {
       document.body.classList.add("quote_opened");

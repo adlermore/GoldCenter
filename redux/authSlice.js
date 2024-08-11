@@ -23,10 +23,12 @@ export const login = createAsyncThunk('auth/login', async (credentials) => {
 });
 
 export const register = createAsyncThunk('auth/register', async (userInfo) => {
-  const response = await fetch('/api/auth/register', {
+  
+  const response = await fetch('https://black.dev.itfabers.com/api/v2/auth/signup', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'system_key': 'wdfghj'
     },
     body: JSON.stringify(userInfo),
   });
@@ -65,6 +67,12 @@ const authSlice = createSlice({
         state.status = 'succeeded';
         state.user = action.payload.user;
         state.token = action.payload.token;
+        console.log('_____', action);
+        document.body.classList.remove("quote_opened");
+        document.body.style.overflowY = "scroll";
+        document.body.style.overflow = "hidden";
+        document.body.classList.add("success_opened");
+
       })
       .addCase(register.rejected, (state, action) => {
         state.status = 'failed';

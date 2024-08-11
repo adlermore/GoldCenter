@@ -5,17 +5,17 @@ import React, { createContext, useState } from "react";
 const JsonContext = createContext();
 
 const JsonContextProvider = ({ children }) => {
-  
-  const [activeService, serActiveService] = useState(null);
+
   const [activePopup, setActivePopup] = useState(null);
+  const [silverMode, setSilverMode] = useState(false);
 
   return (
     <JsonContext.Provider
       value={{
-        activeService,
         activePopup,
         setActivePopup,
-        serActiveService,
+        silverMode,
+        setSilverMode
       }}
     >
       {children}

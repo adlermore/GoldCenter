@@ -13,7 +13,7 @@ export const name = z.string()
   message: "Name must include both first name and surname",
 });
 
-export const email = z.string()
+export const email_or_phone = z.string()
 .min(1, { message: "This field is required" })
 .email({ message: "Invalid email address" })
 .max(50, { message: "Field must be at most 50 characters long" })

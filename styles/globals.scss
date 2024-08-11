@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 @import "../styles/fonts.scss";
 
 * {
@@ -10,9 +11,29 @@
   box-sizing: border-box;
 }
 
+body{
+  background: #e4dccd;
+}
+
 ul {
   padding: 0;
   list-style: none;
+}
+
+.silverGradient{
+  background: linear-gradient(0deg, #F7F8F8 0%, #BABABA 22%, #969696 37%, #AAAAAA 47%, #DDDEDE 67%, #F7F8F8 76%, #EFF0EF 81%, #D9DAD9 89%, #B6B6B6 98%, #AFAFAE 100%);
+}
+.category_block{
+  transition: 0.3s;
+  img{
+    transition: 0.3s;
+  }
+  &:hover{
+    opacity: 1;
+    img{
+      filter: brightness(0.6);
+    }
+  }
 }
 
 .multiSlider_container{
@@ -28,6 +49,30 @@ ul {
         height: 400px;
         padding: 20px;
       }
+  }
+}
+.product_slider{
+  .slick-slider{
+    margin: 0 -15px;
+  }
+  .slick-slide{
+      padding: 0 15px;
+  }
+  .prudcut_image:hover{
+    opacity: 1;
+    .product_inner{
+      opacity: 1;
+    }
+  }
+  .product_inner{
+    position: absolute;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: 0.5s;
   }
 }
 .multyChild_slider{
@@ -271,21 +316,21 @@ body {
   // gap: 32px !important;
 }
 
-.quote_opened {
+.login_opened {
   // width: calc(100% - 17px);
 
-  .quote_popup {
+  .login_popup {
     top: 0;
     // padding-left: 0;
   }
 }
 
-.review_opened {
-  width: calc(100% - 17px);
+.register_opened {
+  // width: calc(100% - 17px);
 
-  .review_popup {
+  .register_popup {
     top: 0;
-    padding-left: 0;
+    // padding-left: 0;
   }
 }
 
@@ -352,7 +397,7 @@ input::-webkit-inner-spin-button {
     border: 2px solid #191a2a;
   }
 
-  .quoteForm_label {
+  .loginForm_label {
     white-space: nowrap;
   }
 
@@ -403,7 +448,7 @@ input::-webkit-inner-spin-button {
         height: 40px;
       }
 
-      .quoteForm_label {
+      .loginForm_label {
         font-size: 12px;
 
         span {
@@ -418,10 +463,19 @@ input::-webkit-inner-spin-button {
     }
   }
 
-  .quote_opened {
+  .login_opened {
     width: 100%;
 
-    .quote_popup {
+    .login_popup {
+      top: 0;
+      padding-left: 0;
+    }
+  }
+
+  .register_opened {
+    width: 100%;
+
+    .register_popup {
       top: 0;
       padding-left: 0;
     }
@@ -445,8 +499,8 @@ input::-webkit-inner-spin-button {
     }
   }
 
-  .quote_popup,
-  .review_popup,
+  .login_popup,
+  .register_popup,
   .success_popup {
     padding-left: 0;
   }
