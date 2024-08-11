@@ -1,4 +1,4 @@
-
+'use client'
 import Slider from "react-slick";
 import Image from "next/image";
 import { bestProducts } from "@/utils/data/homeData";
@@ -47,9 +47,9 @@ function ProductSlider() {
               <div className="mt-[12px] text-black text-[18px]">{product.title}</div>
               <div className="font-bold mt-[5px] text-black">{product.price}</div>
             </dliv>
-
           ))}
         </Slider>
+        <Link href="/" className="mt-[58px] h-[50px] w-full max-w-[276px] bg-transparent border-white flex items-center justify-center border-2 text-white mx-auto uppercase cursor-pointer hover:bg-siteCrem hover:border-siteCrem duration-300" >load more</Link>
       </div>
     </div>
   )

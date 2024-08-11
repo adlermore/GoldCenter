@@ -1,5 +1,6 @@
 // redux/authSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 const initialState = {
   user: null,
@@ -60,23 +61,27 @@ const authSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message;
       })
+      
       .addCase(register.pending, (state) => {
         state.status = 'loading';
       })
+
       .addCase(register.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.user = action.payload.user;
-        state.token = action.payload.token;
-        console.log('_____', action);
-        document.body.classList.remove("quote_opened");
+        state.token = action.payload.access_token;
+        document.body.classList.remove("register_opened");
         document.body.style.overflowY = "scroll";
         document.body.style.overflow = "hidden";
         document.body.classList.add("success_opened");
-
+        toast.success('Action was successful!');
       })
+
       .addCase(register.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
+        toast.error('An error occurred!');
+
       })
       .addCase(logout.fulfilled, (state) => {
         state.user = null;

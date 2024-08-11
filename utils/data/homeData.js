@@ -18,6 +18,9 @@ import productInner1 from '@/public/images/productInner1.webp';
 import productInner2 from '@/public/images/productInner2.webp';
 import productInner3 from '@/public/images/productInner3.webp';
 import productInner4 from '@/public/images/productInner4.webp';
+import shop1 from '@/public/images/shop1.png';
+import shop2 from '@/public/images/shop2.png';
+import shop3 from '@/public/images/shop3.png';
 
 
 export const categoryGrid = [
@@ -92,4 +95,39 @@ export const bestProducts = [
 		title: 'Jewelry Gold Woman Rings',
 		price: '119.00$'
 	}
+]
+
+export const newStores = [
+	{
+		title: 'Store name 01',
+		gallery: [
+			{image : shop1},
+			{image : product1},
+			{image : productInner1},
+		]
+	},
+	{
+		title: 'Store name 02',
+		gallery: [
+			{image : shop2},
+			{image : product2},
+			{image : productInner2},
+		]
+	},
+	{
+		title: 'Store name 03',
+		gallery: [
+			{image : shop3},
+			{image : product3},
+			{image : productInner3},
+		]
+	},
+	{
+		title: 'Store name 01',
+		gallery: [
+			{image : shop1},
+			{image : product1},
+			{image : productInner1},
+		]
+	},
 ]

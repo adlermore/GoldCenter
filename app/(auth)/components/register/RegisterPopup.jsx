@@ -45,7 +45,7 @@ function RegisterPopup() {
       "g-recaptcha-response": "recaptcha_response"
     }
     dispatch(register(newData));
-    reset()
+    // reset()
   };
 
   return (
@@ -102,7 +102,7 @@ function RegisterPopup() {
                     })}
                   />
                   <p className="form_error form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-                    {errorsRegister?.email?.message}
+                    {errorsRegister?.email_or_phone?.message}
                   </p>
                 </div>
                 <div className={errorsRegister?.password ? "form_block has_error" : "form_block"}>

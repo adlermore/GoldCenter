@@ -8,6 +8,8 @@ import "slick-carousel/slick/slick-theme.css";
 import { Providers } from '../redux/providers';
 import LoginPopup from "./(auth)/components/login/LoginPopup";
 import RegisterPopup from "./(auth)/components/register/RegisterPopup";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata = {
   title: "Gold Center",
@@ -30,10 +32,23 @@ export default async function RootLayout({ children }) {
             <div className="flex-1 main-wrapper">
               {children}
             </div>
-            <LoginPopup/>
-            <RegisterPopup/>
+            <LoginPopup />
+            <RegisterPopup />
             <Footer />
           </Providers>
+          <ToastContainer
+            position="bottom-right"
+            autoClose={3000}
+            limit={3}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+          />
         </body>
       </html>
     </JsonContextProvider>

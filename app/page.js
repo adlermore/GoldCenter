@@ -1,4 +1,4 @@
-'use client'
+// 'use client'
 
 import ChildSlider from "@/components/slider/ChildSlider";
 import ParentSlider from "@/components/slider/ParentSlider";
@@ -6,6 +6,8 @@ import MainSlider from "@/components/slider/MainSlider";
 import SiteSwitch from "@/components/SiteSwitch";
 import CategoryGrid from "@/components/CategoryGrid";
 import ProductSlider from "@/components/slider/ProductSlider";
+import { newStores } from "@/utils/data/homeData";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -18,10 +20,16 @@ export default function Home() {
       </div>
       <CategoryGrid />
       <ProductSlider />
-      {/* <ParentSlider>
-        <ChildSlider />
-        <ChildSlider />
-      </ParentSlider> */}
+      <ParentSlider>
+        {newStores.map((store, i) => (
+          <div key={i}>
+            <ChildSlider gallery={store.gallery} />
+            <div className="mt-[30px] text-[20px] text-center">{store.title}</div>
+            <Link href='/' className="flex items-center w-[215px] mx-auto h-[50px] text-[#916D50] text-[24px] bg-[#F8F6F5] justify-center mt-[25px] ">Visit Store</Link>
+          </div>
+        ))}
+      </ParentSlider>
+      <ProductSlider />
     </div>
   );
 }

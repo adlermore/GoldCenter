@@ -11,8 +11,13 @@
   box-sizing: border-box;
 }
 
-body{
+body {
   background: #e4dccd;
+  transition: 0.3s;
+
+  &.silverMode {
+    background: #eaeaea;
+  }
 }
 
 ul {
@@ -20,51 +25,119 @@ ul {
   list-style: none;
 }
 
-.silverGradient{
+.silverGradient {
   background: linear-gradient(0deg, #F7F8F8 0%, #BABABA 22%, #969696 37%, #AAAAAA 47%, #DDDEDE 67%, #F7F8F8 76%, #EFF0EF 81%, #D9DAD9 89%, #B6B6B6 98%, #AFAFAE 100%);
 }
-.category_block{
+
+.category_block {
   transition: 0.3s;
-  img{
+
+  img {
     transition: 0.3s;
   }
-  &:hover{
+
+  &:hover {
     opacity: 1;
-    img{
+
+    img {
       filter: brightness(0.6);
     }
   }
 }
 
-.multiSlider_container{
-  margin-top: 40px;
-  .slick-slider{
+.multiSlider_container {
+  margin-bottom: 40px;
+
+  .slick-slider {
     height: 100%;
+    margin: 0 -10px;
   }
-  .slick-slide{
-      height: 100%;
-      padding: 0 15px;
-      > div{
-        background: red;
-        height: 400px;
-        padding: 20px;
-      }
+  .slick-next{
+    right: 40px;
+    z-index: 9;
+    margin-top: -50px;
+  }
+  .slick-prev{
+    left: 40px;
+    z-index: 9;
+    margin-top: -50px;
+  }
+  .slick-slide {
+    height: 100%;
+    padding: 0 10px;
+  }
+
+  .multyChild_slider {
+    .slick-dots {
+      gap: 10px;
+      display: block;
+      padding: 0;
+      margin: 0;
+      min-height: auto;
+      list-style: none;
+      position: absolute;
+      z-index: 9;
+      bottom: 40px;
+      li {
+        width: auto;
+        height: auto;
+        button {
+          text-indent: -9999px;
+          width: 10px;
+          transition: 0.3s;
+          height: 10px;
+          z-index: 9999;
+          position: relative;
+          border-radius: 10px !important;
+          padding: 0;
+          background: #D3BA87;
+          &::before{
+            display: none;
+          }
+          &:after{
+            content: "";
+            display: block;
+            position: absolute;
+            z-index: 44;
+            top: -5px;
+            height: 12px;
+            bottom: -5px;
+            left: 0;
+            right: 0;
+            background: transparent;
+          }
+          &:hover{
+            opacity: 0.7;
+          }
+        }
+        &.slick-active{
+          button{
+            background: white;
+          }
+        }
+      } 
+    } 
   }
 }
-.product_slider{
-  .slick-slider{
-    margin: 0 -15px;
+
+.product_slider {
+  .slick-slider {
+    margin: 0 -10px;
   }
-  .slick-slide{
-      padding: 0 15px;
+
+  .slick-slide {
+    padding: 0 10px;
   }
-  .prudcut_image:hover{
+
+  .prudcut_image:hover {
     opacity: 1;
-    .product_inner{
+
+    .product_inner {
       opacity: 1;
     }
   }
-  .product_inner{
+
+  .product_inner {
     position: absolute;
     z-index: 999;
     left: 0;
@@ -73,21 +146,6 @@ ul {
     height: 100%;
     opacity: 0;
     transition: 0.5s;
-  }
-}
-.multyChild_slider{
-  height: 100%;
-  .slick-slider{
-    height: 100%;
-  }
-  .slick-slide{
-      height: 100%;
-      > div{
-        background: blue;
-        height: 300px;
-        color: white;
-        padding: 20px;
-      }
   }
 }
 
@@ -108,7 +166,7 @@ html {
 
 body {
   overflow-x: hidden;
-  position: relative; 
+  position: relative;
   width: 100%;
   height: 100%;
   font-family: "NunitoRegular";
@@ -132,72 +190,82 @@ body {
   padding: 0 20px;
 }
 
-.cover_container{
+.cover_container {
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
   padding: 0 20px;
 }
-.footer_menu{
+
+.footer_menu {
   align-items: flex-start;
 }
-.menu_block{
+
+.menu_block {
   position: relative;
-  a{
+
+  a {
     display: block;
     font-size: 17px;
     line-height: 1.6;
     margin-top: 25px;
   }
-  .pay_title{
+
+  .pay_title {
     margin-bottom: 30px;
     font-size: 20px;
   }
 }
-.main_slider{
+
+.main_slider {
   // background: url('../public/images/mainBanner2.png') no-repeat;
   background-position: top center;
   background-size: cover;
 }
 
-.slick_wrapper{
-  .slider_content{
-   max-width: 402px;
-   width: 100%;
-   padding-bottom: 20px;
-   transition: all 0.5s;
-   transition-delay: 0.5s;
-   position: absolute;
-   bottom: 0px;
-   left: 50px;
-   opacity: 0;
-   &::before{
-    content: "";
-    bottom: 0;
+.slick_wrapper {
+  .slider_content {
+    max-width: 402px;
+    width: 100%;
+    padding-bottom: 20px;
+    transition: all 0.5s;
+    transition-delay: 0.5s;
     position: absolute;
-    width: 230px;
-    height: 2px;
-    background-color: #D3BA87;
-   } 
+    bottom: 0px;
+    left: 50px;
+    opacity: 0;
+
+    &::before {
+      content: "";
+      bottom: 0;
+      position: absolute;
+      width: 230px;
+      height: 2px;
+      background-color: #D3BA87;
+    }
   }
-  .slider_title{
+
+  .slider_title {
     font-size: 32px;
     line-height: 1.6;
     max-width: 350px;
     color: #D3BA87;
     text-transform: uppercase;
   }
-  .slider_description{
+
+  .slider_description {
     font-size: 20px;
     margin-top: 15px;
     color: white
   }
-  .slick-active{
-    .slider_content{
+
+  .slick-active {
+    .slider_content {
       bottom: 60px;
       opacity: 1;
     }
   }
+
   .slick-dots {
     gap: 2px;
     display: block;
@@ -210,9 +278,11 @@ body {
     z-index: 9;
     width: auto;
     bottom: 60px;
+
     li {
       width: auto;
       height: auto;
+
       button {
         text-indent: -9999px;
         // overflow:hidden;
@@ -223,10 +293,12 @@ body {
         position: relative;
         padding: 0;
         background: #D3BA87;
-        &::before{
+
+        &::before {
           display: none;
         }
-        &:after{
+
+        &:after {
           content: "";
           display: block;
           position: absolute;
@@ -238,13 +310,15 @@ body {
           right: 0;
           background: transparent;
         }
-        &:hover{
+
+        &:hover {
           opacity: 0.7;
         }
       }
-      &.slick-active{
-        button{
-          &:before{
+
+      &.slick-active {
+        button {
+          &:before {
             content: "";
             left: 0;
             width: 50%;
@@ -258,14 +332,15 @@ body {
           }
         }
       }
-    } 
-  } 
+    }
+  }
 }
 
 @keyframes rightB {
   0% {
     width: 0%;
   }
+
   100% {
     width: 100%;
   }
@@ -522,6 +597,7 @@ input::-webkit-inner-spin-button {
       gap: 0;
     }
   }
+
   .mobile_container {
     width: 340px;
   }
