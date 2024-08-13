@@ -7,6 +7,7 @@ import SuccessPopup from "@/components/layout/SuccessPopup.jsx";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
 import { Providers } from '../redux/providers';
 
 export const metadata = {
@@ -25,11 +26,13 @@ export default async function RootLayout({ children }) {
       <html lang="en">
         <body className='flex flex-col'>
           <Providers>
-            {/* <Header /> */}
+            <Header />
             <SuccessPopup />
-            <div className="flex-1 main-wrapper">{children}</div>
+              <div className="flex-1 main-wrapper">
+                {children}
+              </div>
             <QuotePopup />
-            {/* <Footer /> */}
+            <Footer />
           </Providers>
         </body>
       </html>
