@@ -1,21 +1,34 @@
 "use client";
 
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 const JsonContext = createContext();
 
 const JsonContextProvider = ({ children }) => {
-  
-  const [activeService, serActiveService] = useState(null);
+
   const [activePopup, setActivePopup] = useState(null);
+  const [silverMode, setSilverMode] = useState(false);
+
+  useEffect(() => {
+    if (silverMode) {
+      document.body.classList.add("silverMode");
+    } else {
+      document.body.classList.remove("silverMode");
+    }
+    
+    return () => {
+      document.body.classList.remove("silverMode");
+    };
+  }, [silverMode]);
+
 
   return (
     <JsonContext.Provider
       value={{
-        activeService,
         activePopup,
         setActivePopup,
-        serActiveService,
+        silverMode,
+        setSilverMode
       }}
     >
       {children}

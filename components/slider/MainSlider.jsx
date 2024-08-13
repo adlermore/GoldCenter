@@ -1,7 +1,7 @@
 "use client"
-import mainSlider1 from '../public/images/mainBanner1.png'
-import mainSlider2 from '../public/images/mainBanner2.webp'
-import mainSlider3 from '../public/images/mainBanner3.webp'
+import mainSlider1 from '../../public/images/mainBanner1.png'
+import mainSlider2 from '../../public/images/mainBanner2.webp'
+import mainSlider3 from '../../public/images/mainBanner3.webp'
 import Slider from "react-slick";
 import Image from "next/image";
 
