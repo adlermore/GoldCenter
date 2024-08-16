@@ -5,11 +5,11 @@ import { JsonContextProvider } from "@/context/jsonContext";
 import SuccessPopup from "@/components/layout/SuccessPopup.jsx";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Providers } from '../redux/providers';
+import { Providers } from "../redux/providers";
 import LoginPopup from "./(auth)/components/login/LoginPopup";
 import RegisterPopup from "./(auth)/components/register/RegisterPopup";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const metadata = {
   title: "Gold Center",
@@ -17,7 +17,6 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-
   // Settings Data Fetching
   // const res = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/settings' , {cache: 'no-cache'} )
   // const { data } = await res.json() || null
@@ -25,13 +24,11 @@ export default async function RootLayout({ children }) {
   return (
     <JsonContextProvider>
       <html lang="en">
-        <body className='flex flex-col'>
+        <body className="flex flex-col">
           <Providers>
             <Header />
             <SuccessPopup />
-            <div className="flex-1 main-wrapper">
-              {children}
-            </div>
+            <div className="flex-1 main-wrapper">{children}</div>
             <LoginPopup />
             <RegisterPopup />
             <Footer />

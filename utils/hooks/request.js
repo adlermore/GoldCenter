@@ -2,8 +2,8 @@ async function request(url, method = "GET", body) {
   let config = {
     method: method,
     headers: {
-      "Content-type": "application/json"
-    }
+      "Content-type": "application/json",
+    },
   };
   if (body) {
     config.body = JSON.stringify(body);
@@ -16,7 +16,7 @@ async function request(url, method = "GET", body) {
     }
     return result_1;
   } catch (err) {
-    throw new Error(err)
+    throw new Error(err);
   }
 }
 

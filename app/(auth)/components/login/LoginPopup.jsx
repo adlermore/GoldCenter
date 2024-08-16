@@ -134,8 +134,6 @@ function LoginPopup() {
                 </button>
                 {status === 'loading' && <p>Loading...</p>}
                 {status === 'failed' && <p>{error}</p>}
-              
-
               </form>
             </div>
           </div>
