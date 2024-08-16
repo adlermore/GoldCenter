@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 export function Providers({ children }) {
 
   useEffect(()=>{
-
+    console.log('children testing' , children);
   },[])
   
   return (
