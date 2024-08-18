@@ -23,9 +23,9 @@ function CardCanvas() {
                     <DrawerCloseButton />
                     <DrawerHeader>
                         Shopping Card
-                    </DrawerHeader>ç
+                    </DrawerHeader>
                     <DrawerBody>
-                        <div>Card Is Empty</div>
+                        <div>Your Card Is Empty</div>
                     </DrawerBody>
                     <DrawerFooter>
                         <Button variant='outline' mr={3} onClick={onClose}>
