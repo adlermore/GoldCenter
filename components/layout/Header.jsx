@@ -15,13 +15,13 @@ import IconShop from '@/public/icons/IconShop'
 import IconHeart from '@/public/icons/IconHeart'
 import IconSearch from '@/public/icons/IconSearch'
 import { Menu, MenuButton, MenuDivider, MenuGroup, MenuItem, MenuList, useDisclosure } from '@chakra-ui/react'
-import CardCanvas from '../card/cardCanvas'
 import AccountToggle from '../account/AccountToggle'
 import LgToggle from '../lgToggle/LgToggle'
 import { useDispatch } from 'react-redux'
 import { fetchUserInfo, setAuthenticated } from '@/redux/authSlice'
 import PriceToggle from '../priceToggle/PriceToggle'
 import SearchToggle from '../search/SearchToggle'
+import CardCanvas from '../card/CardCanvas'
 
 function Header({ settingsData }) {
 
