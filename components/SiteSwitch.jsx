@@ -16,7 +16,7 @@ function SiteSwitch({ isHeader }) {
                     <div className="justify-start items-center gap-[13.06px] inline-flex">
                         <div className="text-center text-[#916d50] text-[32px] capitalize">Gold</div>
                         <div className="w-[46.65px] h-7 relative cursor-pointer bg-transparent" onClick={switchToggle}>
-                            <div className="w-[46.65px] h-7 left-0 top-0 absolute bg-silveGradient silverGradient rounded-[14px]"></div>
+                            <div className="w-[46.65px] h-7 left-0 top-0 absolute bg-silveGradient silverGradient rounded-[14px] shadow-custom"></div>
                             <div className={`duration-300 w-[22.39px] h-[22.39px] shadow-inner ${silverMode ? 'left-[21px]' : 'left-[3.31px]'} top-[2.26px] absolute bg-[#f6f6f6] rounded-[46.65px] shadow`}></div>
                         </div>
                         <div className="text-center text-[#8d8e8e] text-[32px] capitalize">Silver</div>

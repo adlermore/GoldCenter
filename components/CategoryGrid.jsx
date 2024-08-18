@@ -1,3 +1,5 @@
+import IconArrowBottom from "@/public/icons/IconArrowBottom";
+import IconArrowRight from "@/public/icons/IconArrowRight";
 import { categoryGrid } from "@/utils/data/homeData";
 import Image from "next/image";
 import Link from "next/link";
@@ -20,8 +22,11 @@ function CategoryGrid() {
             sizes="100vw"
             className="h-full w-full object-cover"
           />
-          <span className="absolute bottom-[16px] left-[30px] text-[32px] text-white">
+          <span className="absolute left-[30px] text-[32px] text-white category_info ">
             {category.title}
+            <span className="flex items-center relative  w-fit text-sm">Shop Now 
+            <IconArrowBottom className='absolute  rotate-[-90deg] duration-300 mt-[2px] right-[-15px]' />
+            </span>
           </span>
         </Link>
       ))}

@@ -4,16 +4,20 @@
 import { Provider } from 'react-redux';
 import { store } from './store';
 import { useEffect } from 'react';
+import { CacheProvider } from '@chakra-ui/next-js';
+import { ChakraProvider } from '@chakra-ui/react';
 
 export function Providers({ children }) {
 
-  useEffect(()=>{
-    console.log('children testing' , children);
-  },[])
-  
+  useEffect(() => {
+    console.log('children testing', children);
+  }, [])
+
   return (
     <Provider store={store}>
-      {children}
+      <CacheProvider>
+        <ChakraProvider>{children}</ChakraProvider>
+      </CacheProvider>
     </Provider>
   );
 }

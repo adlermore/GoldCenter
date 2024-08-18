@@ -9,9 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@chakra-ui/next-js": "^2.2.0",
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
     "@hookform/resolvers": "^3.6.0",
     "@react-google-maps/api": "^2.19.3",
     "@reduxjs/toolkit": "^2.2.7",
+    "framer-motion": "^11.3.28",
     "hamburger-react": "^2.5.1",
     "next": "14.2.5",
     "react": "^18",

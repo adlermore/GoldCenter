@@ -150,7 +150,7 @@ function RegisterPopup() {
                 </button>
 
                 {status === 'loading' && <p>Loading...</p>}
-                {status === 'failed' && <p>{error}</p>}
+                {status === 'failed' && <p>'Error'</p>}
 
 
               </form>
