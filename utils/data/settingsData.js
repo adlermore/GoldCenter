@@ -9,6 +9,12 @@ import instaWhite from "@/public/images/icons/instaWhite.png";
 import fbWhite from "@/public/images/icons/fbWhite.png";
 import telegramWhite from "@/public/images/icons/telegramWhite.png";
 
+export const lgList = [
+  { lg: 'EN' },
+  { lg: 'РУ' },
+  { lg: 'ARM' },
+];
+
 export const PaymentIcons = [
   { image: VisaPng },
   { image: MasterPng },
