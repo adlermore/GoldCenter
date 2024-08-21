@@ -15,6 +15,12 @@ export const lgList = [
   { lg: 'ARM' },
 ];
 
+export const currencyList = [
+  { currency: 'AMD' },
+  { currency: 'RUB' },
+  { currency: 'USD' },
+];
+
 export const PaymentIcons = [
   { image: VisaPng },
   { image: MasterPng },

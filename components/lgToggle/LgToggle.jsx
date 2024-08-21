@@ -1,15 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import IconArrowBottom from "@/public/icons/IconArrowBottom";
 import { lgList } from "@/utils/data/settingsData";
 import useOnClickOutside from "@/utils/hooks/useOnClickOutside";
 
 function LgToggle() {
+  
   const [activeLg, setActiveLg] = useState(lgList[0].lg || "EN");
   const [dropActive, setDropActive] = useState(false);
 
   const ref = useRef();
-
-  useEffect(() => {}, []);
 
   const changeActiveLg = (e, item) => {
     e.preventDefault();
@@ -26,8 +25,6 @@ function LgToggle() {
       setDropActive(false);
     }
   });
-
-  console.log("true");
 
   return (
     <div className={`lg_toggle ${dropActive && "drop_opened"}`} ref={ref}>

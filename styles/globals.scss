@@ -31,7 +31,19 @@ ul {
 }
 
 .silverGradient {
-  background: linear-gradient(0deg, #F7F8F8 0%, #BABABA 22%, #969696 37%, #AAAAAA 47%, #DDDEDE 67%, #F7F8F8 76%, #EFF0EF 81%, #D9DAD9 89%, #B6B6B6 98%, #AFAFAE 100%);
+  background: linear-gradient(
+    0deg,
+    #f7f8f8 0%,
+    #bababa 22%,
+    #969696 37%,
+    #aaaaaa 47%,
+    #dddede 67%,
+    #f7f8f8 76%,
+    #eff0ef 81%,
+    #d9dad9 89%,
+    #b6b6b6 98%,
+    #afafae 100%
+  );
 }
 
 .search_li {
@@ -41,41 +53,41 @@ ul {
   position: relative;
   height: 34px;
   z-index: 55;
-  a{
-      z-index: 9;
+  a {
+    z-index: 9;
   }
   input {
-      width: 0;
-      opacity: 0;
-      height: 100%;
-      position: absolute;
-      right: -8px;
-      border-radius: 20px;
-      border: 1px solid rgba(0, 0, 0, .9);
-      transition:  0.3s;
-      outline: none;
-      padding: 0 20px;
+    width: 0;
+    opacity: 0;
+    height: 100%;
+    position: absolute;
+    right: -8px;
+    border-radius: 20px;
+    border: 1px solid rgba(0, 0, 0, 0.9);
+    transition: 0.3s;
+    outline: none;
+    padding: 0 20px;
   }
-  &.opened{
-      input{
-          width: 280px;
-          opacity: 1;
-      }
+  &.opened {
+    input {
+      width: 280px;
+      opacity: 1;
+    }
   }
 }
 
-.lg_toggle{
+.lg_toggle {
   position: relative;
-  .lg_list{
+  .lg_list {
     position: absolute;
     top: calc(100% + 15px);
   }
-  .lg_list{
+  .lg_list {
     transition: 0.3s;
     height: 0;
     overflow: hidden;
   }
-  .lg_inner{
+  .lg_inner {
     padding: 5px;
     background: white;
     display: flex;
@@ -84,20 +96,75 @@ ul {
     border-radius: 0 0 5px 5px;
     overflow: hidden;
   }
-  .lg_item{
-    &.active_lg{
+  .lg_item {
+    &.active_lg {
       opacity: 0.5;
       pointer-events: none;
     }
   }
 
-  .lg_item a{
+  .lg_item a {
     cursor: pointer;
     width: 100%;
     display: block;
   }
-  &.drop_opened{
-    .lg_list{
+  &.drop_opened {
+    .lg_list {
+      height: 85px;
+    }
+  }
+}
+
+.currency_toggle {
+  position: relative;
+  .currency_list {
+    position: absolute;
+    top: calc(100% + 15px);
+  }
+  .currency_list {
+    transition: 0.3s;
+    height: 0;
+    overflow: hidden;
+  }
+  .currency_inner {
+    padding: 5px;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-radius: 0 0 5px 5px;
+    overflow: hidden;
+  }
+  .currency_item {
+    &.active_currency {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
+  .currency_item a {
+    cursor: pointer;
+    width: 100%;
+    display: block;
+  }
+  &.drop_opened {
+    .currency_list {
+      height: 85px;
+    }
+  }
+}
+
+.account_toggle{
+  position: relative;
+  .drop_ist{
+    position: absolute;
+    top: calc(100% + 15px);
+    transition: 0.3s;
+    height: 0;
+    overflow: hidden;
+  }
+  .drop_opened {
+    .drop_ist {
       height: 85px;
     }
   }
@@ -109,19 +176,19 @@ ul {
   img {
     transition: 0.3s;
   }
-  .category_info{
+  .category_info {
     transition: 0.3s;
     bottom: -5px;
-    span{
+    span {
       opacity: 0;
       transition: 0.3s;
     }
   }
   &:hover {
     opacity: 1;
-    .category_info{
+    .category_info {
       bottom: 16px;
-      span{
+      span {
         opacity: 1;
       }
     }
@@ -138,12 +205,12 @@ ul {
     height: 100%;
     margin: 0 -10px;
   }
-  .slick-next{
+  .slick-next {
     right: 40px;
     z-index: 9;
     margin-top: -50px;
   }
-  .slick-prev{
+  .slick-prev {
     left: 40px;
     z-index: 9;
     margin-top: -50px;
@@ -176,11 +243,11 @@ ul {
           position: relative;
           border-radius: 10px !important;
           padding: 0;
-          background: #D3BA87;
-          &::before{
+          background: #d3ba87;
+          &::before {
             display: none;
           }
-          &:after{
+          &:after {
             content: "";
             display: block;
             position: absolute;
@@ -192,17 +259,17 @@ ul {
             right: 0;
             background: transparent;
           }
-          &:hover{
+          &:hover {
             opacity: 0.7;
           }
         }
-        &.slick-active{
-          button{
+        &.slick-active {
+          button {
             background: white;
           }
         }
-      } 
-    } 
+      }
+    }
   }
 }
 
@@ -235,7 +302,6 @@ ul {
   }
 }
 
-
 a {
   color: inherit;
   text-decoration: none;
@@ -256,7 +322,7 @@ body {
   width: 100%;
   height: 100%;
   font-family: "NunitoRegular";
-  color: #0C1B20;
+  color: #0c1b20;
 
   &.menu_opened {
     overflow: hidden !important;
@@ -327,7 +393,7 @@ body {
       position: absolute;
       width: 230px;
       height: 2px;
-      background-color: #D3BA87;
+      background-color: #d3ba87;
     }
   }
 
@@ -335,14 +401,14 @@ body {
     font-size: 32px;
     line-height: 1.6;
     max-width: 350px;
-    color: #D3BA87;
+    color: #d3ba87;
     text-transform: uppercase;
   }
 
   .slider_description {
     font-size: 20px;
     margin-top: 15px;
-    color: white
+    color: white;
   }
 
   .slick-active {
@@ -378,7 +444,7 @@ body {
         z-index: 9999;
         position: relative;
         padding: 0;
-        background: #D3BA87;
+        background: #d3ba87;
 
         &::before {
           display: none;
@@ -467,31 +533,15 @@ body {
   }
 }
 
-.slick-list {
-  // overflow: visible !important;
-}
-
-.slick-track {
-  // overflow: visible !important;
-  // display: flex !important;
-  // gap: 32px !important;
-}
-
 .login_opened {
-  // width: calc(100% - 17px);
-
   .login_popup {
     top: 0;
-    // padding-left: 0;
   }
 }
 
 .register_opened {
-  // width: calc(100% - 17px);
-
   .register_popup {
     top: 0;
-    // padding-left: 0;
   }
 }
 
@@ -579,7 +629,7 @@ input::-webkit-inner-spin-button {
     outline: none;
     box-shadow: none;
 
-    >div {
+    > div {
       height: 100% !important;
       display: flex;
       align-items: center;
@@ -593,8 +643,6 @@ input::-webkit-inner-spin-button {
     }
   }
 }
-
-
 
 @media (max-width: 1199px) {
   .bannerWrapper {
@@ -696,15 +744,12 @@ input::-webkit-inner-spin-button {
 
 @media (max-width: 768px) {
   .slick-slider {
-
     .slick-prev,
     .slick-next {
       display: none !important;
     }
   }
 }
-
-
 
 .cards {
   display: flex;
@@ -726,7 +771,6 @@ input::-webkit-inner-spin-button {
 }
 
 .card.is-loading {
-
   .image,
   h2,
   p {
