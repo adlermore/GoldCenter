@@ -1,23 +1,58 @@
-import IconArrowBottom from '@/public/icons/IconArrowBottom'
-import { Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
-import React from 'react'
+import React, { useEffect, useRef, useState } from "react";
+import IconArrowBottom from "@/public/icons/IconArrowBottom";
+import { lgList } from "@/utils/data/settingsData";
+import useOnClickOutside from "@/utils/hooks/useOnClickOutside";
 
 function LgToggle() {
-    return (
+  const [activeLg, setActiveLg] = useState(lgList[0].lg || "EN");
+  const [dropActive, setDropActive] = useState(false);
 
-        <Menu matchWidth={false}>
-            <MenuButton>
-                <div className='flex items-center cursor-pointer duration-300 hover:opacity-70 text-white gap-[7px]'>
-                    EN <IconArrowBottom />
-                </div>
-            </MenuButton>
-            <MenuList>
-                <MenuItem>EN</MenuItem>
-                <MenuItem>Հայ</MenuItem>
-                <MenuItem>Рус</MenuItem>
-            </MenuList>
-        </Menu>
-    )
+  const ref = useRef();
+
+  useEffect(() => {}, []);
+
+  const changeActiveLg = (e, item) => {
+    e.preventDefault();
+    setActiveLg(item.lg);
+    setDropActive(!dropActive);
+  };
+
+  const dropToggle = () => {
+    setDropActive(!dropActive);
+  };
+
+  useOnClickOutside(ref, () => {
+    if (dropActive) {
+      setDropActive(false);
+    }
+  });
+
+  console.log("true");
+
+  return (
+    <div className={`lg_toggle ${dropActive && "drop_opened"}`} ref={ref}>
+      <div
+        className="lg_button flex items-center cursor-pointer duration-300 hover:opacity-70 text-white gap-[7px]"
+        onClick={dropToggle}
+      >
+        {activeLg} <IconArrowBottom />
+      </div>
+      <div className="lg_list">
+        <div className="lg_inner">
+          {lgList.map((item, i) => (
+            <div
+              key={i}
+              className={`lg_item	${item.lg === activeLg && "active_lg"}`}
+            >
+              <a href="/" onClick={(e) => changeActiveLg(e, item)}>
+                {item.lg}
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default LgToggle
+export default LgToggle;

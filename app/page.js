@@ -12,7 +12,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="home_page">
-      <MainSlider />
+      {/* <MainSlider />
       <div className="custom_container">
         <div className="my-[42px] flex items-center justify-center">
           <SiteSwitch />
@@ -29,7 +29,7 @@ export default function Home() {
           </div>
         ))}
       </ParentSlider>
-      <ProductSlider />
+      <ProductSlider /> */}
     </div>
   );
 }

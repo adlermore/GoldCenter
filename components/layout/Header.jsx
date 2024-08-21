@@ -77,11 +77,11 @@ function Header({ settingsData }) {
     <header className={`fixed duration-500 ${isScrolled && 'bg-black'} top-0 h-[85px] left-0 right-0 z-[99]`}>
       <div className='cover_container h-full flex items-center gap-20' >
         <Link href='/' className='z-20'>
-          <Image
+          {/* <Image
             src={mainLogo}
             alt="Ricardo portrait"
             priority={true}
-          />
+          /> */}
         </Link>
         <SiteSwitch isHeader />
         <div className={isOpen ? 'menu-open laptop:fixed  z-20 ml-auto  laptop:z-0 laptop:w-full laptop:ml-0   laptop:h-full laptop:bottom-0 overflow-hidden  laptop:right-0  duration-[0.7s] mobile:duration-[0.5s]  ' : ' mobile:duration-[0.5s] duration-[0.7s] laptop:right-0 laptop:fixed  z-20 ml-auto  laptop:z-0 laptop:w-0 laptop:ml-0   laptop:h-full laptop:bottom-0 overflow-hidden  '}>

@@ -5,7 +5,6 @@ import React, { createContext, useEffect, useState } from "react";
 const JsonContext = createContext();
 
 const JsonContextProvider = ({ children }) => {
-
   const [activePopup, setActivePopup] = useState(null);
   const [silverMode, setSilverMode] = useState(false);
 
@@ -15,12 +14,11 @@ const JsonContextProvider = ({ children }) => {
     } else {
       document.body.classList.remove("silverMode");
     }
-    
+
     return () => {
       document.body.classList.remove("silverMode");
     };
   }, [silverMode]);
-
 
   return (
     <JsonContext.Provider
@@ -28,7 +26,7 @@ const JsonContextProvider = ({ children }) => {
         activePopup,
         setActivePopup,
         silverMode,
-        setSilverMode
+        setSilverMode,
       }}
     >
       {children}
