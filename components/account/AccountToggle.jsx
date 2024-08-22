@@ -10,8 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 function AccountToggle() {
   const { setActivePopup } = useContext(JsonContext);
 
-	const [dropActive, setDropActive] = useState(false);
-  const ref = useRef();
+  const [dropActive, setDropActive] = useState(false);
+  const accountRef = useRef();
 
   // Get the authentication status from Redux
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
@@ -20,7 +20,6 @@ function AccountToggle() {
 
   //Login Popup Open
   const loginPopupOpen = (e) => {
-    e.stopPropagation();
     e.preventDefault();
     setActivePopup("login");
     setTimeout(() => {
@@ -31,7 +30,6 @@ function AccountToggle() {
 
   //Registr Popup Open
   const registerPopupOpen = (e) => {
-    e.stopPropagation();
     e.preventDefault();
     setActivePopup("register");
     const documentWidth = document.documentElement.clientWidth;
@@ -53,11 +51,11 @@ function AccountToggle() {
     // Optional: Add other logout processes
   };
 
-	const dropToggle = () => {
+  const dropToggle = () => {
     setDropActive(!dropActive);
   };
 
-  useOnClickOutside(ref, () => {
+  useOnClickOutside(accountRef, () => {
     if (dropActive) {
       setDropActive(false);
     }
@@ -66,36 +64,38 @@ function AccountToggle() {
   return (
     <div className="account_toggle flex justify-center items-center">
       <div className={`${dropActive && "drop_opened"} account_drop`}>
-        <div className="drop_btn cursor-pointer" onClick={dropToggle} ref={ref}>
-          <IconUser className="text-white [&>path]:fill-white" />
+        <div className="drop_btn cursor-pointer" onClick={dropToggle} ref={accountRef}>
+          <div className="flex relative">
+            <IconUser className="text-white [&>path]:fill-white" />
+          </div>
         </div>
-        {isAuth ? (
-          <div className="drop_ist" >
-            <div>
-						{`Hi ${user?.name || "User"}`}
+        <div className="account_drop">
+          {isAuth ? (
+            <div className="drop_ist">
+              <div>{`Hi ${user?.name || "User"}`}</div>
+              <div>My Account</div>
+              <div>Order History</div>
+              <div onClick={handleLogout}> LogOut </div>
             </div>
-						<div>My Account</div>
-						<div>Order History</div>
-            <div onClick={handleLogout}> LogOut </div>
-          </div>
-        ) : (
-          <div className="drop_ist">
-            <a
-              href="/"
-              className="text-base laptopHorizontal:text-sm mobile:whitespace-nowrap mobile:px-8  uppercase flex mobile:text-xs bg-white px-16 laptopHorizontal:px-10 items-center  text-black h-40  font-semibold "
-              onClick={(e) => registerPopupOpen(e)}
-            >
-              Registration
-            </a>
-            <a
-              href="/"
-              className="text-base laptopHorizontal:text-sm mobile:whitespace-nowrap mobile:px-8  uppercase flex mobile:text-xs bg-white px-16 laptopHorizontal:px-10 items-center  text-black h-40  font-semibold "
-              onClick={(e) => loginPopupOpen(e)}
-            >
-              Login
-            </a>
-          </div>
-        )}
+          ) : (
+            <div className="drop_ist">
+              <a
+                href="/"
+                className="text-base laptopHorizontal:text-sm mobile:whitespace-nowrap mobile:px-8  uppercase flex mobile:text-xs bg-white px-16 laptopHorizontal:px-10 items-center  text-black h-40  font-semibold "
+                onClick={(e) => registerPopupOpen(e)}
+              >
+                Registration
+              </a>
+              <a
+                href="/"
+                className="text-base laptopHorizontal:text-sm mobile:whitespace-nowrap mobile:px-8  uppercase flex mobile:text-xs bg-white px-16 laptopHorizontal:px-10 items-center  text-black h-40  font-semibold "
+                onClick={(e) => loginPopupOpen(e)}
+              >
+                Login
+              </a>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -4,7 +4,6 @@ import { lgList } from "@/utils/data/settingsData";
 import useOnClickOutside from "@/utils/hooks/useOnClickOutside";
 
 function LgToggle() {
-  
   const [activeLg, setActiveLg] = useState(lgList[0].lg || "EN");
   const [dropActive, setDropActive] = useState(false);
 
@@ -27,9 +26,10 @@ function LgToggle() {
   });
 
   return (
-    <div className={`lg_toggle ${dropActive && "drop_opened"}`} ref={ref}>
+    <div className={`lg_toggle ${dropActive && "drop_opened"}`}>
       <div
-        className="lg_button flex items-center cursor-pointer duration-300 hover:opacity-70 text-white gap-[7px]"
+        className="lg_button  flex items-center cursor-pointer duration-300 hover:opacity-70 text-white gap-[7px]"
+        ref={ref}
         onClick={dropToggle}
       >
         {activeLg} <IconArrowBottom />
