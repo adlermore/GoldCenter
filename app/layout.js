@@ -28,11 +28,11 @@ export default async function RootLayout({ children }) {
         <body className="flex flex-col siteBody">
           <Providers>
             <Header />
-            {/* <SuccessPopup /> */}
+            <SuccessPopup />
             <div className="flex-1 main-wrapper">{children}</div>
-            {/* <LoginPopup />
+            <LoginPopup />
             <RegisterPopup />
-            <Footer /> */}
+            <Footer />
           </Providers>
           <ToastContainer
             position="bottom-right"

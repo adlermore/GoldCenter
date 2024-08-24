@@ -5,15 +5,15 @@ import { toast } from 'react-toastify';
 const initialState = {
   isAuthenticated: false,
   user: null,
-  token: null,
+  token: null,  // Set token initially to null
   status: 'idle',
   error: null,
 };
 
 // Async thunk to handle login
-export const login = createAsyncThunk('auth/login', async (credentials, { rejectWithValue, dispatch }) => {
+export const login = createAsyncThunk('auth/login', async (credentials, { rejectWithValue }) => {
   try {
-    const response = await fetch('https://black.dev.itfabers.com/api/v2/auth/login', {
+    const response = await fetch('https://goldcenter.new.itfabers.com/api/v2/auth/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -29,9 +29,10 @@ export const login = createAsyncThunk('auth/login', async (credentials, { reject
 
     const data = await response.json();
     // Store the token in localStorage
-    localStorage.setItem('access_token', data.access_token);
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('access_token', data.access_token);
+    }
 
-    // Return data to be handled in the fulfilled case
     return data;
   } catch (error) {
     return rejectWithValue(error.message);
@@ -39,9 +40,9 @@ export const login = createAsyncThunk('auth/login', async (credentials, { reject
 });
 
 // Async thunk to handle registration
-export const register = createAsyncThunk('auth/register', async (userInfo, { rejectWithValue, dispatch }) => {
+export const register = createAsyncThunk('auth/register', async (userInfo, { rejectWithValue }) => {
   try {
-    const response = await fetch('https://black.dev.itfabers.com/api/v2/auth/signup', {
+    const response = await fetch('https://goldcenter.new.itfabers.com/api/v2/auth/signup', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -56,8 +57,10 @@ export const register = createAsyncThunk('auth/register', async (userInfo, { rej
     }
 
     const data = await response.json();
-    localStorage.setItem('access_token', data.access_token);
-    // Return data to be handled in the fulfilled case
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('access_token', data.access_token);
+    }
+
     return data;
   } catch (error) {
     return rejectWithValue(error.message);
@@ -69,7 +72,7 @@ export const logout = createAsyncThunk('auth/logout', async (_, { getState, reje
   const { token } = getState().auth;
 
   try {
-    const response = await fetch('https://black.dev.itfabers.com/api/v2/auth/logout', {
+    const response = await fetch('https://goldcenter.new.itfabers.com/api/v2/auth/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -83,7 +86,11 @@ export const logout = createAsyncThunk('auth/logout', async (_, { getState, reje
       return rejectWithValue(errorData);
     }
 
-    // Return empty object on success
+    // Remove token from localStorage
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('access_token');
+    }
+
     return {};
   } catch (error) {
     return rejectWithValue(error.message);
@@ -95,7 +102,7 @@ export const fetchUserInfo = createAsyncThunk('auth/fetchUserInfo', async (_, { 
   const { token } = getState().auth;
 
   try {
-    const response = await fetch('https://black.dev.itfabers.com/api/v2/auth/user', {
+    const response = await fetch('https://goldcenter.new.itfabers.com/api/v2/auth/user', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -129,6 +136,7 @@ const authSlice = createSlice({
     },
     setToken: (state, action) => {
       state.token = action.payload;
+      state.isAuthenticated = !!action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -141,18 +149,15 @@ const authSlice = createSlice({
         state.status = 'succeeded';
         state.user = action.payload.user;
         state.token = action.payload.access_token;
-
-        // Store token in localStorage
-        localStorage.setItem('access_token', action.payload.access_token);
-
-        // Fetch user info after login
         state.isAuthenticated = true;
         toast.success('Login successful!');
+        document.body.classList.remove("login_opened");
       })
       .addCase(login.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload || action.error.message;
-        toast.error(`Login failed: ${state.error}`);
+        // toast.error(`Login failed: ${state.error}`);
+        // document.body.classList.remove("login_opened");
       });
 
     // Registration handlers
@@ -165,21 +170,21 @@ const authSlice = createSlice({
         state.user = action.payload.user;
         state.token = action.payload.access_token;
         state.isAuthenticated = true;
-
-        // Store token in localStorage
-        localStorage.setItem('access_token', action.payload.access_token);
+        toast.success('Registration successful!');
 
         document.body.classList.remove("register_opened");
-        document.body.style.overflowY = "scroll";
-        document.body.style.overflow = "hidden";
         document.body.classList.add("success_opened");
+        // document.body.style.overflow = "hidden"; 
 
-        toast.success('Registration successful!');
       })
       .addCase(register.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload || action.error.message;
         toast.error(`Registration failed: ${state.error}`);
+
+        document.body.classList.remove("register_opened");
+        // document.body.style.overflow = "hidden"; 
+
       });
 
     // Logout handlers
@@ -192,10 +197,6 @@ const authSlice = createSlice({
         state.user = null;
         state.token = null;
         state.isAuthenticated = false;
-
-        // Remove token from localStorage
-        localStorage.removeItem('access_token');
-
         toast.info('Logged out successfully!');
       })
       .addCase(logout.rejected, (state, action) => {
@@ -212,19 +213,28 @@ const authSlice = createSlice({
       .addCase(fetchUserInfo.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.user = action.payload;
-
-        // Set authentication status
         state.isAuthenticated = true;
         toast.success('User data fetched successfully!');
       })
       .addCase(fetchUserInfo.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload || action.error.message;
-        toast.error(`Failed to fetch user data: ${state.error}`)
         state.isAuthenticated = false;
+        toast.error(`Failed to fetch user data: ${state.error}`);
       });
   },
 });
+
+// Action to initialize authentication from localStorage
+export const initializeAuth = () => (dispatch) => {
+  if (typeof window !== 'undefined') {
+    const token = localStorage.getItem('access_token');
+    if (token) {
+      dispatch(setToken(token));
+      dispatch(fetchUserInfo()); // Fetch user info if token exists
+    }
+  }
+};
 
 // Export actions and reducer
 export const { setAuthenticated, setUser, setToken } = authSlice.actions;

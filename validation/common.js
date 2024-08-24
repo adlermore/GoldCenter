@@ -13,7 +13,7 @@ export const name = z
     message: "Name must include both first name and surname",
   });
 
-export const email_or_phone = z
+export const email = z
   .string()
   .min(1, { message: "This field is required" })
   .email({ message: "Invalid email address" })

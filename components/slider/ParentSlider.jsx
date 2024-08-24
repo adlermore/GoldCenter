@@ -19,6 +19,9 @@ function ParentSlider({ children }) {
   };
   return (
     <div className='multiSlider_container'>
+      <div className='custom_container'>
+        <div className="  text-[32px] text-black uppercase mb-[50px]">New stores</div>
+      </div>
       <Slider {...parentSettings}>
         {React.Children.map(children, (child, index) => (
           <div key={index} onMouseDown={stopPropagation} onTouchStart={stopPropagation}>

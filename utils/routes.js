@@ -1,9 +1,5 @@
 export const HeaderLinks = [
   {
-    title: "Home",
-    href: "/",
-  },
-  {
     title: "Men",
     href: "/products",
   },
