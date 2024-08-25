@@ -23,7 +23,7 @@ function SiteSwitch({ isHeader }) {
                     </div>
                 </div>
                 :
-                <div className="justify-start items-center gap-[8px] ml-auto inline-flex pt-[5px] ">
+                <div className="justify-start  laptop:ml-20  items-center gap-[8px] ml-auto inline-flex pt-[5px] ">
                     <div className="text-center text-[#d3b987]">Gold</div>
                     <div className="w-[22.08px] h-[13.25px] relative cursor-pointer" onClick={switchToggle}>
                         <div className="w-[22.08px] h-[13.25px] left-0 top-0 absolute bg-gradient-to-t from-[#f7f8f8] via-[#bababa] to-[#afafae] rounded-md" />
@@ -31,7 +31,6 @@ function SiteSwitch({ isHeader }) {
                     </div>
                     <div className="text-center text-[#d0d3d6]">Silver</div>
                 </div>
-
             }
         </>
     )

@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
+import { toast } from 'react-hot-toast';
 
 // Initial state for auth
 const initialState = {
@@ -28,7 +28,6 @@ export const login = createAsyncThunk('auth/login', async (credentials, { reject
     }
 
     const data = await response.json();
-    // Store the token in localStorage
     if (typeof window !== 'undefined') {
       localStorage.setItem('access_token', data.access_token);
     }
@@ -39,7 +38,6 @@ export const login = createAsyncThunk('auth/login', async (credentials, { reject
   }
 });
 
-// Async thunk to handle registration
 export const register = createAsyncThunk('auth/register', async (userInfo, { rejectWithValue }) => {
   try {
     const response = await fetch('https://goldcenter.new.itfabers.com/api/v2/auth/signup', {
@@ -156,7 +154,7 @@ const authSlice = createSlice({
       .addCase(login.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.payload || action.error.message;
-        // toast.error(`Login failed: ${state.error}`);
+        toast.error(`Login failed: ${state.error}`);
         // document.body.classList.remove("login_opened");
       });
 
@@ -197,7 +195,7 @@ const authSlice = createSlice({
         state.user = null;
         state.token = null;
         state.isAuthenticated = false;
-        toast.info('Logged out successfully!');
+        // toast.info('Logged out successfully!');
       })
       .addCase(logout.rejected, (state, action) => {
         state.status = 'failed';

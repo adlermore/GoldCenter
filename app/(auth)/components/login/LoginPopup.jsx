@@ -1,12 +1,11 @@
 'use client';
 
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "@/validation/loginSchema";
 import { login } from '@/redux/authSlice';
-
 import useOnClickOutside from '@/utils/hooks/useOnClickOutside';
 import IconClose from '@/public/icons/IconClose.jsx';
 
@@ -14,8 +13,9 @@ function LoginPopup() {
 
   const ref = useRef();
   const dispatch = useDispatch();
+  const [showPass, setShowPass] = useState(false);
 
-  const { status, error } = useSelector((state) => state.auth);
+  const { status } = useSelector((state) => state.auth);
 
   //validation init
   const { register: loginForm, reset, handleSubmit: handleSubmitForm, formState: { errors: errorsLogin } } = useForm({
@@ -44,6 +44,10 @@ function LoginPopup() {
     dispatch(login(dataForm));
     reset()
   };
+
+  const passToggle = () => {
+    setShowPass(!showPass)
+  }
 
   return (
     <div className="login_popup fixed  fixed-element left-0  top-0 right-0 bottom-0 flex items-center justify-center transition-[top]  pointer-events-none opacity-0 w-full h-full z-[999] overflow-x-hidden overflow-y-auto bg-black bg-opacity-20 tablet:!p-20 tablet:h-[100dvh]">
@@ -94,7 +98,7 @@ function LoginPopup() {
                 autoComplete="on"
                 className="form-control"
                 name="password"
-                type="password"
+                type={showPass ? 'text ' : 'password'}
                 {...loginForm("password", { required: true, minLength: 5 })}
               />
               <p className="form_error text-xs absolute right-0 text-siteRed font-light duration-300 opacity-0">
@@ -102,8 +106,8 @@ function LoginPopup() {
               </p>
             </div>
             <div className='checkbox_line mt-[26px]'>
-              <label htmlFor="checkbox1">
-                <input type="checkbox" id="checkbox1" />
+              <label htmlFor="checkbox1" >
+                <input type="checkbox" id="checkbox1" onChange={passToggle} />
                 <span className='square_block'></span>
                 <span className='check_label'>Show Password</span>
               </label>
@@ -112,14 +116,14 @@ function LoginPopup() {
               <label htmlFor="checkbox2">
                 <input type="checkbox" id="checkbox2" />
                 <span className='square_block'></span>
-                <span className='check_label'>Remember Me</span>
+                <span className='check_label '>Remember Me</span>
               </label>
             </div>
             <button
               type="submit"
               className={
                 status === 'loading'
-                  ? " !opacity-50 pointer-events-none [&>svg]:opacity-100 relative submit_btn h-[40px] w-full bg-[#0071DC] text-base font-semibold text-white duration-300 hover:opacity-70 mx-auto justify-center flex items-center"
+                  ? " !opacity-50 pointer-events-none [&>svg]:opacity-100 relative submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-white duration-300 hover:opacity-70 mx-auto justify-center flex items-center"
                   : " relative [&>svg]:opacity-0 submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-white duration-300 hover:opacity-70 mx-auto justify-center flex items-center"
               }
             >

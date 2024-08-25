@@ -1,5 +1,3 @@
-// 'use client'
-
 import ChildSlider from "@/components/slider/ChildSlider";
 import ParentSlider from "@/components/slider/ParentSlider";
 import MainSlider from "@/components/slider/MainSlider";
@@ -8,7 +6,6 @@ import CategoryGrid from "@/components/CategoryGrid";
 import ProductSlider from "@/components/slider/ProductSlider";
 import { newStores } from "@/utils/data/homeData";
 import Link from "next/link";
-import IconProductCard from "@/public/icons/IconProductCard";
 import footerBanner from "@/public/images/footerBanner.png"
 import Image from "next/image";
 import IconFooterHero1 from "@/public/icons/IconFooterHero1";

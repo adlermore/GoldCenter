@@ -47,7 +47,7 @@ function RegisterPopup() {
     // setDisabledBtn(true);
     const newData = {
       ...dataForm,
-      password_confirmation: dataForm.password,
+      // password_confirmation: dataForm.password,
     }
     dispatch(register(newData));
     reset()
@@ -55,9 +55,10 @@ function RegisterPopup() {
 
   return (
     <div className="register_popup fixed left-0 right-0 bottom-0 pointer-events-none flex items-center justify-center  transition-[top] top-0 opacity-0 w-full h-full z-[999] overflow-x-hidden overflow-y-auto bg-black bg-opacity-20 tablet:!p-20 tablet:h-[100dvh]">
-      <div className="popup_container mobile:h-full mobile:overflow-x-hidden mobile:overflow-y-auto bg-[#F8F6F5] relative p-20 w-full max-w-[550px] z-30 mx-auto" ref={ref}>
-        <div className="title_line flex items-center w-full gap-10">
-          <div className="popup_title flex-1 text-center font-bold text-2xl ">Registration !</div>
+      <div className="popup_container mobile:h-full mobile:overflow-x-hidden mobile:overflow-y-auto bg-[#F8F6F5] relative px-[60px] pt-[40px] pb-[30px] w-full max-w-[550px] z-30 mx-auto" ref={ref}>
+        <div className="title_line w-full gap-10">
+          <div className="popup_title text-[25px] uppercase">Create account</div>
+          <div className='mt-[20px] text-[17px]'>Sign in to view your order history an update your details</div>
           <a
             href="/#"
             className="popup_close absolute right-[20px] top-[20px] cursor-pointer"
@@ -69,7 +70,7 @@ function RegisterPopup() {
             <IconClose />
           </a>
         </div>
-        <div className="register_form">
+        <div className="register_form mt-[30px]">
           <form onSubmit={handleSubmitForm(registerSubmit)} className="w-full">
             <div className={errorsRegister?.name ? "form_block has_error" : "form_block"}>
               <div className="registerForm_label text-base font-light mb-[10px]">
@@ -161,8 +162,8 @@ function RegisterPopup() {
               type="submit"
               className={
                 status === 'loading'
-                  ? " !opacity-50 pointer-events-none [&>svg]:opacity-100 relative submit_btn h-[40px] w-full bg-[#0071DC] text-base font-semibold text-white duration-300 hover:opacity-70 mx-auto justify-center flex items-center"
-                  : " relative [&>svg]:opacity-0 submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-white duration-300 hover:opacity-70 mx-auto justify-center flex items-center"
+                  ? " mt-[35px] !opacity-50 pointer-events-none [&>svg]:opacity-100 relative submit_btn h-[40px] w-full bg-[#0071DC] text-base font-semibold text-white duration-300 hover:opacity-70 mx-auto justify-center flex items-center"
+                  : " mt-[35px] relative [&>svg]:opacity-0 submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-white duration-300 hover:opacity-70 mx-auto justify-center flex items-center"
               }
             >
               <svg

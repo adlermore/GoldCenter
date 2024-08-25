@@ -3,14 +3,12 @@ import Header from "@/components/layout/Header.jsx";
 import Footer from "@/components/layout/Footer.jsx";
 import { JsonContextProvider } from "@/context/jsonContext";
 import SuccessPopup from "@/components/layout/SuccessPopup.jsx";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
 import { Providers } from "../redux/providers";
 import LoginPopup from "./(auth)/components/login/LoginPopup";
 import RegisterPopup from "./(auth)/components/register/RegisterPopup";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import { Toaster } from "react-hot-toast";
 
 export const metadata = {
   title: "Gold Center",
@@ -18,14 +16,11 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  // Settings Data Fetching
-  // const res = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/settings' , {cache: 'no-cache'} )
-  // const { data } = await res.json() || null
-
   return (
     <JsonContextProvider>
       <html lang="en">
-        <body className="flex flex-col siteBody">
+        <body className="flex flex-col siteBody  ">
+          <Toaster position="bottom-right" />
           <Providers>
             <Header />
             <SuccessPopup />
@@ -34,19 +29,6 @@ export default async function RootLayout({ children }) {
             <RegisterPopup />
             <Footer />
           </Providers>
-          <ToastContainer
-            position="bottom-right"
-            autoClose={3000}
-            limit={3}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="dark"
-          />
         </body>
       </html>
     </JsonContextProvider>

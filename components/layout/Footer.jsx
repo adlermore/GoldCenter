@@ -1,12 +1,23 @@
+'use client'
+
+import IconToTop from "@/public/icons/IconToTop"
 import { FooterSocials, PaymentIcons } from "@/utils/data/settingsData"
 import Image from "next/image"
 import Link from "next/link"
 
 async function Footer({ settingsData }) {
 
+  const handleScrollToTop = (e) => {
+    e.preventDefault()
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
+
   return (
-    <div className='footer py-[120px] bg-[#0C1B20] text-white'>
-      <div className='custom_container'>
+    <div className='footer py-[120px] bg-[#0C1B20] text-white relative'>
+      <div className='custom_container '>
         <div className='flex footer_menu items-center gap-20 justify-between laptopHorizontal:flex-wrap'>
           <div className="menu_block">
             <h2 className="text-xl uppercase text-siteCrem pb-[2px]">Categories</h2>
@@ -63,9 +74,14 @@ async function Footer({ settingsData }) {
         </div>
         <div className='pt-[16px] mt-[60px] relative laptopHorizontal:mt-[30px] laptop:mt-[60px]'>
           <div className='flex justify-center text-center items-center gap-20 laptopHorizontal:flex-col'>
-          @Copyright 2024
+            @Copyright 2024
           </div>
         </div>
+        <a href="/"
+          onClick={e => handleScrollToTop(e)}
+          className="absolute right-[70px] bottom-[70px]">
+          <IconToTop />
+        </a>
       </div>
     </div>
   )

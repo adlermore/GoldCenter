@@ -1,0 +1,15 @@
+@font-face {
+  font-family: "NunitoRegular";
+  src: local("NunitoRegular"), url("/fonts/Nunito/Nunito-Regular.ttf") format("truetype");
+  font-weight: 400;
+}
+@font-face {
+  font-family: "NunitoLight";
+  src: local("NunitoLight"), url("/fonts/Nunito/Nunito-Light.ttf") format("truetype");
+  font-weight: 500;
+}
+@font-face {
+  font-family: "NunitoBold";
+  src: local("NunitoBold"), url("/fonts/Nunito/Nunito-Bold.ttf") format("truetype");
+  font-weight: 700;
+}/*# sourceMappingURL=fonts.css.map */
