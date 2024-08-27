@@ -1,20 +1,9 @@
-'use client'
-
-import IconToTop from "@/public/icons/IconToTop"
 import { FooterSocials, PaymentIcons } from "@/utils/data/settingsData"
 import Image from "next/image"
 import Link from "next/link"
+import ScrollToTop from "../footerHero/ScrollToTop"
 
 async function Footer({ settingsData }) {
-
-  const handleScrollToTop = (e) => {
-    e.preventDefault()
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  }
-
   return (
     <div className='footer py-[120px] bg-[#0C1B20] text-white relative'>
       <div className='custom_container '>
@@ -77,11 +66,7 @@ async function Footer({ settingsData }) {
             @Copyright 2024
           </div>
         </div>
-        <a href="/"
-          onClick={e => handleScrollToTop(e)}
-          className="absolute right-[70px] bottom-[70px]">
-          <IconToTop />
-        </a>
+       <ScrollToTop />
       </div>
     </div>
   )

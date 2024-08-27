@@ -6,10 +6,8 @@ function SearchToggle() {
 	
   const [searchOpened, setsearchOpened] = useState(false);
   const SearchRef = useRef(null);
-
   const ref = useRef();
 
-  //Close Popup after outside click
   useOnClickOutside(ref, () => {
     if (searchOpened) {
       setsearchOpened(false);

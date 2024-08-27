@@ -1,14 +1,12 @@
 import IconArrowBottom from "@/public/icons/IconArrowBottom";
-import IconArrowRight from "@/public/icons/IconArrowRight";
-import { categoryGrid } from "@/utils/data/homeData";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
-function CategoryGrid() {
+function CategoryGrid({ category }) {
   return (
     <div className="grid gap-[15px] grid-cols-4 w-full">
-      {categoryGrid.map((category, i) => (
+      {category && category.map((category, i) => (
         <Link
           href="/"
           key={i}
@@ -24,8 +22,9 @@ function CategoryGrid() {
           />
           <span className="absolute left-[30px] text-[32px] text-white category_info ">
             {category.title}
-            <span className="flex items-center relative  w-fit text-sm">Shop Now 
-            <IconArrowBottom className='absolute  rotate-[-90deg] duration-300 mt-[2px] right-[-15px]' />
+            <span className="flex items-center relative  w-fit text-sm">
+              Shop Now
+              <IconArrowBottom className="absolute  rotate-[-90deg] duration-300 mt-[2px] right-[-15px]" />
             </span>
           </span>
         </Link>

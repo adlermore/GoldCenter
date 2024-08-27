@@ -1,16 +1,15 @@
-'use client';
+"use client";
 
-import React, { useRef, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "@/validation/loginSchema";
-import { login } from '@/redux/authSlice';
-import useOnClickOutside from '@/utils/hooks/useOnClickOutside';
-import IconClose from '@/public/icons/IconClose.jsx';
+import { login } from "@/redux/authSlice";
+import useOnClickOutside from "@/utils/hooks/useOnClickOutside";
+import IconClose from "@/public/icons/IconClose.jsx";
 
 function LoginPopup() {
-
   const ref = useRef();
   const dispatch = useDispatch();
   const [showPass, setShowPass] = useState(false);
@@ -18,14 +17,19 @@ function LoginPopup() {
   const { status } = useSelector((state) => state.auth);
 
   //validation init
-  const { register: loginForm, reset, handleSubmit: handleSubmitForm, formState: { errors: errorsLogin } } = useForm({
-    resolver: zodResolver(loginSchema)
+  const {
+    register: loginForm,
+    reset,
+    handleSubmit: handleSubmitForm,
+    formState: { errors: errorsLogin },
+  } = useForm({
+    resolver: zodResolver(loginSchema),
   });
 
   //Close Popup after outside click
   useOnClickOutside(ref, () => {
     if (document.body.classList.contains("login_opened")) {
-      closeLogin()
+      closeLogin();
     }
   });
 
@@ -33,31 +37,38 @@ function LoginPopup() {
     document.body.style.overflow = "";
     document.body.style.paddingRight = "";
     document.body.classList.remove("login_opened");
-    const fixedElements = document.querySelectorAll('.fixed-element');
-    fixedElements.forEach(el => {
+    const fixedElements = document.querySelectorAll(".fixed-element");
+    fixedElements.forEach((el) => {
       el.style.paddingRight = "";
     });
-  }
+  };
 
   //sumbition Data
   const loginSubmit = async (dataForm) => {
     dispatch(login(dataForm));
-    reset()
+    reset();
   };
 
   const passToggle = () => {
-    setShowPass(!showPass)
-  }
+    setShowPass(!showPass);
+  };
 
   return (
     <div className="login_popup fixed  fixed-element left-0  top-0 right-0 bottom-0 flex items-center justify-center transition-[top]  pointer-events-none opacity-0 w-full h-full z-[999] overflow-x-hidden overflow-y-auto bg-black bg-opacity-20 tablet:!p-20 tablet:h-[100dvh]">
-      <div className="popup_container mobile:h-full mobile:overflow-x-hidden mobile:overflow-y-auto bg-[#F8F6F5] relative pt-40 px-[60px] pb-[25px] w-full max-w-[550px] z-30 mx-auto" ref={ref}>
+      <div
+        className="popup_container mobile:h-full mobile:overflow-x-hidden mobile:overflow-y-auto bg-[#F8F6F5] relative pt-40 px-[60px] pb-[25px] w-full max-w-[550px] z-30 mx-auto"
+        ref={ref}
+      >
         <div className="title_line  w-full gap-10">
           <div className="popup_title text-[25px] uppercase ">Sign in</div>
-          <div className='mt-[25px] text-[17px]'>Sign in to view your order history an update your details</div>
-          {status === 'failed' &&
-            <div className='text-siteRed text-center'>Incorrect Email or Password</div>
-          }
+          <div className="mt-[25px] text-[17px]">
+            Sign in to view your order history an update your details
+          </div>
+          {status === "failed" && (
+            <div className="text-siteRed text-center">
+              Incorrect Email or Password
+            </div>
+          )}
           <a
             href="/#"
             className="popup_close absolute right-[20px] top-[20px] cursor-pointer"
@@ -71,10 +82,12 @@ function LoginPopup() {
         </div>
         <div className="login_form mt-[25px]">
           <form onSubmit={handleSubmitForm(loginSubmit)} className="w-full">
-            <div className={errorsLogin?.email ? "form_block has_error" : "form_block"}  >
-              <div className="loginForm_label text-light mb-[10px]">
-                Email*
-              </div>
+            <div
+              className={
+                errorsLogin?.email ? "form_block has_error" : "form_block"
+              }
+            >
+              <div className="loginForm_label text-light mb-[10px]">Email*</div>
               <input
                 placeholder="Enter your email address"
                 autoComplete="on"
@@ -89,7 +102,11 @@ function LoginPopup() {
                 {errorsLogin?.email?.message}
               </p>
             </div>
-            <div className={errorsLogin?.password ? "form_block has_error" : "form_block"}>
+            <div
+              className={
+                errorsLogin?.password ? "form_block has_error" : "form_block"
+              }
+            >
               <div className="loginForm_label text-base font-light mb-[10px]">
                 Password
               </div>
@@ -98,31 +115,31 @@ function LoginPopup() {
                 autoComplete="on"
                 className="form-control"
                 name="password"
-                type={showPass ? 'text ' : 'password'}
+                type={showPass ? "text " : "password"}
                 {...loginForm("password", { required: true, minLength: 5 })}
               />
               <p className="form_error text-xs absolute right-0 text-siteRed font-light duration-300 opacity-0">
                 {errorsLogin?.password?.message}
               </p>
             </div>
-            <div className='checkbox_line mt-[26px]'>
-              <label htmlFor="checkbox1" >
+            <div className="checkbox_line mt-[26px]">
+              <label htmlFor="checkbox1">
                 <input type="checkbox" id="checkbox1" onChange={passToggle} />
-                <span className='square_block'></span>
-                <span className='check_label'>Show Password</span>
+                <span className="square_block"></span>
+                <span className="check_label">Show Password</span>
               </label>
             </div>
-            <div className='checkbox_line mt-[10px] mb-[20px]'>
+            <div className="checkbox_line mt-[10px] mb-[20px]">
               <label htmlFor="checkbox2">
                 <input type="checkbox" id="checkbox2" />
-                <span className='square_block'></span>
-                <span className='check_label '>Remember Me</span>
+                <span className="square_block"></span>
+                <span className="check_label ">Remember Me</span>
               </label>
             </div>
             <button
               type="submit"
               className={
-                status === 'loading'
+                status === "loading"
                   ? " !opacity-50 pointer-events-none [&>svg]:opacity-100 relative submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-white duration-300 hover:opacity-70 mx-auto justify-center flex items-center"
                   : " relative [&>svg]:opacity-0 submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-white duration-300 hover:opacity-70 mx-auto justify-center flex items-center"
               }
@@ -144,14 +161,16 @@ function LoginPopup() {
                   fill="#1C64F2"
                 ></path>
               </svg>
-              {status === 'loading' ? "Login ..." : " Login"}
+              {status === "loading" ? "Login ..." : " Login"}
             </button>
-            <a href="/" className='mt-[15px] text-sm text-center block'>Forgot Your Password ?</a>
+            <a href="/" className="mt-[15px] text-sm text-center block">
+              Forgot Your Password ?
+            </a>
           </form>
         </div>
       </div>
     </div>
-  )
+  );
 }
 
 export default LoginPopup;

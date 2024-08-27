@@ -1,10 +1,8 @@
-import { setAuthenticated } from './authSlice'; // Import your action
+import { setAuthenticated } from "./authSlice";
 
 const authMiddleware = (storeAPI) => (next) => (action) => {
-  // Avoid middleware loop by not acting on the same actions it dispatches
   if (action.type !== setAuthenticated.type) {
-    const token = localStorage.getItem('access_token');
-  
+    const token = localStorage.getItem("access_token");
     if (token) {
       storeAPI.dispatch(setAuthenticated(true));
     } else {
@@ -12,7 +10,6 @@ const authMiddleware = (storeAPI) => (next) => (action) => {
     }
   }
 
-  // Pass action to the next middleware or reducer
   return next(action);
 };
 

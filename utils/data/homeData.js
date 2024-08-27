@@ -12,8 +12,6 @@ import product3 from "@/public/images/product3.png";
 import product4 from "@/public/images/product4.png";
 import product5 from "@/public/images/product5.png";
 import product6 from "@/public/images/product6.png";
-import product7 from "@/public/images/product7.png";
-import product8 from "@/public/images/product8.png";
 import productInner1 from "@/public/images/productInner1.webp";
 import productInner2 from "@/public/images/productInner2.webp";
 import productInner3 from "@/public/images/productInner3.webp";
@@ -21,6 +19,10 @@ import productInner4 from "@/public/images/productInner4.webp";
 import shop1 from "@/public/images/shop1.png";
 import shop2 from "@/public/images/shop2.png";
 import shop3 from "@/public/images/shop3.png";
+import mainSlider1 from '@/public/images/mainBanner1.png'
+import mainSlider2 from '@/public/images/mainBanner2.webp'
+import mainSlider3 from '@/public/images/mainBanner3.webp'
+
 
 export const categoryGrid = [
   {
@@ -114,3 +116,22 @@ export const newStores = [
     gallery: [{ image: shop1 }, { image: product1 }, { image: productInner1 }],
   },
 ];
+
+
+export const homeSliderData = [
+  {
+    image : mainSlider1,
+    title  : 'Variety of SETS for all occasions',
+    description : 'express yourself by gifting your beloved one a character matching set'
+  },
+  {
+    image : mainSlider2,
+    title  : 'The Lotus Of New Beginnings',
+    description : 'Discover our most-loved style. A character matching set'
+  },
+  {
+    image : mainSlider3,
+    title  : 'Leo Season matching set',
+    description : 'a character matching set Harness the vibrant energy of this fire sign.'
+  }
+]
