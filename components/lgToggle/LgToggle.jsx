@@ -5,7 +5,7 @@ import useOnClickOutside from "@/utils/hooks/useOnClickOutside";
 
 function LgToggle() {
   
-  const [activeLg, setActiveLg] = useState(lgList[0].lg || "EN");
+  const [activeLg, setActiveLg] = useState(lgList[0].lg || "EN"); 
   const [dropActive, setDropActive] = useState(false);
 
   const ref = useRef();
