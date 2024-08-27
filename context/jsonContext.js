@@ -8,6 +8,7 @@ const JsonContextProvider = ({ children }) => {
   const [silverMode, setSilverMode] = useState(false);
 
   useEffect(() => {
+    
     if (silverMode) {
       document.body.classList.add("silverMode");
     } else {
