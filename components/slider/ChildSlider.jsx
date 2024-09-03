@@ -44,13 +44,14 @@ function ChildSlider({ gallery }) {
     <div className="multyChild_slider" ref={sliderContainerRef}>
       <Slider ref={sliderRef} {...childSettings}>
         {gallery && gallery.map((gallery, i) => (
-          <div key={i} className="h-[476px] bg-white flex items-center  justify-center w-full relative" >
+          <div key={i} className="h-[476px] laptopHorizontal:h-[400px] tablet:h-[320px] bg-white flex items-center  justify-center w-full relative" >
             <Image
               src={gallery.image}
               unoptimized={true}
               alt='category_Image'
               priority
-              className="w-full"
+              fill
+              className="w-full object-cover"
             />
           </div>
         ))}

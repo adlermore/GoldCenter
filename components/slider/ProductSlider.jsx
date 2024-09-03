@@ -45,17 +45,48 @@ function ProductSlider({ sliderContent }) {
     slidesToShow: 4,
     arrows: true,
     swipeToSlide: true,
-    slidesToScroll: 4,
+    slidesToScroll: 1,
     beforeChange: () => (dragging = true),
     afterChange: () => (dragging = false),
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
+    responsive: [
+      {
+        breakpoint: 1320,
+        settings: {
+          arrows: false
+        }
+      },
+      {
+        breakpoint: 991,
+        settings: {
+          arrows: false,
+          slidesToShow: 3,
+        }
+      },
+      {
+        breakpoint: 767,
+        settings: {
+          arrows: false,
+          slidesToShow: 2,
+        }
+      }
+      ,
+      {
+        breakpoint: 575,
+        settings: {
+          infinite: false,
+          arrows: false,
+          slidesToShow: 1.3,
+        }
+      }
+    ]
   };
 
   return (
-    <div className="w-full relative product_slider py-[130px]">
+    <div className="w-full relative product_slider py-[130px] laptopHorizontal:py-[60px] tablet:py-[30px]">
       <div className="custom_container">
-        <div className="  text-[32px] text-black uppercase mb-[50px]">
+        <div className="  text-[32px] text-black uppercase mb-[50px] laptopHorizontal:text-[24px]">
           Best Sellers
         </div>
         <Slider {...settings}>
@@ -64,7 +95,7 @@ function ProductSlider({ sliderContent }) {
           ))}
         </Slider>
         <Link
-          href="/"
+          href="/productListing"
           className="mt-[58px] h-[50px] w-full max-w-[276px] bg-transparent border-white text-xl flex items-center justify-center border-2 text-white mx-auto  cursor-pointer hover:bg-siteCrem hover:border-siteCrem duration-300"
         >
           Load More

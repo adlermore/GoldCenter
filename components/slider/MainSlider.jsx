@@ -19,10 +19,10 @@ function MainSlider({sliderData}) {
   };
 
   return (
-    <div className="w-full relative slick_wrapper">
+    <div className="w-full relative slick_wrapper laptop:mt-[85px]">
       <Slider {...settings} >
         {sliderData.map((slider , index ) => (
-          <div key={index} className='slider_container h-[606px] w-full relative'>
+          <div key={index} className='slider_container h-[606px] w-full relative laptopHorizontal:h-[500px] laptop:h-[400px] mobile:h-[300px]'>
             <div className="slider_background ">
               <Image
                 src={slider.image}
@@ -34,7 +34,7 @@ function MainSlider({sliderData}) {
               />
             </div>
             <div className="slider_content">
-              <div className="slider_title ">{slider.title}</div>
+              <div className="slider_title">{slider.title}</div>
               <div className="slider_description">{slider.description}</div>
             </div>
           </div>

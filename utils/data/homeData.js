@@ -22,7 +22,7 @@ import shop3 from "@/public/images/shop3.png";
 import mainSlider1 from '@/public/images/mainBanner1.png'
 import mainSlider2 from '@/public/images/mainBanner2.webp'
 import mainSlider3 from '@/public/images/mainBanner3.webp'
-
+import categoryHero from '@/public/images/categoryHero.png'
 
 export const categoryGrid = [
   {
@@ -133,5 +133,18 @@ export const homeSliderData = [
     image : mainSlider3,
     title  : 'Leo Season matching set',
     description : 'a character matching set Harness the vibrant energy of this fire sign.'
+  }
+]
+
+export const categorySliderData = [
+  {
+    image : categoryHero,
+    title  : 'Variety of SETS for all occasions',
+    description : 'express yourself by gifting your beloved one a character matching set'
+  },
+  {
+    image : mainSlider2,
+    title  : 'The Lotus Of New Beginnings',
+    description : 'Discover our most-loved style. A character matching set'
   }
 ]

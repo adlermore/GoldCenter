@@ -11,7 +11,7 @@ import mainLogo from '@/public/images/logoImage.png'
 import AccountToggle from '../account/AccountToggle'
 import LgToggle from '../lgToggle/LgToggle'
 import { useDispatch } from 'react-redux'
-import { fetchUserInfo, initializeAuth, setAuthenticated } from '@/redux/authSlice'
+import { initializeAuth } from '@/redux/authSlice'
 import PriceToggle from '../priceToggle/PriceToggle'
 import SearchToggle from '../search/SearchToggle'
 import CardCanvas from '../card/CardCanvas'
@@ -47,10 +47,16 @@ function Header() {
     const handleScroll = () => {
       if (window.scrollY > 10) {
         setIsScrolled(true);
-      } else {
+      } else if(pathname == '/'){
         setIsScrolled(false);
       }
     };
+
+    if (pathname !== '/'){
+      setIsScrolled(true);
+    }else{
+      setIsScrolled(false);
+    }
 
     window.addEventListener('scroll', handleScroll);
 
@@ -61,7 +67,7 @@ function Header() {
   }, [isOpen, pathname, dispatch]);
 
   return (
-    <header className={`fixed fixed-element duration-500 transition-colors ${isScrolled && 'bg-[#0C1B20]'} top-0 h-[85px] left-0 right-0 z-[99] laptop:bg-[#0C1B20]`}>
+    <header className={`fixed fixed-element duration-500 transition-colors ${isScrolled && 'bg-[#0C1B20]'} top-0 h-[85px] left-0 right-0 z-[999999] laptop:bg-[#0C1B20]`}>
       <div className='cover_container h-full justify-between flex items-center  gap-20 '  >
         <Link href='/' className='z-20'>
           <Image
@@ -72,7 +78,7 @@ function Header() {
         </Link>
         <SiteSwitch isHeader />
         <div className={isOpen ? 'menu-open laptop:fixed  z-20 ml-auto  laptop:z-0 laptop:w-full laptop:ml-0   laptop:h-full laptop:bottom-0 overflow-hidden  laptop:right-0  duration-[0.7s] mobile:duration-[0.5s]  ' : ' mobile:duration-[0.5s] duration-[0.7s] laptop:right-0 laptop:fixed  z-20 ml-auto  laptop:z-0 laptop:w-0 laptop:ml-0   laptop:h-full laptop:bottom-0 overflow-hidden  '}>
-          <div className='ml-auto laptop:w-full  w-full  laptop:flex laptop:justify-end laptop:z-[-1] tablet:w-[calc(100vw)] laptop:left-0 laptop:h-full z-20 laptop:bg-blueDark1 laptop:bg-opacity-35 laptop:top-0  tablet:bg-white mobile:bg-transparent tablet:text-black laptop:top-[86px] relative mobile:pt-[130px] '>
+          <div className='ml-auto laptop:w-full  w-full  laptop:flex laptop:justify-end laptop:z-[-1] tablet:w-[calc(100vw)] laptop:left-0 laptop:h-full z-20 laptop:bg-blueDark1 laptop:bg-opacity-35   tablet:bg-white mobile:bg-transparent tablet:text-black laptop:top-[86px] relative mobile:pt-[130px] '>
             <div className='mobile_container relative flex items-center gap-32 laptop:min-w-[350px] tablet:min-w-[calc(100%-32px)] laptop:overflow-y-auto mobile:w-full   laptop:bg-[#f4faff] laptopHorizontal:gap-20 laptop:flex-col laptop:pt-[30px] laptop:mr-0 mobile:mr-[8px] laptop:gap-[30px]'>
               {HeaderLinks.map((link, i) => (
                 <Link
@@ -89,7 +95,7 @@ function Header() {
             </div>
           </div>
         </div>
-        <div className='flex items-center ml-auto gap-[20px]'>
+        <div className='flex items-center ml-auto gap-[20px] tablet:hidden'>
           <div><IconGroup /></div>
           <div><SearchToggle /> </div>
           <div>

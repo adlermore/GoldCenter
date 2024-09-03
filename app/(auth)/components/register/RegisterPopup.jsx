@@ -186,7 +186,7 @@ function RegisterPopup() {
               {status === 'loading' ? "Registration ..." : " Registration"}
             </button>
           </form>
-        </div>
+        </div>  
       </div>
     </div>
   )

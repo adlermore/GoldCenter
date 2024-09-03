@@ -26,12 +26,12 @@ export default function Home() {
         {newStores.map((store, i) => (
           <div key={i}>
             <ChildSlider gallery={store.gallery} />
-            <div className="mt-[30px] text-[20px] text-center">
+            <div className="mt-[30px] laptop:mt-20 text-[20px] text-center">
               {store.title}
             </div>
             <Link
               href="/"
-              className="flex items-center w-[215px] mx-auto h-[50px] text-[#916D50] text-[24px] bg-[#F8F6F5] justify-center mt-[25px] "
+              className="flex items-center w-[215px] mx-auto h-[50px] text-[#916D50] text-[24px] bg-[#F8F6F5] justify-center mt-[25px] laptop:mt-15  laptop:text-base"
             >
               Visit Store
             </Link>

@@ -11,7 +11,23 @@ function ParentSlider({ children }) {
     speed: 500,
     autoplay: true,
     slidesToShow: 3,
-    slidesToScroll: 3
+    slidesToScroll: 3,
+    responsive: [
+      {
+        breakpoint: 991,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 1,
+        }
+      },
+      {
+        breakpoint: 575,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        }
+      },
+    ]
   };
 
   const stopPropagation = (e) => {
@@ -20,7 +36,7 @@ function ParentSlider({ children }) {
   return (
     <div className='multiSlider_container'>
       <div className='custom_container'>
-        <div className="  text-[32px] text-black uppercase mb-[50px]">New stores</div>
+        <div className="  text-[32px] text-black laptopHorizontal:text-[24px] uppercase mb-[50px]">New stores</div>
       </div>
       <Slider {...parentSettings}>
         {React.Children.map(children, (child, index) => (

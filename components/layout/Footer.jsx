@@ -5,9 +5,9 @@ import ScrollToTop from "../footerHero/ScrollToTop"
 
 async function Footer({ settingsData }) {
   return (
-    <div className='footer py-[120px] bg-[#0C1B20] text-white relative'>
+    <div className='footer py-[120px] bg-[#0C1B20] text-white relative laptopHorizontal:py-[80px] mobile:py-[40px]'>
       <div className='custom_container '>
-        <div className='flex footer_menu items-center gap-20 justify-between laptopHorizontal:flex-wrap'>
+        <div className='flex footer_menu items-center gap-20 justify-between tablet:grid tablet:grid-cols-2 tablet:gap-40 mobile:grid-cols-1'>
           <div className="menu_block">
             <h2 className="text-xl uppercase text-siteCrem pb-[2px]">Categories</h2>
             <Link href="/">Men</Link>
@@ -28,7 +28,7 @@ async function Footer({ settingsData }) {
           <div className="menu_block">
             <h2 className="text-xl uppercase text-siteCrem pb-[2px]">Payment methods</h2>
             <Link href="/" className="pay_title">Visa \ Master \ Idram \ easypay</Link>
-            <div className='flex items-center gap-[15px] laptopHorizontal:absolute laptopHorizontal:right-0 laptopHorizontal:top-[calc(-100%+20px)] laptop:left-1/2 laptop:-translate-x-1/2 laptop:justify-center tablet:top-[calc(-100%+45px)] laptop:top-[calc(-100%+30px)] mobile:w-full '>
+            <div className='flex items-center gap-[15px]'>
               {PaymentIcons.map((icons, i) => (
                 <div key={i} className='w-[40px] h-[25px] relative'>
                   <Image
@@ -44,7 +44,7 @@ async function Footer({ settingsData }) {
               ))}
             </div>
             <Link href="/">Social Media</Link>
-            <div className='flex items-center gap-[18px] laptopHorizontal:absolute laptopHorizontal:right-0 laptopHorizontal:top-[calc(-100%+20px)] laptop:left-1/2 laptop:-translate-x-1/2 laptop:justify-center tablet:top-[calc(-100%+45px)] laptop:top-[calc(-100%+30px)] mobile:w-full '>
+            <div className='flex items-center gap-[18px]'>
               {FooterSocials.map((icons, i) => (
                 <Link href="/" key={i} className='w-[35px] h-[35px] relative'>
                   <Image
@@ -61,7 +61,7 @@ async function Footer({ settingsData }) {
             </div>
           </div>
         </div>
-        <div className='pt-[16px] mt-[60px] relative laptopHorizontal:mt-[30px] laptop:mt-[60px]'>
+        <div className='pt-[16px] mt-[60px] relative laptopHorizontal:mt-[30px]'>
           <div className='flex justify-center text-center items-center gap-20 laptopHorizontal:flex-col'>
             @Copyright 2024
           </div>
