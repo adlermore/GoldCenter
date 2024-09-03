@@ -14,7 +14,7 @@ function page() {
 					<div className='mb-[30px]' >
 						<div className='text-xl uppercase text-[#333333] mb-20'>Category</div>
 						{filterCategory.map((filter, index) => (
-							<div className="mb-[10px] filter_line">
+							<div key={index} className="mb-[10px] filter_line">
 								<label htmlFor={`filter1${index}`}>
 									<input type="checkbox" id={`filter1${index}`} />
 									<span className="square_block">
@@ -28,7 +28,7 @@ function page() {
 					<div className='mb-[30px]' >
 						<div className='text-xl uppercase text-[#333333] mb-20'>Gold Style</div>
 						{filterStyle.map((filter, index) => (
-							<div className="mb-[10px] filter_line">
+							<div key={index} className="mb-[10px] filter_line">
 								<label htmlFor={`filter1${index}`}>
 									<input type="checkbox" id={`filter1${index}`} />
 									<span className="square_block">
