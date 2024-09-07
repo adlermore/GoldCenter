@@ -17,6 +17,7 @@ import SearchToggle from '../search/SearchToggle'
 import CardCanvas from '../card/CardCanvas'
 import Image from 'next/image'
 import IconGroup from '@/public/icons/IconGroup'
+import { initializeCart } from '@/redux/cartSlice'
 
 function Header() {
 
@@ -43,6 +44,7 @@ function Header() {
     }
 
     dispatch(initializeAuth());
+    dispatch(initializeCart());
 
     const handleScroll = () => {
       if (window.scrollY > 10) {
@@ -67,7 +69,7 @@ function Header() {
   }, [isOpen, pathname, dispatch]);
 
   return (
-    <header className={`fixed fixed-element duration-500 transition-colors ${isScrolled && 'bg-[#0C1B20]'} top-0 h-[85px] left-0 right-0 z-[999999] laptop:bg-[#0C1B20]`}>
+    <header className={`fixed fixed-element duration-500 transition-colors ${isScrolled && 'bg-[#0C1B20]'} top-0 h-[85px] left-0 right-0 z-[9999] laptop:bg-[#0C1B20]`}>
       <div className='cover_container h-full justify-between flex items-center  gap-20 '  >
         <Link href='/' className='z-20'>
           <Image
@@ -87,9 +89,9 @@ function Header() {
                   className={`${isScrolled && '!text-[#D3BA87]'} ${pathname === link.href && ' pointer-events-none'}  tablet:w-[calc(100%-16px)]  laptop:text-[16px] flex justify-center items-center gap-[20px] laptop:text-center laptop:w-[350px] whitespace-nowrap laptop:font-bold laptop:text-black laptopHorizontal:text-sm text-white text-base `}
                 >
                   {link.title}
-                  <div className='laptop:block hidden'>
+                  <span className='laptop:block hidden'>
                     {'>'}
-                  </div>
+                  </span>
                 </Link>
               ))}
             </div>

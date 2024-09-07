@@ -19,8 +19,8 @@ export default async function RootLayout({ children }) {
   return (
     <JsonContextProvider>
       <html lang="en">
-        <body className="flex flex-col siteBody  ">
-          <Toaster position="bottom-right" />
+        <body className="flex flex-col siteBody ">
+          <Toaster   containerStyle={{zIndex: 99999}} position="bottom-right" />
           <Providers>
             <Header />
             <SuccessPopup />

@@ -1,42 +1,97 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
+
+// Helper function to save cart to localStorage
+const saveCartToLocalStorage = (cart) => {
+  if (typeof window !== 'undefined') {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }
+};
+
+// Helper function to load cart from localStorage
+const loadCartFromLocalStorage = () => {
+  if (typeof window !== 'undefined') {
+    const serializedCart = localStorage.getItem('cart');
+    return serializedCart ? JSON.parse(serializedCart) : [];
+  }
+  return [];
+};
+
+// Initial state, loading from localStorage (client-side)
+const initialState = {
+  items: [],
+  totalAmount: 0,
+};
+
+// Helper function to calculate total amount
+const calculateTotalAmount = (items) => {
+  return items.reduce((total, item) => total + item.totalPrice, 0);
+};
 
 const cartSlice = createSlice({
-  name: "cart",
-  initialState: [],
+  name: 'cart',
+  initialState,
   reducers: {
-    addToCart: (state, action) => {
-      const itemExists = state.find((item) => item.id === action.payload.id);
-      if (itemExists) {
-        itemExists.quantity++;
+    initializeCart(state) {
+      const cartData = loadCartFromLocalStorage();
+      state.items = cartData;
+      state.totalAmount = calculateTotalAmount(cartData);
+    },
+    addToCart(state, action) {
+      const product = action.payload;
+      const existingItemIndex = state.items.findIndex(item => item.id === product.id);
+
+      if (existingItemIndex >= 0) {
+        // If item exists, show a message that it is already in the cart
+        toast(`${product.title} is already in your cart`);
       } else {
-        state.push({ ...action.payload, quantity: 1 });
+        // If item doesn't exist, add it to the cart
+        state.items.push({
+          ...product,
+          totalPrice: parseFloat(product.price),
+        });
+        toast.success(`${product.title} added to your cart`);
+      }
+
+      // Update total amount
+      state.totalAmount = calculateTotalAmount(state.items);
+
+      // Save updated cart to localStorage
+      saveCartToLocalStorage(state.items);
+    },
+    removeFromCart(state, action) {
+      const productId = action.payload.id;
+      const existingItemIndex = state.items.findIndex(item => item.id === productId);
+
+      if (existingItemIndex >= 0) {
+        // Remove item from cart
+        state.items.splice(existingItemIndex, 1);
+        toast.success('Item removed from your cart');
+        
+        // Update total amount
+        state.totalAmount = calculateTotalAmount(state.items);
+
+        // Save updated cart to localStorage
+        saveCartToLocalStorage(state.items);
+      } else {
+        toast.error('Item not found in your cart');
       }
     },
-    incrementQuantity: (state, action) => {
-      const item = state.find((item) => item.id === action.payload);
-      item.quantity++;
-    },
-    decrementQuantity: (state, action) => {
-      const item = state.find((item) => item.id === action.payload);
-      if (item.quantity === 1) {
-        const index = state.findIndex((item) => item.id === action.payload);
-        state.splice(index, 1);
-      } else {
-        item.quantity--;
-      }
-    },
-    removeFromCart: (state, action) => {
-      const index = state.findIndex((item) => item.id === action.payload);
-      state.splice(index, 1);
+    resetCart(state) {
+      state.items = [];
+      state.totalAmount = 0;
+      saveCartToLocalStorage([]); // Clear localStorage
+      toast.success('Cart cleared');
     },
   },
 });
 
-export const cartReducer = cartSlice.reducer;
+// Dispatch initializeCart action on client-side
+export const initializeCart = () => (dispatch) => {
+  if (typeof window !== 'undefined') {
+    dispatch(cartSlice.actions.initializeCart());
+  }
+};
 
-export const {
-  addToCart,
-  incrementQuantity,
-  decrementQuantity,
-  removeFromCart,
-} = cartSlice.actions;
+export const { addToCart, removeFromCart, resetCart } = cartSlice.actions;
+export default cartSlice.reducer;
