@@ -232,7 +232,7 @@ const authSlice = createSlice({
         state.status = "succeeded";
         state.user = action.payload;
         state.isAuthenticated = true;
-        toast.success("User data fetched successfully!");
+        // toast.success("User data fetched successfully!");
       })
       .addCase(fetchUserInfo.rejected, (state, action) => {
         state.status = "failed";

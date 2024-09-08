@@ -30,7 +30,7 @@ function Product({ product, onClick }) {
             unoptimized={true}
             alt="category_Image"
             priority
-            layout="fill"
+            fill
             className="object-contain"
           />
           <span className="product_inner">
@@ -39,7 +39,7 @@ function Product({ product, onClick }) {
               unoptimized={true}
               alt="category_Image"
               priority
-              layout="fill"
+              fill
               className="product_inner_img object-cover"
             />
           </span>

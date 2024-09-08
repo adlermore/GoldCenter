@@ -23,7 +23,7 @@ function MainSlider({sliderData}) {
       <Slider {...settings} >
         {sliderData.map((slider , index ) => (
           <div key={index} className='slider_container h-[606px] w-full relative laptopHorizontal:h-[500px] laptop:h-[400px] mobile:h-[300px]'>
-            <div className="slider_background ">
+            <div className="slider_background relative h-full w-full ">
               <Image
                 src={slider.image}
                 alt='future_Image'

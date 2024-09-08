@@ -39,6 +39,7 @@ function FooterHero() {
             alt="Ricardo portrait"
             priority={true}
             fill
+            sizes="50vw"
             style={{
               objectFit: "cover",
             }}
