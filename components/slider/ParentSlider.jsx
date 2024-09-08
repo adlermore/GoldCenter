@@ -1,17 +1,49 @@
 'use client'
 
+import IconArrowLeft from '@/public/icons/IconArrowLeft';
+import IconArrowRight from '@/public/icons/IconArrowRight';
 import React from 'react';
 import Slider from "react-slick";
 
 function ParentSlider({ children }) {
+
+  function SampleNextArrow(props) {
+    const { style, onClick } = props;
+    return (
+      <div
+        className="custom_slider_arr_right"
+        style={{ ...style }}
+        onClick={onClick}
+      >
+        <IconArrowRight className='[&>path]:stroke-white'/>
+      </div>
+    );
+  }
+
+  function SamplePrevArrow(props) {
+    const { style, onClick } = props;
+    return (
+      <div
+        className="custom_slider_arr_left"
+        style={{ ...style }}
+        onClick={onClick}
+      >
+        <IconArrowLeft className='[&>path]:stroke-white' />
+      </div>
+    );
+  }
+
+
   const parentSettings = {
     dots: false,
-    infinite: false,
+    infinite: true,
     arrows: true,
     speed: 500,
     autoplay: true,
     slidesToShow: 3,
     slidesToScroll: 3,
+    nextArrow: <SampleNextArrow />,
+    prevArrow: <SamplePrevArrow />,
     responsive: [
       {
         breakpoint: 991,

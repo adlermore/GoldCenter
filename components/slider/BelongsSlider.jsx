@@ -6,7 +6,7 @@ import IconArrowLeft from "@/public/icons/IconArrowLeft";
 import IconArrowRight from "@/public/icons/IconArrowRight";
 import Product from "../product/Product";
 
-function ProductSlider({ sliderContent }) {
+function BelongsSlider({ sliderContent }) {
   
   let dragging = false;
 
@@ -38,7 +38,7 @@ function ProductSlider({ sliderContent }) {
   }
 
   const settings = {
-    infinite: true,
+    infinite: false,
     dots: false,
     autoplay: false,
     speed: 500,
@@ -84,25 +84,19 @@ function ProductSlider({ sliderContent }) {
   };
 
   return (
-    <div className="w-full relative product_slider py-[130px] laptopHorizontal:py-[60px] tablet:py-[30px]">
-      <div className="custom_container">
+    <div className="w-full relative product_slider pt-[100px] laptopHorizontal:py-[60px] tablet:py-[30px]">
+      <div className="cover_container">
         <div className="  text-[32px] text-black uppercase mb-[50px] laptopHorizontal:text-[24px]">
-          Best Sellers
+        Belongs to Set 05
         </div>
-        <Slider {...settings}>
-          {sliderContent && sliderContent.map((product, i) => (
+        <div className="grid grid-cols-4 gap-[20px]">
+        {sliderContent && sliderContent.map((product, i) => (
             <Product  key={i}  product={product} onClick={(e) => dragging && e.preventDefault()} />
           ))}
-        </Slider>
-        <Link
-          href="/productListing"
-          className="mt-[58px] h-[50px] w-full max-w-[276px] bg-transparent border-white text-xl flex items-center justify-center border-2 text-white mx-auto  cursor-pointer hover:bg-siteCrem hover:border-siteCrem duration-300"
-        >
-          Load More
-        </Link>
+        </div>
       </div>
     </div>
   );
 }
 
-export default ProductSlider;
+export default BelongsSlider;

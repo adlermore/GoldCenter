@@ -21,7 +21,7 @@ function Product({ product, onClick }) {
     <div className="slider_block">
       <div className="prudcut_image h-[388px] laptopHorizontal:h-[350px] tablet:h-[300px] overflow-hidden laptop:h-[320px] bg-white w-full flex justify-center items-center relative">
         <Link
-          href={`/product/${product.id}`} // Assuming you have a route for product details
+          href={`/product/${product.id}`}
           onClick={onClick}
           className="w-full h-full flex justify-center items-center relative"
         >
@@ -30,8 +30,8 @@ function Product({ product, onClick }) {
             unoptimized={true}
             alt="category_Image"
             priority
-            layout="fill" // Adjust layout as necessary
-            className="object-cover"
+            layout="fill"
+            className="object-contain"
           />
           <span className="product_inner">
             <Image
@@ -45,9 +45,11 @@ function Product({ product, onClick }) {
           </span>
         </Link>
         <span className="product_links z-[999] flex flex-col items-center absolute top-20 right-15">
-          <IconProductHeart />
+          <button className="block" aria-label="Add to Favorite">
+            <IconProductHeart className='w-[18px]' />
+          </button>
           <button className="mt-[15px] block" onClick={handleAddToCart} aria-label="Add to Cart">
-            <IconProductCard />
+            <IconProductCard className='fill-none ' />
           </button>
         </span>
       </div>

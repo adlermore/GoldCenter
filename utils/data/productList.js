@@ -43,6 +43,12 @@ export const filterStyle = [
 ]
 
 
+export const filterColors = [
+    'gold',
+    'silver',
+    'metal'
+]
+
 export const productListing = [
     {
         id: 7,
@@ -123,6 +129,34 @@ export const productListing = [
     },
     {
         id: 18,
+        image: product6,
+        innerImage: productInner2,
+        title: "Jewelry Gold Woman Rings",
+        price: "119.00$",
+    },
+    {
+        id: 19,
+        image: product3,
+        innerImage: productInner3,
+        title: "Jewelry Gold Woman Rings",
+        price: "40.00$",
+    },
+    {
+        id: 20,
+        image: product4,
+        innerImage: productInner4,
+        title: "Jewelry Gold Woman Earrings",
+        price: "119.00$",
+    },
+    {
+        id: 21,
+        image: product5,
+        innerImage: productInner1,
+        title: "Jewelry Gold Man Necklaces",
+        price: "119.00$",
+    },
+    {
+        id: 22,
         image: product6,
         innerImage: productInner2,
         title: "Jewelry Gold Woman Rings",

@@ -104,6 +104,30 @@ export const bestProducts = [
   },
 ];
 
+export const belongsProducts = [
+  {
+    id: 104,
+    image: product1,
+    innerImage: productInner1,
+    title: "ASDewelry Gold Woman Rings",
+    price: "119.00$",
+  },
+  {
+    id: 222,
+    image: product2,
+    innerImage: productInner2,
+    title: "Jewelry Gold Woman Necklaces",
+    price: "235.00$",
+  },
+  {
+    id: 330,
+    image: product3,
+    innerImage: productInner3,
+    title: "Jewelry Gold Woman Rings",
+    price: "40.00$",
+  },
+];
+
 export const newStores = [
   {
     title: "Store name 01",

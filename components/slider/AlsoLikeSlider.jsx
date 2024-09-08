@@ -6,7 +6,7 @@ import IconArrowLeft from "@/public/icons/IconArrowLeft";
 import IconArrowRight from "@/public/icons/IconArrowRight";
 import Product from "../product/Product";
 
-function ProductSlider({ sliderContent }) {
+function AlsoLikeSlider({ sliderContent }) {
   
   let dragging = false;
 
@@ -85,9 +85,9 @@ function ProductSlider({ sliderContent }) {
 
   return (
     <div className="w-full relative product_slider py-[130px] laptopHorizontal:py-[60px] tablet:py-[30px]">
-      <div className="custom_container">
+      <div className="cover_container">
         <div className="  text-[32px] text-black uppercase mb-[50px] laptopHorizontal:text-[24px]">
-          Best Sellers
+        You may also like
         </div>
         <Slider {...settings}>
           {sliderContent && sliderContent.map((product, i) => (
@@ -105,4 +105,4 @@ function ProductSlider({ sliderContent }) {
   );
 }
 
-export default ProductSlider;
+export default AlsoLikeSlider;

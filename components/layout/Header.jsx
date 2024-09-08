@@ -54,7 +54,7 @@ function Header() {
       }
     };
 
-    if (pathname !== '/'){
+    if (pathname !== '/' || window.scrollY > 10){
       setIsScrolled(true);
     }else{
       setIsScrolled(false);

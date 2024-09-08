@@ -1,10 +1,11 @@
 'use client'
 
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Image from "next/image";
+import IconProductHeartWhite from "@/public/icons/IconProductHeartWhite";
 
 function ChildSlider({ gallery }) {
   const sliderContainerRef = useRef(null);
@@ -53,6 +54,11 @@ function ChildSlider({ gallery }) {
               fill
               className="w-full object-cover"
             />
+            <span className="product_links z-[999] flex flex-col items-center absolute top-20 right-15">
+              <button className="block" aria-label="Add to Favorite">
+                <IconProductHeartWhite className='w-[26px] ' />
+              </button>
+            </span>
           </div>
         ))}
       </Slider>

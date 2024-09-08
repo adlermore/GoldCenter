@@ -1,47 +1,190 @@
-import Product from '@/components/product/Product'
-import IconChecked from '@/public/icons/IconChecked'
-import { filterCategory, filterColors, filterStyle, productListing } from '@/utils/data/productList'
-import Link from 'next/link'
-import React from 'react'
+'use client';
 
-function page() {
+import { useState, useRef } from 'react';
+import Slider from 'react-slick';
+import Image from 'next/image';
+import "@/styles/product_inner.scss";
+import { filterColors, productListing } from '@/utils/data/productList';
+import { belongsProducts, bestProducts } from '@/utils/data/homeData';
+import AlsoLikeSlider from '@/components/slider/AlsoLikeSlider';
+import BelongsSlider from '@/components/slider/BelongsSlider';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '@/redux/cartSlice';
+
+const ProductPage = () => {
+	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+	const bigSliderRef = useRef(null);
+
+	const smallImagesOpts = {
+		centerPadding: 0,
+		infinite: false,
+		vertical: true,
+		slidesToShow: 3,
+		verticalSwiping: true,
+		focusOnSelect: true,
+		responsive: [
+			{
+				breakpoint: 1441,
+				settings: {
+					slidesToShow: 4
+				}
+			},
+			{
+				breakpoint: 1200,
+				settings: {
+					slidesToShow: 3
+				}
+			},
+			{
+				breakpoint: 992,
+				settings: {
+					slidesToShow: 4,
+					vertical: false,
+				}
+			},
+			{
+				breakpoint: 768,
+				settings: {
+					vertical: false,
+					slidesToShow: 3,
+				}
+			},
+			{
+				breakpoint: 576,
+				settings: {
+					vertical: false,
+					verticalSwiping: false,
+					slidesToShow: 1,
+					dots: true,
+					arrows: false,
+				}
+			}
+		],
+		afterChange: (index) => setSelectedImageIndex(index),
+	};
+
+	const bigImagesOpts = {
+		centerPadding: 0,
+		infinite: false,
+		touchMove: false,
+		draggable: false,
+		swipe: false,
+		arrows: false,
+		fade: true,
+		beforeChange: (oldIndex, newIndex) => setSelectedImageIndex(newIndex),
+	};
+
+	const handleSmallImageClick = (index) => {
+		bigSliderRef.current.slickGoTo(index);
+		setSelectedImageIndex(index);
+	};
+
+	const dispatch = useDispatch();
+
+  const handleAddToCart = (e) => {
+    e.preventDefault();
+    dispatch(addToCart(bestProducts[0]));
+  };
+
+
 	return (
-		<div className='product_page pb-[50px]'>
-			<div className='cover_container !mt-[150px] text-[24px] uppercase !pl-[335px]'>
-				Rings
+		<div className='cover_container !mt-[140px]'>
+			<div className=' text-[24px] uppercase '>
+				Product
 			</div>
-			<div className='cover_container flex gap-[25px] !mt-[70px]'>
-				<div className='filter_block border border-1 border-[#F8F6F5] p-[25px] max-w-[290px] h-fit w-full'>
-					<div className='mb-[30px]' >
-						<div className='text-xl  text-[#333333] mb-20'>Category</div>
-						{filterCategory.map((filter, index) => (
-							<div key={index} className="mb-[10px] filter_line">
-								<label htmlFor={`filter1${index}`}>
-									<input type="checkbox" id={`filter1${index}`} />
-									<span className="square_block">
-										<span className='opacity-0 duration-300'><IconChecked /></span>
-									</span>
-									<span className="check_label ">{filter}</span>
-								</label>
-							</div>
-						))}
+			<div className="product_section">
+				<div className="product_images">
+					<div className="small_images">
+						<div className="images_slider">
+							<Slider {...smallImagesOpts} >
+								{productListing.map((image, index) => (
+									<div className="slide_block" key={index}>
+										<div
+											className={`img_block ${selectedImageIndex === index ? 'selected' : ''}`}
+											onClick={() => handleSmallImageClick(index)}
+										>
+											<Image
+												src={image.image}
+												alt={`Product ${index}`}
+												fill
+												sizes="50vw, 100vw"
+												style={{
+													objectFit: 'contain',
+												}}
+											/>
+										</div>
+									</div>
+								))}
+							</Slider>
+						</div>
 					</div>
-					<div className='mb-[30px]' >
-						<div className='text-xl  text-[#333333] mb-20'>Gold Style</div>
-						{filterStyle.map((filter, index) => (
-							<div key={index} className="mb-[10px] filter_line">
-								<label htmlFor={`filter1${index}`}>
-									<input type="checkbox" id={`filter1${index}`} />
-									<span className="square_block">
-										<span className='opacity-0 duration-300'><IconChecked /></span>
-									</span>
-									<span className="check_label ">{filter}</span>
-								</label>
-							</div>
-						))}
+					<div className="big_images">
+						<div className="images_slider">
+							<Slider {...bigImagesOpts} ref={bigSliderRef}>
+								{productListing.map((image, index) => (
+									<div className="slide_block" key={index}>
+										<div className="img_block">
+											<Image
+												src={image.image}
+												alt={`Product ${index}`}
+												fill
+												sizes="50vw, 100vw"
+												style={{
+													objectFit: 'contain',
+												}}
+											/>
+										</div>
+									</div>
+								))}
+							</Slider>
+						</div>
 					</div>
-					<div className='mb-[30px]' >
-						<div className='text-xl text-[#333333] mb-[25px]'>Color</div>
+				</div>
+				<div className='product_info pl-[25px]'>
+					<div className='text-black text-xl'>18k Gold Vermeil She is Zodiac Necklace - Cancer</div>
+					<div className='mt-[30px] text-base font-light'>
+						Cancer is a beautifully crafted piece that celebrates the nurturing and intuitive nature of Cancer women. Made with a thick layer of 18k gold over sterling silver, this necklace features an intricate Cancer symbol, capturing the essence of the water sign. Perfect for gifting or personal wear, it combines elegance with a touch of astrological charm.
+					</div>
+					<div className='mt-[30px] text-[#916D50]'>Technical</div>
+					<div className='product_table'>
+						<div className='table_line'>
+							<div>Fineness:</div>
+							<div>585 - 14K</div>
+						</div>
+						<div className='table_line'>
+							<div>Weight::</div>
+							<div>5 Gr</div>
+						</div>
+						<div className='table_line'>
+							<div>Color:</div>
+							<div>Yellow</div>
+						</div>
+						<div className='table_line'>
+							<div>Condition::</div>
+							<div>New</div>
+						</div>
+						<div className='table_line'>
+							<div>Origin:</div>
+							<div>Armenian</div>
+						</div>
+						<div className='table_line'>
+							<div>Material:</div>
+							<div>Gold</div>
+						</div>
+						<div className='table_line'>
+							<div>Gemstone:</div>
+							<div>No</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div className='mt-[20px] ml-auto w-full text-right text-[#916D50] text-xl'>
+				Read more
+			</div>
+			<div className='flex items-center'>
+				<div className='relative border-r-2 pr-[50px] border-siteCrem'>
+					<div className='text-xl text-black'>Metal</div>
+					<div className='mt-20 gap-[35px] flex items-center'>
 						<div className='filter_color_line'>
 							{filterColors.map((filter, index) => (
 								<div key={index} className="mb-[10px] ">
@@ -50,13 +193,16 @@ function page() {
 										<span className={`square_block ${filter}`}>
 											<span className=' duration-300'></span>
 										</span>
+										<p className='block ml-10 uppercase'>{filter}</p>
 									</label>
 								</div>
 							))}
 						</div>
 					</div>
-					<div className='mb-[30px]' >
-						<div className='text-xl  text-[#333333] mb-20'>Gold Style</div>
+				</div>
+				<div className='relative ml-[50px]'>
+					<div className='text-xl text-black'>Stone</div>
+					<div className='mt-20 gap-[35px] flex items-center'>
 						<div className="mb-[15px] filter_stone_line">
 							<label htmlFor='filterStone1'>
 								<input type="checkbox" id='filterStone1' />
@@ -126,28 +272,17 @@ function page() {
 							</label>
 						</div>
 					</div>
-					<div className='flex w-full btn_line'>
-						<button className='clear_btn'>Clear</button>
-						<button className='apply_btn'>Apply</button>
-					</div>
 				</div>
-				<div>
-				<div className='grid grid-cols-4 gap-[15px]'>
-					{productListing.map((product, index) => (
-						<Product key={index} product={product} />
-					))}
+				<div className='ml-auto flex items-center gap-[30px] pt-[30px]'>
+				<div className='ml-auto text-[30px]'>$259.00</div>
+				<button className='border-none bg-[#D3BA87] text-black text-xl h-[60px] ml-auto duration-300 cursor-pointer hover:opacity-70 w-[240px] ' onClick={handleAddToCart}>Add To Cart</button>
 				</div>
-				<Link
-						href="/productListing"
-						className="mt-[58px] h-[50px] w-full max-w-[276px] mx-auto bg-transparent border-white text-xl flex items-center justify-center border text-white  cursor-pointer hover:bg-siteCrem hover:border-siteCrem duration-300"
-					>
-						Load More
-					</Link>
-				</div>
-			
+				
 			</div>
+			<BelongsSlider sliderContent={belongsProducts} />
+			<AlsoLikeSlider sliderContent={bestProducts} />
 		</div>
-	)
-}
+	);
+};
 
-export default page
+export default ProductPage;
