@@ -12,6 +12,7 @@ import IconNotifi from '@/public/icons/IconNotifi';
 import IconGroup from '@/public/icons/IconGroup';
 import IconLogOut from '@/public/icons/IconLogOut';
 import { setAuthenticated } from '@/redux/authSlice';
+
 export default function AccountLayout({ children }) {
 
   const pathname = usePathname();
@@ -111,3 +112,4 @@ export default function AccountLayout({ children }) {
     </div>
   );
 }
+
