@@ -240,6 +240,23 @@ a {
     }
   }
 }
+.red_count{
+  position: absolute;
+  background: #b46126;
+  color: white;
+  border-radius: 50%;
+  font-size: 10px;
+  width: 15px;
+  height: 15px;
+  line-height: 12px;
+  display: flex;
+  font-family: 'NunitoBold';
+  justify-content: center;
+  align-items: center;
+  top: -5px;
+  right: -8px;
+  transition: 0.3s;
+}
 
 .category_block {
   transition: 0.3s;
@@ -406,6 +423,23 @@ a {
     z-index: 999;
     svg{
       fill: white;
+    }
+  }
+}
+
+.favorite_wrapper .product_image , .card_wrapper .product_image{
+  max-height: 300px;
+}
+
+.product_image{
+  opacity: 1;
+  a{
+    opacity: 1;
+  }
+  &:hover{
+    .product_inner {
+      opacity: 1;
+      opacity: 1;
     }
   }
 }
@@ -887,6 +921,35 @@ input::-webkit-inner-spin-button {
   margin: 0;
 }
 
+.userInfoForm{
+  margin-top: 30px;
+  .form_block {
+    position: relative;
+    width: 100%;
+    margin-bottom: 0px;
+  
+    input {
+      width: 100%;
+      height: 45px;
+      font-size: 14px;
+      padding: 0 10px;
+      outline: none;
+      background: transparent;
+      border: 1px solid #D3BA87;
+    }
+  
+    .userInfo_label {
+      margin-bottom: 2px;
+    }
+  
+    &.has_error {
+      .form_error {
+        opacity: 1;
+      }
+    }
+  }
+}
+
 .form_block {
   position: relative;
   width: 100%;
@@ -908,6 +971,69 @@ input::-webkit-inner-spin-button {
   &.has_error {
     .form_error {
       opacity: 1;
+    }
+  }
+}
+
+.mobile_container.isScrolled {
+  a{
+    color: #D3BA87 !important;
+  }
+}
+
+.visitStore_btn{
+  color: #D3BA87;
+  background: #F8F6F5;
+}
+
+.silverMode{
+  .category_info{
+    color: #0c1b20;
+    svg path{
+      stroke: #0c1b20;
+    }
+  }
+  .mobile_container.isScrolled a{
+    color: #D1D4D7 !important;
+  }
+  .slider_title , .slider_description{
+    color: #D1D4D7;
+  }
+  .slick_wrapper .slider_content::before {
+    background: #D1D4D7;
+  }
+  .slick_wrapper .slick-dots li button {
+    background: #D1D4D7;
+  }
+  .multiSlider_container .multyChild_slider .slick-dots li {
+    button{
+      background: #B0B0AF;
+    }
+    &.slick-active{
+      button{
+        background: white;
+      }
+    }
+  } 
+  .menu_block h2{
+    color: #B0B0AF;
+  }
+  .toTop_btn svg path , .toTop_btn svg circle{
+    stroke: #F8F6F5;
+  }
+  .visitStore_btn{
+    color: #B0B0AF;
+    background: #F8F6F5;
+  }
+  .loadmore_btn{
+    border: 2px solid white;
+    color: white;
+    opacity: 1;
+    &:hover{
+      opacity: 1;
+      background: #B0B0AF;
+      color: #0c1b20;
+      border: 1px solid #B0B0AF;
     }
   }
 }

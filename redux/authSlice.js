@@ -171,7 +171,15 @@ const authSlice = createSlice({
         state.token = action.payload.access_token;
         state.isAuthenticated = true;
         toast.success("Login successful!");
+        // document.body.classList.remove("login_opened");
+        document.body.style.overflow = "";
+        document.body.style.paddingRight = "";
         document.body.classList.remove("login_opened");
+        const fixedElements = document.querySelectorAll(".fixed-element");
+        fixedElements.forEach((el) => {
+          el.style.paddingRight = "";
+        });
+        
       })
       .addCase(login.rejected, (state, action) => {
         state.status = "failed";
