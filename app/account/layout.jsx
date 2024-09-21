@@ -105,7 +105,7 @@ export default function AccountLayout({ children }) {
               </li>
             </ul>
           </nav>
-          <main className='inner_wrapper'>{children}</main>
+          <main className='inner_wrapper w-full pr-[60px]'>{children}</main>
         </div>
       </div>
     </div>

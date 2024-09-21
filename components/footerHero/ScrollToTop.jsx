@@ -15,7 +15,7 @@ function ScrollToTop() {
     <a
       href="/"
       onClick={(e) => handleScrollToTop(e)}
-      className="absolute right-[70px] bottom-[70px] mobile:right-[30px] mobile:bottom-30"
+      className="absolute toTop_btn right-[70px] bottom-[70px] mobile:right-[30px] mobile:bottom-30"
     >
       <IconToTop />
     </a>

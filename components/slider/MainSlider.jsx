@@ -2,9 +2,13 @@
 
 import Slider from "react-slick";
 import Image from "next/image";
+import { JsonContext } from "@/context/jsonContext";
+import { useContext } from "react";
 
 function MainSlider({sliderData}) {
 
+  const { silverMode} = useContext(JsonContext);
+  
   const settings = {
     fade: true,
     infinite: true,
@@ -25,7 +29,7 @@ function MainSlider({sliderData}) {
           <div key={index} className='slider_container h-[606px] w-full relative laptopHorizontal:h-[500px] laptop:h-[400px] mobile:h-[300px]'>
             <div className="slider_background relative h-full w-full ">
               <Image
-                src={slider.image}
+                src={silverMode && slider.imageSilver ? slider.imageSilver  : slider.image}
                 alt='future_Image'
                 fill
                 unoptimized={true}

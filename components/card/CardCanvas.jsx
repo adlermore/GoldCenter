@@ -62,8 +62,11 @@ function CardCanvas() {
 
   return (
     <>
-      <div className="duration-300 cursor-pointer hover:opacity-70" onClick={cardOpen}>
+      <div className="duration-300 cursor-pointer hover:opacity-70 relative" onClick={cardOpen}>
         <IconShop className="text-white [&>path]:fill-white" />
+        {cartItems.length > 0 && 
+           <span className="red_count">{cartItems.length}</span>
+        }
       </div>
       <div className="shopping_bag_block">
         <div className="shoping_inner_block" ref={ref}>

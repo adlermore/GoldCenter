@@ -1,9 +1,14 @@
+'use client'
+
+import { JsonContext } from "@/context/jsonContext";
 import IconArrowBottom from "@/public/icons/IconArrowBottom";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 
 function CategoryGrid({ category }) {
+  const { silverMode} = useContext(JsonContext);
+
   return (
     <div className="grid gap-[15px] grid-cols-4 w-full laptop:grid-cols-2 mobile:gap-[5px] ">
       {category && category.map((category, i) => (
@@ -13,7 +18,7 @@ function CategoryGrid({ category }) {
           className="h-[420px] w-full block relative category_block laptopHorizontal:h-[350px] mobile:h-[200px]"
         >
           <Image
-            src={category.image}
+            src={silverMode ? category.imageSilver  : category.image}
             unoptimized={true}
             alt="category_Image"
             fill

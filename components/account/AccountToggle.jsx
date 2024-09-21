@@ -6,6 +6,7 @@ import { setAuthenticated } from "@/redux/authSlice";
 import IconUser from "@/public/icons/IconUser";
 import useOnClickOutside from "@/utils/hooks/useOnClickOutside";
 import Link from "next/link";
+import { resetWishlist } from "@/redux/wishlistSlice";
 
 function AccountToggle() {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
@@ -60,6 +61,7 @@ function AccountToggle() {
     setDropActive(false);
     setTimeout(() => {
       dispatch(setAuthenticated(false));
+      dispatch(resetWishlist());
       localStorage.removeItem("access_token");
       window.location.reload();
     }, 300);

@@ -96,7 +96,7 @@ function ProductSlider({ sliderContent }) {
         </Slider>
         <Link
           href="/productListing"
-          className="mt-[58px] h-[50px] w-full max-w-[276px] bg-transparent border-white text-xl flex items-center justify-center border-2 text-white mx-auto  cursor-pointer hover:bg-siteCrem hover:border-siteCrem duration-300"
+          className=" loadmore_btn mt-[58px] h-[50px] w-full max-w-[276px] bg-transparent border-white text-xl flex items-center justify-center border-2 text-white mx-auto  cursor-pointer hover:bg-siteCrem hover:border-siteCrem duration-300"
         >
           Load More
         </Link>

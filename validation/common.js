@@ -13,6 +13,35 @@ export const name = z
     message: "Name must include both first name and surname",
   });
 
+export const namefirst = z
+  .string()
+  .min(1, { message: "This field is required" })
+  .min(5, { message: "Surname must be at least 5 characters long" })
+  .max(50, { message: "Field must be at most 50 characters long" })
+  .trim()
+
+export const address = z
+  .string()
+  .min(1, { message: "This field is required" })
+  .min(5, { message: "Surname must be at least 5 characters long" })
+  .max(50, { message: "Field must be at most 50 characters long" })
+  .trim()
+
+export const postalCode = z
+  .string()
+  .min(1, { message: "This field is required" })
+  .trim()
+  .refine((val) => val.length > 0, {
+    message: "Field cannot be empty or just spaces",
+  });
+
+export const surname = z
+  .string()
+  .min(1, { message: "This field is required" })
+  .min(5, { message: "Surname must be at least 5 characters long" })
+  .max(50, { message: "Field must be at most 50 characters long" })
+  .trim()
+
 export const email = z
   .string()
   .min(1, { message: "This field is required" })

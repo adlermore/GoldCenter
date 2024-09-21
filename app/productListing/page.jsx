@@ -139,7 +139,7 @@ function page() {
 				</div>
 				<Link
 						href="/productListing"
-						className="mt-[58px] h-[50px] w-full max-w-[276px] mx-auto bg-transparent border-white text-xl flex items-center justify-center border text-white  cursor-pointer hover:bg-siteCrem hover:border-siteCrem duration-300"
+						className="loadmore_btn mt-[58px] h-[50px] w-full max-w-[276px] mx-auto bg-transparent border-white text-xl flex items-center justify-center border text-white  cursor-pointer hover:bg-siteCrem hover:border-siteCrem duration-300"
 					>
 						Load More
 					</Link>
