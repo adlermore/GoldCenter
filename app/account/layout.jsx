@@ -40,7 +40,7 @@ export default function AccountLayout({ children }) {
     const path = router.asPath;
     setActivePage(path);
     setPageName(getPageName(pathname));
-  }, [pathname]); 
+  }, [router.asPath]); 
 
 
   const getPageName = (path) => {

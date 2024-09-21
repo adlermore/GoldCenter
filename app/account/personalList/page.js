@@ -3,7 +3,7 @@
 'use client'; // This makes the component a client component
 import { useSelector } from 'react-redux';
 
-export default function page() {
+export default function Page() {
 
   return (
     <div>

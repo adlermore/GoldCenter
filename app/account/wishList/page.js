@@ -4,7 +4,7 @@ import emptybag from '@/public/images/emptybag.png';
 import { useSelector } from 'react-redux';
 import Product from '@/components/product/Product';
 
-export default function page() {
+export default function Page() {
 
   const wishList = useSelector((state) => state.wishlist);
 

@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import emptybag from '@/public/images/emptybag.png';
 
-export default function page() {
+export default function Page() {
 
   const cart = useSelector((state) => state.cart);
 
