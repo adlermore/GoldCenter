@@ -54,14 +54,14 @@ function LoginPopup() {
   };
 
   return (
-    <div className="login_popup fixed  fixed-element left-0  top-0 right-0 bottom-0 flex items-center justify-center transition-[top]  pointer-events-none opacity-0 w-full h-full z-[999] overflow-x-hidden overflow-y-auto bg-black bg-opacity-20 tablet:!p-20 tablet:h-[100dvh]">
+    <div className="login_popup fixed  fixed-element left-0  top-0 right-0 bottom-0 flex items-center justify-center transition-[top]  pointer-events-none opacity-0 w-full h-full z-[9999] overflow-x-hidden overflow-y-auto bg-black bg-opacity-20 tablet:!p-20 tablet:h-[100dvh]">
       <div
-        className="popup_container mobile:h-full mobile:overflow-x-hidden mobile:overflow-y-auto bg-[#F8F6F5] relative pt-40 px-[60px] pb-[25px] w-full max-w-[550px] z-30 mx-auto"
+        className="popup_container mobile:h-fit mobile:overflow-x-hidden mobile:overflow-y-auto bg-[#F8F6F5] relative pt-40 px-[60px] pb-[25px] w-full max-w-[550px] z-30 mx-auto mobile:p-[30px]"
         ref={ref}
       >
         <div className="title_line  w-full gap-10">
-          <div className="popup_title text-[25px] uppercase ">Sign in</div>
-          <div className="mt-[25px] text-[17px]">
+          <div className="popup_title text-[25px] uppercase mobile:text-xl ">Sign in</div>
+          <div className="mt-[25px] text-[17px] mobile:mt-15 mobile:text-sm">
             Sign in to view your order history an update your details
           </div>
           {status === "failed" && (

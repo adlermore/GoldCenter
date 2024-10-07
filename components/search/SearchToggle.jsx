@@ -29,7 +29,7 @@ function SearchToggle() {
         <IconSearch
           className={`${
             searchOpened
-              ? "text-black [&>path]:fill-black"
+              ? "text-black [&>path]:fill-siteCrem"
               : "text-white [&>path]:fill-white"
           } [&>path]:duration-300`}
         />
