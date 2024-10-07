@@ -54,11 +54,11 @@ function RegisterPopup() {
   };
 
   return (
-    <div className="register_popup fixed left-0 right-0 bottom-0 pointer-events-none flex items-center justify-center  transition-[top] top-0 opacity-0 w-full h-full z-[999] overflow-x-hidden overflow-y-auto bg-black bg-opacity-20 tablet:!p-20 tablet:h-[100dvh]">
-      <div className="popup_container mobile:h-full mobile:overflow-x-hidden mobile:overflow-y-auto bg-[#F8F6F5] relative px-[60px] pt-[40px] pb-[30px] w-full max-w-[550px] z-30 mx-auto" ref={ref}>
+    <div className="register_popup fixed left-0 right-0 bottom-0 pointer-events-none flex items-center justify-center  transition-[top] top-0 opacity-0 w-full h-full z-[9999] overflow-x-hidden overflow-y-auto bg-black bg-opacity-20 tablet:!p-20 tablet:h-[100dvh]">
+      <div className="popup_container mobile:h-fit mobile:overflow-x-hidden mobile:overflow-y-auto bg-[#F8F6F5] relative px-[60px] pt-[40px] pb-[30px] w-full max-w-[550px] z-30 mx-auto mobile:p-[30px]" ref={ref}>
         <div className="title_line w-full gap-10">
-          <div className="popup_title text-[25px] uppercase">Create account</div>
-          <div className='mt-[20px] text-[17px]'>Sign in to view your order history an update your details</div>
+          <div className="popup_title text-[25px] uppercase mobile:text-xl">Create account</div>
+          <div className='mt-[20px] text-[17px] mobile:text-sm mobile:mt-15'>Sign in to view your order history an update your details</div>
           <a
             href="/#"
             className="popup_close absolute right-[20px] top-[20px] cursor-pointer"
@@ -87,7 +87,7 @@ function RegisterPopup() {
                 {errorsRegister?.name?.message}
               </p>
             </div>
-            <div className='grid grid-cols-2 gap-[30px]'>
+            <div className='grid grid-cols-2 gap-[30px] mobile:grid-cols-1 mobile:gap-0'>
               <div className={errorsRegister?.email ? "form_block has_error" : "form_block"}  >
                 <div className="registerForm_label text-base font-light mb-[5px]">
                   Email

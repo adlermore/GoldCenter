@@ -10,7 +10,7 @@ import Link from "next/link";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-function Product({ product, onClick }) {
+function Productnew({ product, onClick }) {
   const dispatch = useDispatch();
   const wishlist = useSelector(state => state.wishlist.items);
 
@@ -64,7 +64,7 @@ function Product({ product, onClick }) {
           className="w-full h-full flex justify-center items-center relative !opacity-1"
         >
           <Image
-            src={product.image}
+            src={product.pictures[0].path}
             unoptimized
             alt={product.title} 
             priority
@@ -73,7 +73,7 @@ function Product({ product, onClick }) {
           />
           <span className="product_inner">
             <Image
-              src={product.innerImage}
+              src={product.pictures[2].path}
               unoptimized
               alt={product.title}
               priority
@@ -99,10 +99,10 @@ function Product({ product, onClick }) {
           </button>
         </span>
       </div>
-      <div className="mt-[12px] text-black text-[18px] truncate">{product.title}</div>
-      <div className="font-bold mt-[5px] text-black">{product.price}</div>
+      <div className="mt-[12px] text-black text-[18px] truncate">{product.name}</div>
+      <div className="font-bold mt-[5px] text-black">{product.price_usd}$</div>
     </div>
   );
 }
 
-export default Product;
+export default Productnew;

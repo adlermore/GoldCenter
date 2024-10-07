@@ -16,9 +16,9 @@ export const lgList = [
 ];
 
 export const currencyList = [
-  { currency: 'AMD' },
-  { currency: 'RUB' },
-  { currency: 'USD' },
+  { currency: 'amd' },
+  { currency: 'rub' },
+  { currency: 'usd' },
 ];
 
 export const PaymentIcons = [

@@ -1,26 +1,26 @@
 export const HeaderLinks = [
   {
     title: "Men",
-    href: "/categoryInner",
+    href: "/categoryInner?category=men",
   },
   {
     title: "Women",
-    href: "/categoryInner",
+        href: "/categoryInner?category=women",
   },
   {
     title: "Kids",
-    href: "/categoryInner",
+        href: "/categoryInner?category=kids",
   },
   {
-    title: "Aaccessories",
-    href: "/categoryInner",
+    title: "Accessories",
+        href: "/categoryInner?category=accessories",
   },
   {
     title: "Bullion",
-    href: "/categoryInner",
+        href: "/categoryInner?category=bullion",
   },
   {
     title: "Occasions",
-    href: "/categoryInner",
+        href: "/categoryInner?category=occasions",
   },
 ];

@@ -1,10 +1,17 @@
 import Product from '@/components/product/Product'
+import Productnew from '@/components/product/Productnew'
 import IconChecked from '@/public/icons/IconChecked'
 import { filterCategory, filterColors, filterStyle, productListing } from '@/utils/data/productList'
 import Link from 'next/link'
-import React from 'react'
 
-function page() {
+export default async function page() {
+
+	const res = await fetch('https://api.goldcenter.am/v1/products/catalog?metal=gold&type=earring&subcategory=women&limit=30&offset=10')
+  const data  = await res.json()
+
+	console.log('data_____' , data);
+	
+
 	return (
 		<div className='product_page pb-[50px]'>
 			<div className='cover_container !mt-[150px] text-[24px] uppercase !pl-[335px]'>
@@ -131,11 +138,15 @@ function page() {
 						<button className='apply_btn'>Apply</button>
 					</div>
 				</div>
-				<div>
+				<div className='w-full'>
 				<div className='grid grid-cols-4 gap-[15px]'>
-					{productListing.map((product, index) => (
+				{data?.catalog?.map((product, index) => (
+							<Productnew key={index} product={product} />
+						))}
+					{/* {productListing.map((product, index) => (
 						<Product key={index} product={product} />
-					))}
+					))} */}
+				
 				</div>
 				<Link
 						href="/productListing"
@@ -149,5 +160,3 @@ function page() {
 		</div>
 	)
 }
-
-export default page
