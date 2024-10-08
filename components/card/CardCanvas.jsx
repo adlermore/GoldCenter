@@ -83,18 +83,18 @@ function CardCanvas() {
               {cartItems.length === 0 ? (
                 <div className="empty_block">
                   <div className="empty_inner">
-                    <div className="icon_cart"><IconProductCard /></div>
+                    <div className="icon_cart"></div>
                     <div className="empty_title">Your Shopping Bag is Empty</div>
                     <div className="empty_desc">Add items</div>
                   </div>
                 </div>
               ) : (
                 <div className="shoping_list_inner">
-                  {cartItems.map((product, index) => (
+                  {cartItems && cartItems.map((product, index) => (
                     <div key={index} className="product_block">
                       <div className="image_block relative">
                         <Image
-                          src={product.image}
+                          src={product.image || ''}
                           unoptimized={true}
                           alt="category_Image"
                           fill

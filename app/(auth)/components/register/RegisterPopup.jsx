@@ -44,11 +44,17 @@ function RegisterPopup() {
   //sumbition Data
   const registerSubmit = async (dataForm) => {
 
-    // setDisabledBtn(true);
     const newData = {
-      ...dataForm,
-      // password_confirmation: dataForm.password,
+      first_name : dataForm.name.split(" ")[0],
+      last_name : dataForm.name.split(" ")[1] || '',
+      password : dataForm.password,
+      confirm_password : dataForm.password_confirmation,
+      country: "armenia",
+      email : dataForm.email,
+      phone_number : dataForm.phone,
+      role: "buyer"
     }
+    
     dispatch(register(newData));
     reset()
   };

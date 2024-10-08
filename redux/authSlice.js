@@ -19,7 +19,6 @@ export const login = createAsyncThunk(
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            system_key: "wdfghj",
           },
           body: JSON.stringify(credentials),
         }
@@ -32,7 +31,7 @@ export const login = createAsyncThunk(
 
       const data = await response.json();
       if (typeof window !== "undefined") {
-        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("token", data.token);
       }
 
       return data;
@@ -47,12 +46,11 @@ export const register = createAsyncThunk(
   async (userInfo, { rejectWithValue }) => {
     try {
       const response = await fetch(
-        process.env.NEXT_PUBLIC_DATA_API + "/auth/signup",
+        process.env.NEXT_PUBLIC_DATA_API + "/auth/register",
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            system_key: "wdfghj",
           },
           body: JSON.stringify(userInfo),
         }
@@ -65,7 +63,7 @@ export const register = createAsyncThunk(
 
       const data = await response.json();
       if (typeof window !== "undefined") {
-        localStorage.setItem("access_token", data.access_token);
+        localStorage.setItem("token", data.token);
       }
 
       return data;
@@ -88,8 +86,7 @@ export const logout = createAsyncThunk(
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            system_key: "wdfghj",
-            Authorization: `Bearer ${token}`,
+            "x-access-token": token, // Changed to x-access-token
           },
         }
       );
@@ -101,7 +98,7 @@ export const logout = createAsyncThunk(
 
       // Remove token from localStorage
       if (typeof window !== "undefined") {
-        localStorage.removeItem("access_token");
+        localStorage.removeItem("token");
       }
 
       return {};
@@ -119,13 +116,12 @@ export const fetchUserInfo = createAsyncThunk(
 
     try {
       const response = await fetch(
-        process.env.NEXT_PUBLIC_DATA_API + "/auth/user",
+        process.env.NEXT_PUBLIC_DATA_API + "/user/user_info", // Changed endpoint
         {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            system_key: "wdfghj",
-            Authorization: `Bearer ${token}`,
+            "x-access-token": token, // Changed to x-access-token
           },
         }
       );
@@ -168,10 +164,9 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.user = action.payload.user;
-        state.token = action.payload.access_token;
+        state.token = action.payload.token;
         state.isAuthenticated = true;
         toast.success("Login successful!");
-        // document.body.classList.remove("login_opened");
         document.body.style.overflow = "";
         document.body.style.paddingRight = "";
         document.body.classList.remove("login_opened");
@@ -179,13 +174,11 @@ const authSlice = createSlice({
         fixedElements.forEach((el) => {
           el.style.paddingRight = "";
         });
-        
       })
       .addCase(login.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload || action.error.message;
         toast.error(`Login failed: ${state.error}`);
-        // document.body.classList.remove("login_opened");
       });
 
     // Registration handlers
@@ -196,13 +189,12 @@ const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.status = "succeeded";
         state.user = action.payload.user;
-        state.token = action.payload.access_token;
+        state.token = action.payload.token;
         state.isAuthenticated = true;
         toast.success("Registration successful!");
 
         document.body.classList.remove("register_opened");
         document.body.classList.add("success_opened");
-        // document.body.style.overflow = "hidden";
       })
       .addCase(register.rejected, (state, action) => {
         state.status = "failed";
@@ -210,7 +202,6 @@ const authSlice = createSlice({
         toast.error(`Registration failed: ${state.error}`);
 
         document.body.classList.remove("register_opened");
-        // document.body.style.overflow = "hidden";
       });
 
     // Logout handlers
@@ -223,7 +214,6 @@ const authSlice = createSlice({
         state.user = null;
         state.token = null;
         state.isAuthenticated = false;
-        // toast.info('Logged out successfully!');
       })
       .addCase(logout.rejected, (state, action) => {
         state.status = "failed";
@@ -240,7 +230,6 @@ const authSlice = createSlice({
         state.status = "succeeded";
         state.user = action.payload;
         state.isAuthenticated = true;
-        // toast.success("User data fetched successfully!");
       })
       .addCase(fetchUserInfo.rejected, (state, action) => {
         state.status = "failed";
@@ -254,7 +243,7 @@ const authSlice = createSlice({
 // Action to initialize authentication from localStorage
 export const initializeAuth = () => (dispatch) => {
   if (typeof window !== "undefined") {
-    const token = localStorage.getItem("access_token");
+    const token = localStorage.getItem("token");
     if (token) {
       dispatch(setToken(token));
       dispatch(fetchUserInfo());
