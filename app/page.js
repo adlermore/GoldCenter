@@ -11,7 +11,17 @@ import { categoryGrid } from "@/utils/data/homeData";
 import { bestProducts } from "@/utils/data/homeData";
 import { newStores } from "@/utils/data/homeData";
 
-export default function Home() {
+export default  function Home() {
+
+  //set async in function
+
+  // const resProduct = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/catalog/top', { cache: 'no-cache' })
+  // const { data: topData  } = await resProduct.json()
+
+  // const resProduct = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/brands', { cache: 'no-cache' })
+  // const { data: brandsData  } = await resProduct.json()
+
+
   return (
     <div className="home_page">
       <MainSlider sliderData={homeSliderData} />
