@@ -7,7 +7,7 @@ import Link from 'next/link'
 export default async function page() {
 
 	const res = await fetch('https://api.goldcenter.am/v1/products/catalog?metal=gold&type=earring&subcategory=women&limit=30&offset=10')
-  const data  = await res.json()
+  	const data  = await res.json()
 
 	console.log('data_____' , data);
 	

@@ -1,14 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import IconArrowBottom from "@/public/icons/IconArrowBottom";
 import { lgList } from "@/utils/data/settingsData";
 import useOnClickOutside from "@/utils/hooks/useOnClickOutside";
+import { JsonContext } from "@/context/jsonContext";
 
 function LgToggle() {
   
-  const [activeLg, setActiveLg] = useState(lgList[0].lg || "EN"); 
   const [dropActive, setDropActive] = useState(false);
-
-  const ref = useRef();
+  const { activeLg, setActiveLg } = useContext(JsonContext);
+  const ref = useRef(); 
 
   const changeActiveLg = (e, item) => {
     e.preventDefault();
