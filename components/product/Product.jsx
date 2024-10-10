@@ -64,18 +64,21 @@ function Product({ product, onClick }) {
           className="w-full h-full flex justify-center items-center relative !opacity-1"
         >
           <Image
-            src={product.image}
+            src={product?.pictures[0]?.path}
             unoptimized
-            alt={product.title} 
+            alt={product.name} 
             priority
             fill
             className="object-contain"
           />
           <span className="product_inner">
             <Image
-              src={product.innerImage}
+              src={
+                product?.pictures[2]?.is_video === false ?
+                product?.pictures[2]?.path : 
+                product?.pictures[0]?.path}
               unoptimized
-              alt={product.title}
+              alt={product.name}
               priority
               fill
               className="product_inner_img object-cover"
@@ -99,8 +102,8 @@ function Product({ product, onClick }) {
           </button>
         </span>
       </div>
-      <div className="mt-[12px] text-black text-[18px] truncate">{product.title}</div>
-      <div className="font-bold mt-[5px] text-black">{product.price}</div>
+      <div className="mt-[12px] text-black text-[18px] truncate">{product.name}</div>
+      <div className="font-bold mt-[5px] text-black">{product.price}֏</div>
     </div>
   );
 }

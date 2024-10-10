@@ -64,7 +64,7 @@ function Productnew({ product, onClick }) {
           className="w-full h-full flex justify-center items-center relative !opacity-1"
         >
           <Image
-            src={product.pictures[0].path}
+            src={product?.pictures[0].path}
             unoptimized
             alt={product.title} 
             priority
@@ -73,7 +73,7 @@ function Productnew({ product, onClick }) {
           />
           <span className="product_inner">
             <Image
-              src={product.pictures[2].path}
+              src={product?.pictures[2].path}
               unoptimized
               alt={product.title}
               priority

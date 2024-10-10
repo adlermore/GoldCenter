@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import Slider from 'react-slick';
 import Image from 'next/image';
 import "@/styles/product_inner.scss";
@@ -10,10 +10,14 @@ import AlsoLikeSlider from '@/components/slider/AlsoLikeSlider';
 import BelongsSlider from '@/components/slider/BelongsSlider';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '@/redux/cartSlice';
+import PageLoader from '@/components/PageLoader';
 
-const ProductPage = () => {
+const ProductPage = ({params}) => {
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 	const bigSliderRef = useRef(null);
+
+	const [product, setProduct] = useState(null);
+
 
 	const smallImagesOpts = {
 		centerPadding: 0,
@@ -86,6 +90,20 @@ const ProductPage = () => {
     dispatch(addToCart(bestProducts[0]));
   };
 
+	const fetchProduct = async () => {
+		const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API2}/product/${params?.id}`);
+		const data = await response.json();
+		setProduct(data)
+	};
+
+	useEffect(() => {
+		fetchProduct();
+	}, [params?.id]);
+
+	if (!product) {
+		return <PageLoader />
+	}
+
 
 	return (
 		<div className='cover_container !mt-[140px]'>
@@ -97,14 +115,14 @@ const ProductPage = () => {
 					<div className="small_images">
 						<div className="images_slider">
 							<Slider {...smallImagesOpts} >
-								{productListing.map((image, index) => (
+								{product?.pictures.map((image, index) => (
 									<div className="slide_block" key={index}>
 										<div
 											className={`img_block ${selectedImageIndex === index ? 'selected' : ''}`}
 											onClick={() => handleSmallImageClick(index)}
 										>
 											<Image
-												src={image.image}
+												src={image.path}
 												alt={`Product ${index}`}
 												fill
 												sizes="50vw, 100vw"
@@ -121,11 +139,11 @@ const ProductPage = () => {
 					<div className="big_images">
 						<div className="images_slider">
 							<Slider {...bigImagesOpts} ref={bigSliderRef}>
-								{productListing.map((image, index) => (
+								{product?.pictures.map((image, index) => (
 									<div className="slide_block" key={index}>
 										<div className="img_block">
 											<Image
-												src={image.image}
+												src={image.path}
 												alt={`Product ${index}`}
 												fill
 												sizes="50vw, 100vw"
@@ -140,10 +158,10 @@ const ProductPage = () => {
 						</div>
 					</div>
 				</div>
-				<div className='product_info pl-[25px]'>
-					<div className='text-black text-xl'>18k Gold Vermeil She is Zodiac Necklace - Cancer</div>
+				<div className='product_info w-full pl-[25px]'>
+					<div className='text-black text-xl'>{product?.name}</div>
 					<div className='mt-[30px] text-base font-light'>
-						Cancer is a beautifully crafted piece that celebrates the nurturing and intuitive nature of Cancer women. Made with a thick layer of 18k gold over sterling silver, this necklace features an intricate Cancer symbol, capturing the essence of the water sign. Perfect for gifting or personal wear, it combines elegance with a touch of astrological charm.
+									{product?.description}
 					</div>
 					<div className='mt-[30px] text-[#916D50]'>Technical</div>
 					<div className='product_table'>
@@ -279,8 +297,8 @@ const ProductPage = () => {
 				</div>
 				
 			</div>
-			<BelongsSlider sliderContent={belongsProducts} />
-			<AlsoLikeSlider sliderContent={bestProducts} />
+			{/* <BelongsSlider sliderContent={belongsProducts} />
+			<AlsoLikeSlider sliderContent={bestProducts} /> */}
 		</div>
 	);
 };
