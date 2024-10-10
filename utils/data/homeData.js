@@ -77,27 +77,27 @@ export const categoryGrid = [
 ];
 
 export const bestProducts = [
-  {
-    id: 1,
-    image: product1,
-    innerImage: productInner1,
-    title: "Jewelry Gold Woman Rings",
-    price: "119.00$",
-  },
-  {
-    id: 2,
-    image: product2,
-    innerImage: productInner2,
-    title: "Jewelry Gold Woman Necklaces",
-    price: "235.00$",
-  },
-  {
-    id: 3,
-    image: product3,
-    innerImage: productInner3,
-    title: "Jewelry Gold Woman Rings",
-    price: "40.00$",
-  },
+  // {
+  //   id: 1,
+  //   image: product1,
+  //   innerImage: productInner1,
+  //   title: "Jewelry Gold Woman Rings",
+  //   price: "119.00$",
+  // },
+  // {
+  //   id: 2,
+  //   image: product2,
+  //   innerImage: productInner2,
+  //   title: "Jewelry Gold Woman Necklaces",
+  //   price: "235.00$",
+  // },
+  // {
+  //   id: 3,
+  //   image: product3,
+  //   innerImage: productInner3,
+  //   title: "Jewelry Gold Woman Rings",
+  //   price: "40.00$",
+  // },
   {
     id: 4,
     image: product4,

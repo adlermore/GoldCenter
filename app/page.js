@@ -8,18 +8,21 @@ import ProductSlider from "@/components/slider/ProductSlider";
 import FooterHero from "@/components/footerHero/FooterHero";
 import { homeSliderData } from "@/utils/data/homeData";
 import { categoryGrid } from "@/utils/data/homeData";
-import { bestProducts } from "@/utils/data/homeData";
+// import { bestProducts } from "@/utils/data/homeData";
 import { newStores } from "@/utils/data/homeData";
 
-export default  function Home() {
+export default async function Home() {
 
-  //set async in function
 
-  // const resProduct = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/catalog/top', { cache: 'no-cache' })
-  // const { data: topData  } = await resProduct.json()
+  const resProduct = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/catalog/top`, { cache: 'no-cache' });
+  const productResponse = await resProduct.json();
+  // console.log('Product Response:', productResponse.best_sales);
+  const topData = productResponse.data;
 
-  // const resProduct = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/brands', { cache: 'no-cache' })
-  // const { data: brandsData  } = await resProduct.json()
+  const resBrands = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/brands`, { cache: 'no-cache' });
+  const brandsResponse = await resBrands.json();
+  // console.log('Brands Response:', brandsResponse);
+  const brandsData = brandsResponse.brands;
 
 
   return (
@@ -31,13 +34,13 @@ export default  function Home() {
         </div>
       </div>
       <CategoryGrid category={categoryGrid} />
-      <ProductSlider sliderContent={bestProducts} />
+      <ProductSlider sliderContent={productResponse.best_sales} title='BEST SALES' />
       <ParentSlider>
-        {newStores.map((store, i) => (
+        {brandsData.map((store, i) => (
           <div key={i}>
-            <ChildSlider gallery={store.gallery} />
+            <ChildSlider gallery={[store.logo , ...store.pictures]} />
             <div className="mt-[30px] laptop:mt-20 text-[20px] text-center">
-              {store.title}
+              {store.company_name}
             </div>
             <Link
               href="/"
@@ -48,7 +51,7 @@ export default  function Home() {
           </div>
         ))}
       </ParentSlider>
-      <ProductSlider sliderContent={bestProducts} />
+      <ProductSlider sliderContent={productResponse.most_viewed} title='MOST VIEWED' />
       <FooterHero />
     </div>
   );

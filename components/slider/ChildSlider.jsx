@@ -10,7 +10,7 @@ import IconProductHeartWhite from "@/public/icons/IconProductHeartWhite";
 function ChildSlider({ gallery }) {
   const sliderContainerRef = useRef(null);
   const sliderRef = useRef(null);
-
+  
   const childSettings = {
     dots: true,
     infinite: true,
@@ -20,40 +20,22 @@ function ChildSlider({ gallery }) {
     slidesToScroll: 1,
   };
 
-  // const handleWheel = (e) => {
-  //   e.preventDefault();
-  //   if (e.deltaY < 0) {
-  //     sliderRef.current.slickPrev();
-  //   } else {
-  //     sliderRef.current.slickNext();
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const sliderElement = sliderContainerRef.current;
-  //   if (sliderElement) {
-  //     sliderElement.addEventListener('wheel', handleWheel);
-  //   }
-  //   return () => {
-  //     if (sliderElement) {
-  //       sliderElement.removeEventListener('wheel', handleWheel);
-  //     }
-  //   };
-  // }, []);
-
   return (
     <div className="multyChild_slider" ref={sliderContainerRef}>
       <Slider ref={sliderRef} {...childSettings}>
         {gallery && gallery.map((gallery, i) => (
-          <div key={i} className="h-[476px] laptopHorizontal:h-[400px] tablet:h-[320px] bg-white flex items-center  justify-center w-full relative" >
+          <div key={i} className="h-[476px] laptopHorizontal:h-[400px] p-[40px] tablet:h-[320px] bg-white flex items-center  justify-center w-full relative" >
+            <div className="relative w-full h-full">
             <Image
-              src={gallery.image}
+              src={gallery}
               unoptimized={true}
               alt='category_Image'
               priority
               fill
-              className="w-full object-cover"
+              className="w-full object-contain"
             />
+            </div>
+   
             <span className="product_links z-[999] flex flex-col items-center absolute top-20 right-15">
               <button className="block" aria-label="Add to Favorite">
                 <IconProductHeartWhite className='w-[26px] ' />
