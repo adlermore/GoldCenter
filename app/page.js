@@ -1,3 +1,5 @@
+'use client'
+
 import Link from "next/link";
 import ChildSlider from "@/components/slider/ChildSlider";
 import ParentSlider from "@/components/slider/ParentSlider";
@@ -8,23 +10,40 @@ import ProductSlider from "@/components/slider/ProductSlider";
 import FooterHero from "@/components/footerHero/FooterHero";
 import { homeSliderData } from "@/utils/data/homeData";
 import { categoryGrid } from "@/utils/data/homeData";
-// import { bestProducts } from "@/utils/data/homeData";
-import { newStores } from "@/utils/data/homeData";
+import { useContext, useEffect, useState } from "react";
+import PageLoader from "@/components/PageLoader";
+import request from "@/utils/hooks/request";
+import { JsonContext } from "@/context/jsonContext";
 
-export default async function Home() {
+export default function Home() {
+
+  const [productResponse , setProductResponse] = useState(null);
+  const [brandsData , setBrandsData] = useState(null);
+
+  const { silverMode } = useContext(JsonContext);
+
+  useEffect(()=>{
+    request(`${process.env.NEXT_PUBLIC_DATA_API}/catalog/top/${silverMode ? 'silver' : 'gold' }`)
+    .then((data) => {
+      setProductResponse(data);
+    })
+    request(`${process.env.NEXT_PUBLIC_DATA_API}/brands`)
+    .then((data) => {
+      setBrandsData(data.brands);
+    })
+    .catch(error => {
+        console.log(error);
+    })
+
+  },[silverMode])
 
 
-  const resProduct = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/catalog/top`, { cache: 'no-cache' });
-  const productResponse = await resProduct.json();
-  // console.log('Product Response:', productResponse.best_sales);
-  const topData = productResponse.data;
+  if(!productResponse || !setBrandsData){
+    return <PageLoader />
+  }
 
-  const resBrands = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/brands`, { cache: 'no-cache' });
-  const brandsResponse = await resBrands.json();
-  // console.log('Brands Response:', brandsResponse);
-  const brandsData = brandsResponse.brands;
-
-
+  console.log('brandsData' ,brandsData);
+  
   return (
     <div className="home_page">
       <MainSlider sliderData={homeSliderData} />
@@ -36,7 +55,7 @@ export default async function Home() {
       <CategoryGrid category={categoryGrid} />
       <ProductSlider sliderContent={productResponse.best_sales} title='BEST SALES' />
       <ParentSlider>
-        {brandsData.map((store, i) => (
+        {brandsData && brandsData.map((store, i) => (
           <div key={i}>
             <ChildSlider gallery={[store.logo , ...store.pictures]} />
             <div className="mt-[30px] laptop:mt-20 text-[20px] text-center">
