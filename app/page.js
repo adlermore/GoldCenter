@@ -41,7 +41,6 @@ export default function Home() {
   if(!productResponse || !setBrandsData){
     return <PageLoader />
   }
-
   
   return (
     <div className="home_page">

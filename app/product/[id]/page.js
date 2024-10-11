@@ -15,7 +15,7 @@ import { JsonContext } from '@/context/jsonContext';
 import ProductSlider from '@/components/slider/ProductSlider';
 
 const ProductPage = ({ params }) => {
-	
+
 	const { activeLg, currency } = useContext(JsonContext);
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 	const bigSliderRef = useRef(null);
@@ -109,46 +109,48 @@ const ProductPage = ({ params }) => {
 	}, [params?.id]);
 
 
+	const getProducCurrency = () => {
+		switch (currency) {
+			case 'amd':
+				return product.price + '֏';
+			case 'rub':
+				return product.price_rub + '₽';
+			case 'usd':
+				return product.price_usd + '$';
+			case 'eur':
+				return product.price_eur + '€';
+			default:
+				return product.price + '֏';
+		}
+	};
+
+
 	const getProductName = () => {
+
 		switch (activeLg) {
-		  case 'EN':
-			return product.translation_data?.en.name ||  product.name;
-		  case 'RU':
-			return product.translation_data?.ru.name ||  product.name;
-		  case 'AM':
-			return product.translation_data?.am.name ||  product.name;
-		  default:
-			return product.name;
+			case 'ENG':
+				return product.translation_data?.en.name;
+			case 'РУС':
+				return product.translation_data?.ru.name;
+			case 'ՀԱՅ':
+				return product.translation_data?.am.name;
+			default:
+				return product.name;
 		}
 	};
 
 	const getProductDesc = () => {
 		switch (activeLg) {
-		  case 'EN':
-			return product.translation_data?.en.description ||  product.description;
-		  case 'RU':
-			return product.translation_data?.ru.description ||  product.description;
-		  case 'AM':
-			return product.translation_data?.am.description ||  product.description;
-		  default:
-			return product.description;
+			case 'ENG':
+				return product.translation_data?.en.description
+			case 'РУС':
+				return product.translation_data?.ru.description
+			case 'ՀԱՅ':
+				return product.translation_data?.am.description
+			default:
+				return product.description;
 		}
 	};
-
-	const getProducCurrency = () => {
-		switch (currency) {
-		  case 'amd':
-			return product.price +'֏';
-		  case 'rub':
-			return product.price_rub +'₽' || product.price+'֏';
-		  case 'usd':
-			return product.price_usd +'$' || product.price+'֏';
-		  case 'eur':
-			return product.price_eur +'€' || product.price+'֏';
-		  default:
-			return product.price+'֏';
-		}
-	  };
 
 	if (!product || !makeLike || !assortment) {
 		return <PageLoader />
@@ -170,7 +172,7 @@ const ProductPage = ({ params }) => {
 											className={`img_block ${selectedImageIndex === index ? 'selected' : ''}`}
 											onClick={() => handleSmallImageClick(index)}
 										>
-													{image.is_video ? (
+											{image.is_video ? (
 												<video>
 													<source src={image.path} type="video/mp4" />
 												</video>

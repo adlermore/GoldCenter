@@ -10,9 +10,9 @@ import fbWhite from "@/public/images/icons/fbWhite.png";
 import telegramWhite from "@/public/images/icons/telegramWhite.png";
 
 export const lgList = [
-  { lg: 'EN' },
-  { lg: 'РУ' },
-  { lg: 'ARM' },
+  { lg: 'ENG' },
+  { lg: 'РУС' },
+  { lg: 'ՀԱՅ' },
 ];
 
 export const currencyList = [

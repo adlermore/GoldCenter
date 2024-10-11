@@ -95,7 +95,7 @@ function ProductSlider({ sliderContent  , title}) {
           ))}
         </Slider>
         <Link
-          href="/productListing"
+          href="/productListing?category=ring"
           className=" loadmore_btn mt-[58px] h-[50px] w-full max-w-[276px] bg-transparent border-white text-xl flex items-center justify-center border-2 text-white mx-auto  cursor-pointer hover:bg-siteCrem hover:border-siteCrem duration-300"
         >
           Load More

@@ -13,7 +13,7 @@ function CategoryGrid({ category , subcategory }) {
     <div className="grid gap-[15px] grid-cols-4 w-full laptop:grid-cols-2 mobile:gap-[5px] ">
       {category && category.map((category, i) => (
         <Link
-          href={`/productListing?category=${category.title.toLowerCase()}&subcategory=${subcategory || ''}`}
+          href={`/productListing?category=${category.title.toLowerCase().slice(0, -1)}&subcategory=${subcategory || ''}`}
           key={i}
           className="h-[420px] w-full block relative category_block laptopHorizontal:h-[350px] mobile:h-[200px]"
         >

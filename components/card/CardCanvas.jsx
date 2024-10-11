@@ -94,7 +94,7 @@ function CardCanvas() {
                     <div key={index} className="product_block">
                       <div className="image_block relative">
                         <Image
-                          src={product.image || ''}
+                          src={product.pictures[0]?.path || product.images[0].path}
                           unoptimized={true}
                           alt="category_Image"
                           fill
@@ -106,7 +106,7 @@ function CardCanvas() {
                       </div>
                       <div className="info_block">
                         <div className="top_ineer_block">
-                          <div className="product_name">{product.title}</div>
+                          <div className="product_name">{product.name}</div>
                           <div className="product_code">Product code: <span>AL0456</span></div>
                         </div>
                         <div className="bottom_ineer_block flex items-center w-full">
@@ -132,8 +132,8 @@ function CardCanvas() {
                 </div>
               </div>
               <div className="card_buttons">
-                <a href="" className="checkout_button">Go to Cart</a>
-                <a href="" className="pay_button">Pay</a>
+                <span  className="checkout_button">Go to Cart</span>
+                <span  className="pay_button">Pay</span>
               </div>
             </div>
           </div>
