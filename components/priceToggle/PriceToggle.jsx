@@ -6,7 +6,7 @@ import { JsonContext } from "@/context/jsonContext";
 
 function PriceToggle() {
 
-  const [activecurrency, setActivecurrency] = useState(currencyList[0].currency || "EN");
+  const [activecurrency, setActivecurrency] = useState(currencyList[0].currency || "amd");
   const [dropActive, setDropActive] = useState(false);
   const {setCurrency} = useContext(JsonContext);
 

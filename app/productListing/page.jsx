@@ -1,16 +1,11 @@
-import Product from '@/components/product/Product'
-import Productnew from '@/components/product/Productnew'
 import IconChecked from '@/public/icons/IconChecked'
-import { filterCategory, filterColors, filterStyle, productListing } from '@/utils/data/productList'
+import { filterCategory, filterColors, filterStyle } from '@/utils/data/productList'
 import Link from 'next/link'
+import { Suspense } from 'react';
+import PageLoader from '@/components/PageLoader';
+import ProductList from '@/components/product/ProductList';
 
-export default async function page() {
-
-	const res = await fetch('https://api.goldcenter.am/v1/products/catalog?metal=gold&type=earring&subcategory=women&limit=30&offset=10')
-  	const data  = await res.json()
-
-	console.log('data_____' , data);
-	
+export default function ProductListing() {
 
 	return (
 		<div className='product_page pb-[50px]'>
@@ -139,23 +134,19 @@ export default async function page() {
 					</div>
 				</div>
 				<div className='w-full'>
-				<div className='grid grid-cols-4 gap-[15px]'>
-				{data?.catalog?.map((product, index) => (
-							<Productnew key={index} product={product} />
-						))}
-					{/* {productListing.map((product, index) => (
-						<Product key={index} product={product} />
-					))} */}
-				
-				</div>
-				<Link
+					<div className='grid grid-cols-4 gap-[15px]'>
+						<Suspense fallback={<PageLoader />}>
+							<ProductList />
+						</Suspense>
+					</div>
+					<Link
 						href="/productListing"
 						className="loadmore_btn mt-[58px] h-[50px] w-full max-w-[276px] mx-auto bg-transparent border-white text-xl flex items-center justify-center border text-white  cursor-pointer hover:bg-siteCrem hover:border-siteCrem duration-300"
 					>
 						Load More
 					</Link>
 				</div>
-			
+
 			</div>
 		</div>
 	)

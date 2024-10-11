@@ -1,5 +1,6 @@
 'use client';
 
+import { JsonContext } from "@/context/jsonContext";
 import IconHeartFill from "@/public/icons/IconHeartFill";
 import IconProductCard from "@/public/icons/IconProductCard";
 import IconProductHeart from "@/public/icons/IconProductHeart";
@@ -7,12 +8,15 @@ import { addToCart } from "@/redux/cartSlice";
 import { addToWishlist, removeFromWishlist } from "@/redux/wishlistSlice";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 function Product({ product, onClick }) {
+
   const dispatch = useDispatch();
   const wishlist = useSelector(state => state.wishlist.items);
+
+  const { activeLg, currency } = useContext(JsonContext);
 
   // Check if the product is in the wishlist
   const isInWishlist = wishlist.some(item => item.id === product.id);
@@ -44,14 +48,42 @@ function Product({ product, onClick }) {
   };
 
   const handleAddToWishlist = () => {
-    if(isAuth){
+    if (isAuth) {
       if (isInWishlist) {
         dispatch(removeFromWishlist(product));
       } else {
         dispatch(addToWishlist(product));
       }
-    }else{
+    } else {
       loginPopupOpen()
+    }
+  };
+
+  const getProductName = () => {
+    switch (activeLg) {
+      case 'EN':
+        return product.translation_data?.en.name ||  product.name;
+      case 'RU':
+        return product.translation_data?.ru.name ||  product.name;
+      case 'AM':
+        return product.translation_data?.am.name ||  product.name;
+      default:
+        return product.name;
+    }
+  };
+
+  const getProducCurrency = () => {
+    switch (currency) {
+      case 'amd':
+        return product.price +'֏';
+      case 'rub':
+        return product.price_rub +'₽' || product.price+'֏';
+      case 'usd':
+        return product.price_usd +'$' || product.price+'֏';
+      case 'eur':
+        return product.price_eur +'€' || product.price+'֏';
+      default:
+        return product.price+'֏';
     }
   };
 
@@ -59,14 +91,14 @@ function Product({ product, onClick }) {
     <div className="slider_block">
       <div className="product_image h-[388px] laptopHorizontal:h-[350px] tablet:h-[300px] overflow-hidden laptop:h-[320px] bg-white w-full flex justify-center items-center relative">
         <Link
-          href={`/product/${product.id}`}
+          href={`/product/${product.link}`}
           onClick={onClick}
           className="w-full h-full flex justify-center items-center relative !opacity-1"
         >
           <Image
             src={product?.pictures[0]?.path}
             unoptimized
-            alt={product.name} 
+            alt={product.name}
             priority
             fill
             className="object-contain"
@@ -75,8 +107,8 @@ function Product({ product, onClick }) {
             <Image
               src={
                 product?.pictures[2]?.is_video === false ?
-                product?.pictures[2]?.path : 
-                product?.pictures[0]?.path}
+                  product?.pictures[2]?.path :
+                  product?.pictures[0]?.path}
               unoptimized
               alt={product.name}
               priority
@@ -91,7 +123,7 @@ function Product({ product, onClick }) {
             aria-label={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
             onClick={handleAddToWishlist}
           >
-            {isInWishlist ? <IconHeartFill className='!w-[18px] h-auto'  />  : <IconProductHeart className='w-[18px]' />  }
+            {isInWishlist ? <IconHeartFill className='!w-[18px] h-auto' /> : <IconProductHeart className='w-[18px]' />}
           </button>
           <button
             className="mt-[15px] block"
@@ -102,8 +134,10 @@ function Product({ product, onClick }) {
           </button>
         </span>
       </div>
-      <div className="mt-[12px] text-black text-[18px] truncate">{product.name}</div>
-      <div className="font-bold mt-[5px] text-black">{product.price}֏</div>
+      <div className="mt-[12px] text-black text-[18px] truncate">
+        {getProductName()}
+      </div>
+      <div className="font-bold mt-[5px] text-black">{getProducCurrency()}</div>
     </div>
   );
 }

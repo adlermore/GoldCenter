@@ -9,6 +9,11 @@ const nextConfig = {
             },
             {
                 protocol: 'https',
+                hostname: 'storage.goldcentr.am',
+                pathname: '**',
+            },
+            {
+                protocol: 'https',
                 hostname: 'storage.goldcenter.am',
                 pathname: '**',
             }

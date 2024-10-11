@@ -18,6 +18,7 @@ export const lgList = [
 export const currencyList = [
   { currency: 'amd' },
   { currency: 'rub' },
+  { currency: 'eur' },
   { currency: 'usd' },
 ];
 

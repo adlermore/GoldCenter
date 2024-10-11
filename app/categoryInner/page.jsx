@@ -1,14 +1,35 @@
+'use client'
 import CategoryGrid from '@/components/CategoryGrid'
+import PageLoader from '@/components/PageLoader'
 import MainSlider from '@/components/slider/MainSlider'
 import ProductSlider from '@/components/slider/ProductSlider'
-import { bestProducts, categoryGrid, categorySliderData } from '@/utils/data/homeData'
+import { JsonContext } from '@/context/jsonContext'
+import { categoryGrid, categorySliderData } from '@/utils/data/homeData'
+import request from '@/utils/hooks/request'
+import { useContext, useEffect, useState } from 'react'
 
+function CategoryInner({ searchParams }) {
 
-
-function page({ searchParams }) {
-
+	const { silverMode } = useContext(JsonContext);
 	const category = searchParams.category;
 
+	const [productResponse , setProductResponse] = useState(null);
+
+	useEffect(()=>{
+	  request(`${process.env.NEXT_PUBLIC_DATA_API}/products/catalog?metal=${silverMode ? 'silver' : 'gold' }&subcategory=${category}&limit=10&offset=0`)
+	  .then((data) => {
+		setProductResponse(data.catalog);
+	  })
+	  .catch(error => {
+		  console.log(error);
+	  })
+  
+	},[silverMode , category])
+  
+  
+	if(!productResponse){
+	  return <PageLoader />
+	}
 
 	return (
 		<div className="category_page pt-[85px]">
@@ -26,10 +47,10 @@ function page({ searchParams }) {
 					</div>
 				</div>
 			</div>
-			<CategoryGrid category={categoryGrid} />
-			<ProductSlider sliderContent={bestProducts} />
+			<CategoryGrid category={categoryGrid} subcategory={category} />
+			<ProductSlider sliderContent={productResponse} />
 		</div>
 	)
 }
 
-export default page
+export default CategoryInner

@@ -1,22 +1,28 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useContext } from 'react';
 import Slider from 'react-slick';
 import Image from 'next/image';
 import "@/styles/product_inner.scss";
-import { filterColors, productListing } from '@/utils/data/productList';
-import { belongsProducts, bestProducts } from '@/utils/data/homeData';
-import AlsoLikeSlider from '@/components/slider/AlsoLikeSlider';
-import BelongsSlider from '@/components/slider/BelongsSlider';
+import { filterColors } from '@/utils/data/productList';
+// import { belongsProducts, bestProducts } from '@/utils/data/homeData';
+// import AlsoLikeSlider from '@/components/slider/AlsoLikeSlider';
+// import BelongsSlider from '@/components/slider/BelongsSlider';
 import { useDispatch } from 'react-redux';
 import { addToCart } from '@/redux/cartSlice';
 import PageLoader from '@/components/PageLoader';
+import { JsonContext } from '@/context/jsonContext';
+import ProductSlider from '@/components/slider/ProductSlider';
 
 const ProductPage = ({ params }) => {
+	
+	const { activeLg, currency } = useContext(JsonContext);
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 	const bigSliderRef = useRef(null);
 
 	const [product, setProduct] = useState(null);
+	const [makeLike, setMakeLike] = useState(null);
+	const [assortment, setAssortment] = useState(null);
 
 
 	const smallImagesOpts = {
@@ -87,23 +93,66 @@ const ProductPage = ({ params }) => {
 
 	const handleAddToCart = (e) => {
 		e.preventDefault();
-		dispatch(addToCart(bestProducts[0]));
+		dispatch(addToCart(product));
 	};
 
 	const fetchProduct = async () => {
-		const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API2}/product/${params?.id}`);
+		const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/product/page/${params?.id}`);
 		const data = await response.json();
-		setProduct(data)
+		setProduct(data.product)
+		setMakeLike(data.you_may_like_list)
+		setAssortment(data.other_assortment_list)
 	};
 
 	useEffect(() => {
 		fetchProduct();
 	}, [params?.id]);
 
-	if (!product) {
+
+	const getProductName = () => {
+		switch (activeLg) {
+		  case 'EN':
+			return product.translation_data?.en.name ||  product.name;
+		  case 'RU':
+			return product.translation_data?.ru.name ||  product.name;
+		  case 'AM':
+			return product.translation_data?.am.name ||  product.name;
+		  default:
+			return product.name;
+		}
+	};
+
+	const getProductDesc = () => {
+		switch (activeLg) {
+		  case 'EN':
+			return product.translation_data?.en.description ||  product.description;
+		  case 'RU':
+			return product.translation_data?.ru.description ||  product.description;
+		  case 'AM':
+			return product.translation_data?.am.description ||  product.description;
+		  default:
+			return product.description;
+		}
+	};
+
+	const getProducCurrency = () => {
+		switch (currency) {
+		  case 'amd':
+			return product.price +'֏';
+		  case 'rub':
+			return product.price_rub +'₽' || product.price+'֏';
+		  case 'usd':
+			return product.price_usd +'$' || product.price+'֏';
+		  case 'eur':
+			return product.price_eur +'€' || product.price+'֏';
+		  default:
+			return product.price+'֏';
+		}
+	  };
+
+	if (!product || !makeLike || !assortment) {
 		return <PageLoader />
 	}
-
 
 	return (
 		<div className='cover_container !mt-[140px]'>
@@ -122,11 +171,8 @@ const ProductPage = ({ params }) => {
 											onClick={() => handleSmallImageClick(index)}
 										>
 													{image.is_video ? (
-												<video
-													// controls
-												>
+												<video>
 													<source src={image.path} type="video/mp4" />
-													Your browser does not support the video tag.
 												</video>
 											) : (
 												<Image
@@ -152,11 +198,8 @@ const ProductPage = ({ params }) => {
 									<div className="slide_block" key={index}>
 										<div className="img_block">
 											{image.is_video ? (
-												<video
-													controls
-												>
+												<video controls >
 													<source src={image.path} type="video/mp4" />
-													Your browser does not support the video tag.
 												</video>
 											) : (
 												<Image
@@ -177,39 +220,41 @@ const ProductPage = ({ params }) => {
 					</div>
 				</div>
 				<div className='product_info w-full pl-[25px]'>
-					<div className='text-black text-xl'>{product?.name}</div>
+					<div className='text-black text-xl'>
+						{getProductName()}
+					</div>
 					<div className='mt-[30px] text-base font-light'>
-						{product?.description}
+						{getProductDesc()}
 					</div>
 					<div className='mt-[30px] text-[#916D50]'>Technical</div>
 					<div className='product_table'>
 						<div className='table_line'>
 							<div>Fineness:</div>
-							<div>585 - 14K</div>
+							<div>{product?.fineness}</div>
 						</div>
 						<div className='table_line'>
-							<div>Weight::</div>
-							<div>5 Gr</div>
+							<div>Weight:</div>
+							<div>{product?.weight} Gr</div>
 						</div>
 						<div className='table_line'>
 							<div>Color:</div>
-							<div>Yellow</div>
+							<div>{product?.color}</div>
 						</div>
 						<div className='table_line'>
-							<div>Condition::</div>
-							<div>New</div>
+							<div>Condition:</div>
+							<div>{product?.condition}</div>
 						</div>
 						<div className='table_line'>
 							<div>Origin:</div>
-							<div>Armenian</div>
+							<div>{product?.origin}</div>
 						</div>
 						<div className='table_line'>
 							<div>Material:</div>
-							<div>Gold</div>
+							<div>{product?.metal}</div>
 						</div>
 						<div className='table_line'>
 							<div>Gemstone:</div>
-							<div>No</div>
+							<div>{product?.gemstone}</div>
 						</div>
 					</div>
 				</div>
@@ -310,13 +355,14 @@ const ProductPage = ({ params }) => {
 					</div>
 				</div>
 				<div className='ml-auto flex items-center gap-[30px] pt-[30px]'>
-					<div className='ml-auto text-[30px]'>$259.00</div>
+					<div className='ml-auto text-[30px]'>{getProducCurrency()}</div>
 					<button className='border-none bg-[#D3BA87] text-black text-xl h-[60px] ml-auto duration-300 cursor-pointer hover:opacity-70 w-[240px] ' onClick={handleAddToCart}>Add To Cart</button>
 				</div>
-
 			</div>
-			{/* <BelongsSlider sliderContent={belongsProducts} />
-			<AlsoLikeSlider sliderContent={bestProducts} /> */}
+
+			<ProductSlider sliderContent={assortment} title='OTHER ASSORTMENT LIST' />
+			<ProductSlider sliderContent={makeLike} title='YOU MAY LIKE LIST' />
+
 		</div>
 	);
 };

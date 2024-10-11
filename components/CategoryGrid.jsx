@@ -6,14 +6,14 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
 
-function CategoryGrid({ category }) {
+function CategoryGrid({ category , subcategory }) {
   const { silverMode} = useContext(JsonContext);
 
   return (
     <div className="grid gap-[15px] grid-cols-4 w-full laptop:grid-cols-2 mobile:gap-[5px] ">
       {category && category.map((category, i) => (
         <Link
-          href="/productListing"
+          href={`/productListing?category=${category.title.toLowerCase()}&subcategory=${subcategory || ''}`}
           key={i}
           className="h-[420px] w-full block relative category_block laptopHorizontal:h-[350px] mobile:h-[200px]"
         >

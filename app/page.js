@@ -42,7 +42,6 @@ export default function Home() {
     return <PageLoader />
   }
 
-  console.log('brandsData' ,brandsData);
   
   return (
     <div className="home_page">
