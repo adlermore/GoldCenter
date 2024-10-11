@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import { addToCart } from '@/redux/cartSlice';
 import PageLoader from '@/components/PageLoader';
 
-const ProductPage = ({params}) => {
+const ProductPage = ({ params }) => {
 	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 	const bigSliderRef = useRef(null);
 
@@ -85,10 +85,10 @@ const ProductPage = ({params}) => {
 
 	const dispatch = useDispatch();
 
-  const handleAddToCart = (e) => {
-    e.preventDefault();
-    dispatch(addToCart(bestProducts[0]));
-  };
+	const handleAddToCart = (e) => {
+		e.preventDefault();
+		dispatch(addToCart(bestProducts[0]));
+	};
 
 	const fetchProduct = async () => {
 		const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API2}/product/${params?.id}`);
@@ -121,15 +121,24 @@ const ProductPage = ({params}) => {
 											className={`img_block ${selectedImageIndex === index ? 'selected' : ''}`}
 											onClick={() => handleSmallImageClick(index)}
 										>
-											<Image
-												src={image.path}
-												alt={`Product ${index}`}
-												fill
-												sizes="50vw, 100vw"
-												style={{
-													objectFit: 'contain',
-												}}
-											/>
+													{image.is_video ? (
+												<video
+													// controls
+												>
+													<source src={image.path} type="video/mp4" />
+													Your browser does not support the video tag.
+												</video>
+											) : (
+												<Image
+													src={image.path}
+													alt={`Product ${index}`}
+													fill
+													sizes="50vw, 100vw"
+													style={{
+														objectFit: 'contain',
+													}}
+												/>
+											)}
 										</div>
 									</div>
 								))}
@@ -142,15 +151,24 @@ const ProductPage = ({params}) => {
 								{product?.pictures.map((image, index) => (
 									<div className="slide_block" key={index}>
 										<div className="img_block">
-											<Image
-												src={image.path}
-												alt={`Product ${index}`}
-												fill
-												sizes="50vw, 100vw"
-												style={{
-													objectFit: 'contain',
-												}}
-											/>
+											{image.is_video ? (
+												<video
+													controls
+												>
+													<source src={image.path} type="video/mp4" />
+													Your browser does not support the video tag.
+												</video>
+											) : (
+												<Image
+													src={image.path}
+													alt={`Product ${index}`}
+													fill
+													sizes="50vw, 100vw"
+													style={{
+														objectFit: 'cover',
+													}}
+												/>
+											)}
 										</div>
 									</div>
 								))}
@@ -161,7 +179,7 @@ const ProductPage = ({params}) => {
 				<div className='product_info w-full pl-[25px]'>
 					<div className='text-black text-xl'>{product?.name}</div>
 					<div className='mt-[30px] text-base font-light'>
-									{product?.description}
+						{product?.description}
 					</div>
 					<div className='mt-[30px] text-[#916D50]'>Technical</div>
 					<div className='product_table'>
@@ -292,10 +310,10 @@ const ProductPage = ({params}) => {
 					</div>
 				</div>
 				<div className='ml-auto flex items-center gap-[30px] pt-[30px]'>
-				<div className='ml-auto text-[30px]'>$259.00</div>
-				<button className='border-none bg-[#D3BA87] text-black text-xl h-[60px] ml-auto duration-300 cursor-pointer hover:opacity-70 w-[240px] ' onClick={handleAddToCart}>Add To Cart</button>
+					<div className='ml-auto text-[30px]'>$259.00</div>
+					<button className='border-none bg-[#D3BA87] text-black text-xl h-[60px] ml-auto duration-300 cursor-pointer hover:opacity-70 w-[240px] ' onClick={handleAddToCart}>Add To Cart</button>
 				</div>
-				
+
 			</div>
 			{/* <BelongsSlider sliderContent={belongsProducts} />
 			<AlsoLikeSlider sliderContent={bestProducts} /> */}
