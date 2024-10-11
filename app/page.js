@@ -61,7 +61,7 @@ export default function Home() {
               {store.company_name}
             </div>
             <Link
-              href="/"
+              href={`/brand/${store?.id}`}
               className="visitStore_btn flex items-center w-[215px] mx-auto h-[50px] text-[#916D50] text-[24px] bg-[#F8F6F5] justify-center mt-[25px] laptop:mt-15  laptop:text-base"
             >
               Visit Store
