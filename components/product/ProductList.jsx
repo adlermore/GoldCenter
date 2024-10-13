@@ -5,8 +5,7 @@ import { JsonContext } from '@/context/jsonContext';
 import { useSearchParams } from 'next/navigation';
 import request from '@/utils/hooks/request';
 
-function ProductList() {
-
+function ProductList({ filters }) {
 
     const { silverMode } = useContext(JsonContext);
     const [listingData, setListingData] = useState([]);
@@ -16,13 +15,47 @@ function ProductList() {
     const [loading, setLoading] = useState(false);
 
     const searchParams = useSearchParams();
-    const subcategory = searchParams.get('subcategory');
-    const category = searchParams.get('category');
+    let subcategory = searchParams.get('subcategory');
+    let category = searchParams.get('category');
+    let origin;
+    let fineness;
+    let colors;
+
+
+    const getOriginString = () => {
+        return filters.origin.length > 0 ? `&origin=${filters.origin.join(',')}` : '';
+    };
+    
+    const getFinenessString = () => {
+        return filters.fineness.length > 0 ? `&fineness=${filters.fineness.join(',')}` : '';
+    };
+    
+    const getColorsString = () => {
+        return filters.colors.length > 0 ? `&colors=${filters.colors.join(',')}` : '';
+    };
+
+    useEffect(() => {
+        setOffset(0);
+        setListingData([]);
+        if (filters.type) {
+            category = filters.type
+        }
+        if (filters.subcategory) {
+            subcategory = filters.subcategory
+        }
+
+        origin = getOriginString();
+        fineness = getFinenessString();
+        colors = getColorsString();
+
+    }, [silverMode, subcategory, category, filters]);
+
 
     useEffect(() => {
         // Fetch products based on current offset and limit
         setLoading(true); // Set loading to true when fetching starts
-        request(`${process.env.NEXT_PUBLIC_DATA_API}/products/catalog?metal=${silverMode ? 'silver' : 'gold'}&type=${category || 'other'}&subcategory=${subcategory}&limit=${limit}&offset=${offset}`)
+        request(`
+            ${process.env.NEXT_PUBLIC_DATA_API}/products/catalog?metal=${silverMode ? 'silver' : 'gold'}&type=${category || 'other'}&subcategory=${subcategory}${origin}${fineness}${colors}&limit=${limit}&offset=${offset}`)
             .then((data) => {
                 setListingData(prevData => [...prevData, ...data.catalog]);
                 setHasMore(data.catalog.length === limit);
@@ -31,21 +64,24 @@ function ProductList() {
                 console.log(error);
             })
             .finally(() => {
-                setLoading(false); // Set loading to false when fetching ends
+                setLoading(false);
             });
-    }, [silverMode, subcategory, category, offset, limit]);
+    }, [silverMode, subcategory, category, offset, filters, limit]);
 
     const loadMoreProducts = () => {
         setOffset(prevOffset => prevOffset + limit);
     };
 
-
     return (
         <>
             <div className='grid grid-cols-4 gap-[15px]'>
-                {listingData && listingData.map((product, index) => (
-                    <Product key={index} product={product} />
-                ))}
+                {listingData.length > 0 ?
+                    listingData.map((product, index) => (
+                        <Product key={index} product={product} />
+                    ))
+                    :
+                    <div>No Result</div>
+                }
             </div>
             {hasMore && (
                 <button

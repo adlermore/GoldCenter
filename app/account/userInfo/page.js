@@ -20,10 +20,10 @@ export default function UserInfoPage() {
 
   //sumbition Data
   const userInfoSubmit = async (dataForm) => {
-    console.log('dataForm', dataForm);
+    // console.log('dataForm', dataForm);
   };
 
-  console.log('user' , user);
+  // console.log('user' , user);
   
 
   return (

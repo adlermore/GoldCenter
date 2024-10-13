@@ -6,9 +6,7 @@ const authMiddleware = (storeAPI) => (next) => (action) => {
     if (token) {
       storeAPI.dispatch(setAuthenticated(true));
     } else {
-      storeAPI.dispatch(setAuthenticated(false));
-      console.log('steaaa');
-      
+      storeAPI.dispatch(setAuthenticated(false));      
     }
   }
 
