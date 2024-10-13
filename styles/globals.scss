@@ -22,6 +22,7 @@ body {
   height: 100%;
   font-family: "NunitoRegular";
   color: #0c1b20;
+  min-height: 150vh;
   background: #e4dccd;
   transition: background 0.3s;
   overflow-x: hidden !important;
@@ -407,6 +408,9 @@ a {
   .product_links{
     svg{
       transition: 0.3s;
+      // path{
+      //   fill: #6A6969;
+      // }
       &:hover{
         opacity: 0.5;
       }

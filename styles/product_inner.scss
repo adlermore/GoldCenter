@@ -3,6 +3,13 @@
 @import 'extendsStart';
 @import 'extendsEnd';
 
+
+.productInner_page{
+	.custom_container{
+    max-width: 1400px;
+	}
+}
+
 .product_section {
 	padding-top: 30px;
 	display: flex;

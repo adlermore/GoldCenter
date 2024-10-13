@@ -84,7 +84,7 @@ function ProductSlider({ sliderContent  , title}) {
   };
 
   return (
-    <div className="w-full relative product_slider py-[130px] laptopHorizontal:py-[60px] tablet:py-[30px]">
+    <div className="w-full relative product_slider py-[70px] laptopHorizontal:py-[60px] tablet:py-[30px]">
       <div className="custom_container">
         <div className="  text-[32px] text-black uppercase mb-[50px] laptopHorizontal:text-[24px]">
        {title}

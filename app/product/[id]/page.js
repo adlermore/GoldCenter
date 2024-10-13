@@ -157,7 +157,7 @@ const ProductPage = ({ params }) => {
 	}
 
 	return (
-		<div className='cover_container !mt-[140px]'>
+		<div className='cover_container !mt-[140px] productInner_page'>
 			<div className=' text-[24px] uppercase '>
 				Product
 			</div>
@@ -261,10 +261,11 @@ const ProductPage = ({ params }) => {
 					</div>
 				</div>
 			</div>
-			<div className='mt-[20px] ml-auto w-full text-right text-[#916D50] text-xl'>
+			{/* <div className='mt-[20px] ml-auto w-full text-right text-[#916D50] text-xl'>
 				Read more
-			</div>
-			<div className='flex items-center'>
+			</div> */}
+
+			<div className='flex items-center mt-[60px]'>
 				<div className='relative border-r-2 pr-[50px] border-siteCrem'>
 					<div className='text-xl text-black'>Metal</div>
 					<div className='mt-20 gap-[35px] flex items-center'>

@@ -12,6 +12,7 @@
 			width: 200px;
 			min-height: 415px;
 			border-right: 1px solid #D3BA87;
+			height: fit-content;
 			padding-right: 10px;
 		}
 		ul{
@@ -26,6 +27,7 @@
 				margin-bottom: 30px;
 				&.log_out{
 				flex: 1;
+				margin-top: 110px;
 				display: flex;
 				align-items: flex-end;
 				margin-bottom: 0;
@@ -61,6 +63,6 @@
 		}
 	}
 	.inner_wrapper{
-		padding-left: 90px;
+		padding-left: 40px;
 	}
 }

@@ -19,7 +19,6 @@ export default function Home() {
 
   const [productResponse , setProductResponse] = useState(null);
   const [brandsData , setBrandsData] = useState(null);
-
   const { silverMode } = useContext(JsonContext);
 
   useEffect(()=>{
@@ -34,9 +33,7 @@ export default function Home() {
     .catch(error => {
         console.log(error);
     })
-
   },[silverMode])
-
 
   if(!productResponse || !setBrandsData){
     return <PageLoader />

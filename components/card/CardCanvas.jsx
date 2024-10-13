@@ -10,14 +10,19 @@ import Image from "next/image";
 import IconProductHeart from "@/public/icons/IconProductHeart";
 import { useDispatch, useSelector } from "react-redux";
 import { removeFromCart } from "@/redux/cartSlice";
+import { addToWishlist, removeFromWishlist } from "@/redux/wishlistSlice";
+import IconHeartFill from "@/public/icons/IconHeartFill";
+import { useRouter } from "next/navigation";
+
 
 function CardCanvas() {
   const ref = useRef();
   const dispatch = useDispatch();
-  
+  const router = useRouter();
   const cartItems = useSelector((state) => state.cart.items);
   const totalAmount = useSelector((state) => state.cart.totalAmount);
-
+  const isAuth = useSelector((state) => state.auth.isAuthenticated);
+  
   const handleRemoveFromCart = (product) => {
     dispatch(removeFromCart(product));
   };
@@ -60,6 +65,47 @@ function CardCanvas() {
     });
   };
 
+
+  //Login Popup Open
+  const loginPopupOpen = () => {
+    const scrollBarWidth = detectScrollBarWidth();
+    document.body.style.overflow = "hidden";
+    if (scrollBarWidth > 0) {
+      document.body.style.paddingRight = `${scrollBarWidth}px`;
+    }
+    document.body.classList.add("login_opened");
+    const fixedElements = document.querySelectorAll(".fixed-element");
+    fixedElements.forEach((el) => {
+      el.style.paddingRight = `${scrollBarWidth}px`;
+    });
+  };
+
+    const wishlist = useSelector(state => state.wishlist.items);
+
+
+  const handleAddToWishlist = (product ,callback) => {    
+    if (isAuth) {
+      if (callback) {
+        dispatch(removeFromWishlist(product));
+      } else {
+        dispatch(addToWishlist(product));
+      }
+    } else {
+      loginPopupOpen()
+    }
+  };
+
+  const handleDirectToCard = () => {
+    if (isAuth) {
+      router.push('/account/myCart');
+      setTimeout(() => {
+        closeCard()
+      }, 300);
+    } else {
+      loginPopupOpen()
+    }
+  }
+
   return (
     <>
       <div className="duration-300 cursor-pointer hover:opacity-70 relative" onClick={cardOpen}>
@@ -100,9 +146,9 @@ function CardCanvas() {
                           fill
                           priority
                         />
-                        <div className="card_heart z-[999] flex flex-col items-center">
-                          <IconProductHeart className='fill-blueDark1 !w-[18px] !h-auto' />
-                        </div>
+                        <button onClick={() => handleAddToWishlist(product ,wishlist.some(item => item.id === product.id))}  className="card_heart z-[999999] cursor-pointer flex flex-col items-center">
+                          {wishlist.some(item => item.id === product.id) ? <IconHeartFill className='!w-[18px] h-auto' /> : <IconProductHeart className='w-[18px]' />}
+                        </button>
                       </div>
                       <div className="info_block">
                         <div className="top_ineer_block">
@@ -111,7 +157,7 @@ function CardCanvas() {
                         </div>
                         <div className="bottom_ineer_block flex items-center w-full">
                           <div className="product_price">
-                            <div className="active_price">{product.price}</div>
+                            <div className="active_price">{product.price}֏</div>
                           </div>
                           <button className="remove_btn" onClick={() => handleRemoveFromCart(product)}>REMOVE</button>
                         </div>
@@ -132,7 +178,7 @@ function CardCanvas() {
                 </div>
               </div>
               <div className="card_buttons">
-                <span  className="checkout_button">Go to Cart</span>
+                <button  className="checkout_button " onClick={handleDirectToCard} >Go to Cart</button>
                 <span  className="pay_button">Pay</span>
               </div>
             </div>

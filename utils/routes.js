@@ -16,11 +16,7 @@ export const HeaderLinks = [
         href: "/categoryInner?category=accessories",
   },
   {
-    title: "Bullion",
-        href: "/categoryInner?category=bullion",
-  },
-  {
-    title: "Occasions",
-        href: "/categoryInner?category=occasions",
+    title: "Gifts",
+        href: "/categoryInner?category=gifts",
   },
 ];
