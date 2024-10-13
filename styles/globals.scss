@@ -470,6 +470,11 @@ a {
     cursor: pointer;
     
   }
+  &.radio_line{
+    .square_block{
+      border-radius: 50%;
+    }
+  }
   .check_label{
     user-select: none;
   }
@@ -488,6 +493,12 @@ a {
   }
 
   input[type="checkbox"]:checked + .square_block {
+    background: #D3BA87;
+    span {
+      opacity: 1;
+    }
+  }
+  input[type="radio"]:checked + .square_block {
     background: #D3BA87;
     span {
       opacity: 1;
@@ -528,12 +539,12 @@ a {
         background: linear-gradient(0deg, #F7F8F8 0%, #BABABA 22%, #969696 37%, #AAAAAA 47%, #DDDEDE 67%, #F7F8F8 76%, #EFF0EF 81%, #D9DAD9 89%, #B6B6B6 98%, #AFAFAE 100%);
       }
     }
-    &.gold{
+    &.gold_plated{
       span{
         background: linear-gradient(0deg, #EEDEBD 8%, #DEC6A5 17%, #D3BA87 29%, #A9936B 54%, #D3BA87 77%);
       }
     }
-    &.metal{
+    &.pink{
       span{
         background: linear-gradient(0deg, #EEDEBD 0%, #DEC6A5 17%, #CA9987 35%, #9B7260 56%, #CAA387 92%);
       }

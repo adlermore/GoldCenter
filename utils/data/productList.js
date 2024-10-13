@@ -10,43 +10,52 @@ import productInner3 from "@/public/images/productInner3.webp";
 import productInner4 from "@/public/images/productInner4.webp";
 
 
-export const filterCategory = [
-    'Rings',
-    'Earrings',
-    'Bracelets',
-    'Necklace',
-    'Sets',
-    'Accessories',
-    'Pendants'
+export const filterSubCategory = [
+    'women',
+    'men',
+    'kids',
+    'accessories'
 ]
 
-export const filterStyle = [
-    'Diamond with stonet',
-    'With colored stones',
-    'Open',
-    'Solitaire',
-    'Proposal',
-    'Engagement',
-    'Wedding',
-    'Decorative',
-    'Multilayer',
-    'Metal',
-    'Texture',
-    'Chain',
-    'Wrapping',
-    'National',
-    'Nominative',
-    'Iconic',
-    'Adjustable',
-    'Handmade',
-    'Other'
+export const filterType = [
+    'earring',
+    'ring',
+    'set',
+    'pendant',
+    'cross',
+    'necklace',
+    'chain',
+    'hard_bracelet',
+    'chain_bracelet',
+    'bracelets',
+    'accessories',
+    'necklaces',
+    'pendants',
+    'watches',
+    'brooch',
+    'bars',
+    'book',
+    'other',
+]
+
+export const filterFineness = [
+    'g999',
+    'g995',
+    'g958',
+    'g916'
+]
+
+
+export const filterOrigin = [
+    'armenian',
+    'imported',
 ]
 
 
 export const filterColors = [
-    'gold',
+    'gold_plated',
     'silver',
-    'metal'
+    'pink'
 ]
 
 export const productListing = [

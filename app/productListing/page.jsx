@@ -1,51 +1,123 @@
+'use client'
+
 import IconChecked from '@/public/icons/IconChecked'
-import { filterCategory, filterColors, filterStyle } from '@/utils/data/productList'
+import { filterCategory, filterColors, filterFineness, filterOrigin, filterStyle, filterSubCategory, filterType } from '@/utils/data/productList'
 import Link from 'next/link'
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import PageLoader from '@/components/PageLoader';
 import ProductList from '@/components/product/ProductList';
 
-export default async function  ProductListing() {
+export default function ProductListing() {
 
-	  // // HomePage Data Fetching
-		// const res = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/getHomeData', { cache: 'no-cache' })
-		// const { data } = await res.json()
-	
-		// const resProduct = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/getProducts', { cache: 'no-cache' })
-		// const { data: dataProduct  } = await resProduct.json()
+	const [filters, setFilters] = useState({
+		subcategory: '',
+		type: '',
+		origin: [],
+		fineness: [],
+		colors: [],
+		stoneLine: []
+	});
+
+	const handleFilterChange = (filterType, value) => {
+		setFilters(prevFilters => {
+			if (filterType === 'origin' || filterType === 'fineness' || filterType === 'colors' || filterType === 'stoneLine') {
+				const currentValues = prevFilters[filterType];
+				if (currentValues.includes(value)) {
+					return { ...prevFilters, [filterType]: currentValues.filter(item => item !== value) };
+				} else {
+					return { ...prevFilters, [filterType]: [...currentValues, value] };
+				}
+			} else {
+				return { ...prevFilters, [filterType]: value };
+			}
+		});
+	};
+
+	const clearAllFilters = () => {
+		setFilters({
+			subcategory: '',
+			type: '',
+			origin: [],
+			fineness: [],
+			colors: [],
+			stoneLine: []
+		});
+	};
+
+
 
 
 	return (
 		<div className='product_page pb-[50px]'>
 			<div className='cover_container !mt-[150px] text-[24px] uppercase !pl-[335px]'>
-				Rings
+				PRODUCTS
 			</div>
 			<div className='cover_container flex gap-[25px] !mt-[70px]'>
 				<div className='filter_block border border-1 border-[#F8F6F5] p-[25px] max-w-[290px] h-fit w-full'>
 					<div className='mb-[30px]' >
 						<div className='text-xl  text-[#333333] mb-20'>Category</div>
-						{filterCategory.map((filter, index) => (
-							<div key={index} className="mb-[10px] filter_line">
-								<label htmlFor={`filter1${index}`}>
-									<input type="checkbox" id={`filter1${index}`} />
+						{filterSubCategory.map((filter, index) => (
+							<div key={index} className="mb-[10px] filter_line radio_line">
+								<label htmlFor={`filter1${filter}`}>
+									<input type="radio" name='filterSubCategory'
+										checked={filters.subcategory === filter}
+										onChange={() => handleFilterChange('subcategory', filter)}
+										id={`filter1${filter}`} />
 									<span className="square_block">
 										<span className='opacity-0 duration-300'><IconChecked /></span>
 									</span>
-									<span className="check_label ">{filter}</span>
+									<span className="check_label ">{filter.charAt(0).toUpperCase() + filter.slice(1)}</span>
 								</label>
 							</div>
 						))}
 					</div>
 					<div className='mb-[30px]' >
-						<div className='text-xl  text-[#333333] mb-20'>Gold Style</div>
-						{filterStyle.map((filter, index) => (
-							<div key={index} className="mb-[10px] filter_line">
-								<label htmlFor={`filter1${index}`}>
-									<input type="checkbox" id={`filter1${index}`} />
+						<div className='text-xl  text-[#333333] mb-20'>Type</div>
+						{filterType.map((filter, index) => (
+							<div key={index} className="mb-[10px] filter_line radio_line">
+								<label htmlFor={`filter2${filter}`}>
+									<input type="radio" name='filterSubCategoryType'
+										checked={filters.type === filter}
+										onChange={() => handleFilterChange('type', filter)}
+										id={`filter2${filter}`} />
 									<span className="square_block">
 										<span className='opacity-0 duration-300'><IconChecked /></span>
 									</span>
-									<span className="check_label ">{filter}</span>
+									<span className="check_label ">{filter.charAt(0).toUpperCase() + filter.slice(1)}</span>
+								</label>
+							</div>
+						))}
+					</div>
+					<div className='mb-[30px]' >
+						<div className='text-xl  text-[#333333] mb-20'>Origin</div>
+						{filterOrigin.map((filter, index) => (
+							<div key={index} className="mb-[10px] filter_line">
+								<label htmlFor={`filter1${index}`}>
+									<input type="checkbox"
+										checked={filters.origin.includes(filter)}
+										onChange={() => handleFilterChange('origin', filter)}
+										id={`filter1${index}`} />
+									<span className="square_block">
+										<span className='opacity-0 duration-300'><IconChecked /></span>
+									</span>
+									<span className="check_label ">{filter.charAt(0).toUpperCase() + filter.slice(1)}</span>
+								</label>
+							</div>
+						))}
+					</div>
+					<div className='mb-[30px]' >
+						<div className='text-xl  text-[#333333] mb-20'>Fineness</div>
+						{filterFineness.map((filter, index) => (
+							<div key={index} className="mb-[10px] filter_line">
+								<label htmlFor={`filterFienness${index}`}>
+									<input type="checkbox"
+										checked={filters.fineness.includes(filter)}
+										onChange={() => handleFilterChange('fineness', filter)}
+										id={`filterFienness${index}`} />
+									<span className="square_block">
+										<span className='opacity-0 duration-300'><IconChecked /></span>
+									</span>
+									<span className="check_label ">{filter.charAt(0).toUpperCase() + filter.slice(1)}</span>
 								</label>
 							</div>
 						))}
@@ -56,7 +128,10 @@ export default async function  ProductListing() {
 							{filterColors.map((filter, index) => (
 								<div key={index} className="mb-[10px] ">
 									<label htmlFor={`filterColor${index}`}>
-										<input type="checkbox" id={`filterColor${index}`} />
+										<input type="checkbox"
+											checked={filters.colors.includes(filter)}
+											onChange={() => handleFilterChange('colors', filter)}
+											id={`filterColor${index}`} />
 										<span className={`square_block ${filter}`}>
 											<span className=' duration-300'></span>
 										</span>
@@ -137,18 +212,15 @@ export default async function  ProductListing() {
 						</div>
 					</div>
 					<div className='flex w-full btn_line'>
-						<button className='clear_btn'>Clear</button>
-						<button className='apply_btn'>Apply</button>
+						<button className='clear_btn ' onClick={clearAllFilters}>Clear</button>
+						{/* <button className='apply_btn'>Apply</button> */}
 					</div>
 				</div>
 				<div className='w-full'>
-					
-						<Suspense fallback={<PageLoader />}>
-							<ProductList />
-						</Suspense>
-					
+					<Suspense fallback={<PageLoader />}>
+						<ProductList filters={filters} />
+					</Suspense>
 				</div>
-
 			</div>
 		</div>
 	)
