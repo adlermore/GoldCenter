@@ -1,12 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import Image from "next/image";
 import footerBanner from "@/public/images/footerBanner.png";
+import footerSilverBanner from "@/public/images/footerSilverBanner.png";
 import IconFooterHero1 from "@/public/icons/IconFooterHero1";
 import IconFooterHero2 from "@/public/icons/IconFooterHero2";
 import IconFooterHero3 from "@/public/icons/IconFooterHero3";
 import IconFooterHero4 from "@/public/icons/IconFooterHero4";
+import { JsonContext } from "@/context/jsonContext";
 
 function FooterHero() {
+  
+  const { silverMode } = useContext(JsonContext);
+
+
   return (
     <div className="flex bg-white relative tablet:pb-[40px]">
       <div className="custom_container flex justify-between overflow-hidden h-[650px] laptopHorizontal:h-[500px] tablet:flex-col tablet:h-auto">
@@ -35,9 +41,10 @@ function FooterHero() {
         </div>
         <div className="absolute right-0 top-0 overflow-hidden bottom-0 h-full w-[47%] tablet:relative tablet:w-full tablet:h-[300px]">
           <Image
-            src={footerBanner}
+            src={silverMode ? footerSilverBanner : footerBanner  }
             alt="Ricardo portrait"
             priority={true}
+            unoptimized = {true}
             fill
             sizes="50vw"
             style={{

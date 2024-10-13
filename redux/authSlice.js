@@ -235,7 +235,7 @@ const authSlice = createSlice({
         state.status = "failed";
         state.error = action.payload || action.error.message;
         state.isAuthenticated = false;
-        toast.error(`Failed to fetch user data: ${state.error}`);
+        // toast.error(`Failed to fetch user data: ${state.error}`);
       });
   },
 });

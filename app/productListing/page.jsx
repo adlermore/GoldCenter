@@ -5,7 +5,15 @@ import { Suspense } from 'react';
 import PageLoader from '@/components/PageLoader';
 import ProductList from '@/components/product/ProductList';
 
-export default function ProductListing() {
+export default async function  ProductListing() {
+
+	  // // HomePage Data Fetching
+		// const res = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/getHomeData', { cache: 'no-cache' })
+		// const { data } = await res.json()
+	
+		// const resProduct = await fetch(process.env.NEXT_PUBLIC_DATA_API + '/getProducts', { cache: 'no-cache' })
+		// const { data: dataProduct  } = await resProduct.json()
+
 
 	return (
 		<div className='product_page pb-[50px]'>
@@ -134,17 +142,11 @@ export default function ProductListing() {
 					</div>
 				</div>
 				<div className='w-full'>
-					<div className='grid grid-cols-4 gap-[15px]'>
+					
 						<Suspense fallback={<PageLoader />}>
 							<ProductList />
 						</Suspense>
-					</div>
-					<Link
-						href="/productListing"
-						className="loadmore_btn mt-[58px] h-[50px] w-full max-w-[276px] mx-auto bg-transparent border-white text-xl flex items-center justify-center border text-white  cursor-pointer hover:bg-siteCrem hover:border-siteCrem duration-300"
-					>
-						Load More
-					</Link>
+					
 				</div>
 
 			</div>

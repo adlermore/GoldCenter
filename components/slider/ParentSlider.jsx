@@ -15,7 +15,7 @@ function ParentSlider({ children }) {
         style={{ ...style }}
         onClick={onClick}
       >
-        <IconArrowRight className='[&>path]:stroke-white'/>
+        <IconArrowRight className='[&>path]:stroke-blakc'/>
       </div>
     );
   }
@@ -28,7 +28,7 @@ function ParentSlider({ children }) {
         style={{ ...style }}
         onClick={onClick}
       >
-        <IconArrowLeft className='[&>path]:stroke-white' />
+        <IconArrowLeft className='[&>path]:stroke-blakc' />
       </div>
     );
   }

@@ -62,7 +62,7 @@ function AccountToggle() {
     setTimeout(() => {
       dispatch(setAuthenticated(false));
       dispatch(resetWishlist());
-      localStorage.removeItem("access_token");
+      localStorage.removeItem("token");
       window.location.reload();
     }, 300);
   };

@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation'; 
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import "@/styles/account.scss";
 import IconUser from '@/public/icons/IconUser';
 import IconHeart from '@/public/icons/IconHeart';
@@ -12,6 +12,10 @@ import IconNotifi from '@/public/icons/IconNotifi';
 import IconGroup from '@/public/icons/IconGroup';
 import IconLogOut from '@/public/icons/IconLogOut';
 import { setAuthenticated } from '@/redux/authSlice';
+import PageLoader from '@/components/PageLoader';
+import ProductSlider from '@/components/slider/ProductSlider';
+import request from '@/utils/hooks/request';
+import { JsonContext } from '@/context/jsonContext';
 
 export default function AccountLayout({ children }) {
 
@@ -23,25 +27,31 @@ export default function AccountLayout({ children }) {
   const [pageName , setPageName] = useState('');
   const dispatch = useDispatch();
 
+  const { silverMode } = useContext(JsonContext);
+
+  const [productResponse , setProductResponse] = useState(null);
+
+
   useEffect(() => {
     if (typeof isAuth !== 'undefined') {
       setIsAuthChecked(true);
     }
   }, [isAuth , activePage]);
 
-  useEffect(() => {
-    if (isAuthChecked && !isAuth) {
-      router.push('/');
-    }
-  }, [isAuthChecked, isAuth, router]);
-
-
+  
   useEffect(() => {
     const path = router.asPath;
     setActivePage(path);
     setPageName(getPageName(pathname));
   }, [router.asPath]); 
 
+
+  useEffect(()=>{
+    request(`${process.env.NEXT_PUBLIC_DATA_API}/catalog/top/${silverMode ? 'silver' : 'gold' }`)
+    .then((data) => {
+      setProductResponse(data);
+    })
+  },[silverMode])
 
   const getPageName = (path) => {
     switch (path) {
@@ -63,15 +73,19 @@ export default function AccountLayout({ children }) {
   const handleLogout = (e) => {
     e.preventDefault();
     dispatch(setAuthenticated(false));
-    localStorage.removeItem("access_token");
-    window.location.reload();
+    localStorage.removeItem("token");
+    router.push('/');
   };
+
+  if(!productResponse){
+    return <PageLoader />
+  }
 
   return (
     <div className='mt-[100px] account_section'>
       <div className="custom_container !py-[90px]">
         <div className="active-page text-black text-[25px] uppercase">{pageName}</div>
-        <div className='account_line'>
+        <div className='account_line mb-[40px]'>
           <nav>
             <ul>
               <li>
@@ -106,8 +120,10 @@ export default function AccountLayout({ children }) {
               </li>
             </ul>
           </nav>
-          <main className='inner_wrapper w-full pr-[60px]'>{children}</main>
+          <main className='inner_wrapper w-full pr-[30px]'>{children}</main>
         </div>
+
+        <ProductSlider sliderContent={productResponse.best_sales} title='You may also like' />
       </div>
     </div>
   );

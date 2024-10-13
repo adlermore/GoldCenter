@@ -12,8 +12,9 @@ function LgToggle() {
 
   const changeActiveLg = (e, item) => {
     e.preventDefault();
+    e.stopPropagation();
     setActiveLg(item.lg);
-    setDropActive(!dropActive);
+    setDropActive(false); 
   };
 
   const dropToggle = () => {
@@ -27,10 +28,10 @@ function LgToggle() {
   });
 
   return (
-    <div className={`lg_toggle ${dropActive && "drop_opened"}`}>
+    <div className={`lg_toggle ${dropActive && "drop_opened"}`}        ref={ref}>
       <div
         className="lg_button  flex items-center cursor-pointer duration-300 hover:opacity-70 text-white gap-[7px]"
-        ref={ref}
+  
         onClick={dropToggle}
       >
         {activeLg} <IconArrowBottom />

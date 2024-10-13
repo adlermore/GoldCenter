@@ -54,7 +54,7 @@ export default function UserInfoPage() {
           <input
             placeholder="Enter name"
             autoComplete="on"
-            defaultValue={user?.name.split(' ')[0]}
+            // defaultValue={user?.name.split(' ')[0]}
             className="form-control"
             name="name"
             {...userInfo("namefirst", { required: true, minLength: 5 })}
@@ -70,7 +70,7 @@ export default function UserInfoPage() {
           <input
             placeholder="Enter surname"
             autoComplete="on"
-            defaultValue={user?.name.split(' ')[1]}
+            // defaultValue={user?.name.split(' ')[1]}
             className="form-control"
             name="name"
             {...userInfo("surname", { required: true, minLength: 5 })}
@@ -153,8 +153,8 @@ export default function UserInfoPage() {
           type="submit"
         className={
           status === 'loading'
-            ? " mt-[35px] max-w-fit min-w-[160px] px-[30px] !opacity-50 pointer-events-none [&>svg]:opacity-100 relative submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-white duration-300 hover:opacity-70 ml-auto justify-center flex items-center"
-            : " mt-[35px] max-w-fit min-w-[160px] px-[30px] relative [&>svg]:opacity-0 submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-white duration-300 hover:opacity-70 ml-auto justify-center flex items-center"
+            ? " mt-[35px] max-w-fit min-w-[160px] px-[30px] !opacity-50 pointer-events-none [&>svg]:opacity-100 relative submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-black duration-300 hover:opacity-70 ml-auto justify-center flex items-center"
+            : " mt-[35px] max-w-fit min-w-[160px] px-[30px] relative [&>svg]:opacity-0 submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-black duration-300 hover:opacity-70 ml-auto justify-center flex items-center"
         }
         >
           <svg

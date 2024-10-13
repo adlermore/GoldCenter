@@ -84,7 +84,7 @@ function ProductSlider({ sliderContent  , title}) {
   };
 
   return (
-    <div className="w-full relative product_slider py-[130px] laptopHorizontal:py-[60px] tablet:py-[30px]">
+    <div className="w-full relative product_slider py-[70px] laptopHorizontal:py-[60px] tablet:py-[30px]">
       <div className="custom_container">
         <div className="  text-[32px] text-black uppercase mb-[50px] laptopHorizontal:text-[24px]">
        {title}
@@ -95,7 +95,7 @@ function ProductSlider({ sliderContent  , title}) {
           ))}
         </Slider>
         <Link
-          href="/productListing"
+          href="/productListing?category=ring"
           className=" loadmore_btn mt-[58px] h-[50px] w-full max-w-[276px] bg-transparent border-white text-xl flex items-center justify-center border-2 text-white mx-auto  cursor-pointer hover:bg-siteCrem hover:border-siteCrem duration-300"
         >
           Load More
