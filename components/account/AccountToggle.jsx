@@ -92,11 +92,11 @@ function AccountToggle() {
           {isAuth ? (
             <div className="drop_ist" onClick={(e) => e.stopPropagation()}>
               <div className="drop_inner">
-                <div className="border-[#D3BA87] border-b-2 pb-[5px]">{`Hi ${user?.name || "User"
+                <div className="border-[#D3BA87] border-b-2 pb-[5px]">{`Hi ${user?.firstname || "User"
                   }`}</div>
                 <Link href='/account/userInfo' className="mt-[10px]"> My Account</Link>
                 <div
-                  className="p-[10px] mt-[10px]  duration-300 cursor-pointer hover:opacity-50"
+                  className=" mt-[12px]  duration-300 cursor-pointer hover:opacity-50"
                   onClick={handleLogout}
                 >
                   {" "}

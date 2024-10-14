@@ -23,7 +23,7 @@ export default function UserInfoPage() {
     // console.log('dataForm', dataForm);
   };
 
-  // console.log('user' , user);
+  console.log('user' , user);
   
 
   return (
@@ -54,7 +54,7 @@ export default function UserInfoPage() {
           <input
             placeholder="Enter name"
             autoComplete="on"
-            // defaultValue={user?.name.split(' ')[0]}
+            defaultValue={user?.firstname}
             className="form-control"
             name="name"
             {...userInfo("namefirst", { required: true, minLength: 5 })}
