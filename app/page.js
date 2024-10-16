@@ -22,7 +22,8 @@ export default function Home() {
   const { silverMode } = useContext(JsonContext);
 
   useEffect(()=>{
-    request(`${process.env.NEXT_PUBLIC_DATA_API}/catalog/top/${silverMode ? 'silver' : 'gold' }`)
+    // request(`${process.env.NEXT_PUBLIC_DATA_API}/catalog/top/${silverMode ? 'silver' : 'gold' }`)
+    request(`${process.env.NEXT_PUBLIC_DATA_API}/catalog/top`)
     .then((data) => {
       setProductResponse(data);
     })
