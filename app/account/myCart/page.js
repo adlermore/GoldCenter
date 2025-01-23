@@ -1,7 +1,5 @@
-// app/account/userInfo.tsx
+'use client'
 
-'use client'; // This makes the component a client component
-import Product from '@/components/product/Product';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
 import emptybag from '@/public/images/emptybag.png';
@@ -13,20 +11,22 @@ import cardInner1 from '@/public/images/cardInner1.png';
 import cardInner2 from '@/public/images/cardInner2.png';
 import cardInner3 from '@/public/images/cardInner3.png';
 import { useState } from 'react';
-import IconChack from '@/public/icons/IconChack';
 import IconChecked from '@/public/icons/IconChecked';
 import IconMap from '@/public/icons/IconMap';
 import IconBox from '@/public/icons/IconBox';
 import IconTruck from '@/public/icons/IconTruck';
+
 export default function Page() {
 
-  const cart = useSelector((state) => state.cart);
+  const [selectedOption, setSelectedOption] = useState('option1');
+
   const dispatch = useDispatch();
 
+  const cart = useSelector((state) => state.cart);
   const wishlist = useSelector(state => state.wishlist.items);
   const totalAmount = useSelector((state) => state.cart.totalAmount);
 
-
+  //Wish List Add
   const handleAddToWishlist = (product, callback) => {
     if (callback) {
       dispatch(removeFromWishlist(product));
@@ -35,13 +35,12 @@ export default function Page() {
     }
   };
 
+  //Wish List Remove
   const handleRemoveFromCart = (product) => {
     dispatch(removeFromCart(product));
   };
 
-
-  const [selectedOption, setSelectedOption] = useState('option1');
-
+  //Radio Change
   const handleChange = (event) => {
     setSelectedOption(event.target.value);
   };
@@ -110,15 +109,15 @@ export default function Page() {
                 checked={selectedOption === 'option1'}
                 defaultChecked = {true}
                 onChange={handleChange}
-                style={{ display: 'none' }} // Hide default radio button
+                style={{ display: 'none' }}
               />
               <label htmlFor="option1" className={`custom-radio ${selectedOption === 'option1' ? 'selected' : ''}`}>
                 <Image
-                  src={cardInner2} // Adjust the path as needed
+                  src={cardInner2}
                   alt="Option 1"
                   width={226}
                   height={184}
-                  priority={true} // Optional: Load the image with priority
+                  priority={true}
                 />
                 <span className='square'><IconChecked/></span>
               </label>
@@ -129,15 +128,15 @@ export default function Page() {
                 value="option2"
                 checked={selectedOption === 'option2'}
                 onChange={handleChange}
-                style={{ display: 'none' }} // Hide default radio button
+                style={{ display: 'none' }}
               />
               <label htmlFor="option2" className={`custom-radio ${selectedOption === 'option2' ? 'selected' : ''}`}>
                 <Image
-                  src={cardInner3} // Adjust the path as needed
+                  src={cardInner3}
                   alt="Option 2"
                   width={277}
                   height={184}
-                  priority={true} // Optional: Load the image with priority
+                  priority={true}
                 />
                 <span className='square'><IconChecked/></span>
               </label>

@@ -2,7 +2,6 @@
 
 import React, { useContext, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { JsonContext } from '@/context/jsonContext';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "@/validation/registerSchema";
@@ -11,13 +10,12 @@ import useOnClickOutside from '@/utils/hooks/useOnClickOutside';
 import IconClose from '@/public/icons/IconClose.jsx';
 import InputMask from "react-input-mask";
 
-
 function RegisterPopup() {
 
   const ref = useRef();
   const dispatch = useDispatch();
 
-  const { status, error } = useSelector((state) => state.auth);
+  const { status } = useSelector((state) => state.auth);
 
   //Close Popup after outside click
   useOnClickOutside(ref, () => {
@@ -26,6 +24,7 @@ function RegisterPopup() {
     }
   });
 
+  //Popup Close
   const closeRegister = () => {
     document.body.style.overflow = "";
     document.body.style.paddingRight = "";
@@ -37,7 +36,7 @@ function RegisterPopup() {
   }
 
   //validation init
-  const { register: registerForm, reset, setError, handleSubmit: handleSubmitForm, formState: { errors: errorsRegister } } = useForm({
+  const { register: registerForm, reset, handleSubmit: handleSubmitForm, formState: { errors: errorsRegister } } = useForm({
     resolver: zodResolver(registerSchema)
   });
 

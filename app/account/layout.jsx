@@ -21,16 +21,16 @@ export default function AccountLayout({ children }) {
 
   const pathname = usePathname();
   const router = useRouter();
+  const dispatch = useDispatch();
+
   const isAuth = useSelector((state) => state.auth.isAuthenticated); 
+
   const [isAuthChecked, setIsAuthChecked] = useState(false); 
   const [activePage, setActivePage] = useState(''); 
   const [pageName , setPageName] = useState('');
-  const dispatch = useDispatch();
-
-  const { silverMode } = useContext(JsonContext);
-
   const [productResponse , setProductResponse] = useState(null);
 
+  const { silverMode } = useContext(JsonContext);
 
   useEffect(() => {
     if (typeof isAuth !== 'undefined') {
@@ -38,13 +38,11 @@ export default function AccountLayout({ children }) {
     }
   }, [isAuth , activePage]);
 
-  
   useEffect(() => {
     const path = router.asPath;
     setActivePage(path);
     setPageName(getPageName(pathname));
   }, [router.asPath]); 
-
 
   useEffect(()=>{
     request(`${process.env.NEXT_PUBLIC_DATA_API}/catalog/top/${silverMode ? 'silver' : 'gold' }`)

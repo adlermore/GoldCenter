@@ -10,8 +10,10 @@ import useOnClickOutside from "@/utils/hooks/useOnClickOutside";
 import IconClose from "@/public/icons/IconClose.jsx";
 
 function LoginPopup() {
+  
   const ref = useRef();
   const dispatch = useDispatch();
+
   const [showPass, setShowPass] = useState(false);
 
   const { status } = useSelector((state) => state.auth);
@@ -33,6 +35,7 @@ function LoginPopup() {
     }
   });
 
+  //Popup Close
   const closeLogin = () => {
     document.body.style.overflow = "";
     document.body.style.paddingRight = "";
@@ -43,12 +46,13 @@ function LoginPopup() {
     });
   };
 
-  //sumbition Data
+  //Sumbition Data
   const loginSubmit = async (dataForm) => {
     dispatch(login(dataForm));
     reset();
   };
 
+  //Show Pass Toggle
   const passToggle = () => {
     setShowPass(!showPass);
   };

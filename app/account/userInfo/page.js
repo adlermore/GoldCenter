@@ -1,4 +1,5 @@
-'use client';
+'use client'
+
 import userImg from '@/public/images/userImg.png';
 import Image from 'next/image';
 import { userScheme } from '@/validation/userScheme';
@@ -8,7 +9,6 @@ import InputMask from "react-input-mask";
 import { useSelector } from 'react-redux';
 
 export default function UserInfoPage() {
-
 
   const { status } = useSelector((state) => state.auth);
   const user = useSelector((state) => state.auth.user);
@@ -22,9 +22,6 @@ export default function UserInfoPage() {
   const userInfoSubmit = async (dataForm) => {
     // console.log('dataForm', dataForm);
   };
-
-  // console.log('user' , user);
-  
 
   return (
     <div className='user_wrapper w-full'>

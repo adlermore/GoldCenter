@@ -1,4 +1,4 @@
-'use client';
+'use client'
 
 import { useState, useRef, useEffect, useContext } from 'react';
 import Slider from 'react-slick';
@@ -17,13 +17,13 @@ import ProductSlider from '@/components/slider/ProductSlider';
 const ProductPage = ({ params }) => {
 
 	const { activeLg, currency } = useContext(JsonContext);
-	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
 	const bigSliderRef = useRef(null);
 
+	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 	const [product, setProduct] = useState(null);
 	const [makeLike, setMakeLike] = useState(null);
 	const [assortment, setAssortment] = useState(null);
-
 
 	const smallImagesOpts = {
 		centerPadding: 0,
@@ -123,7 +123,6 @@ const ProductPage = ({ params }) => {
 				return product.price + '֏';
 		}
 	};
-
 
 	const getProductName = () => {
 

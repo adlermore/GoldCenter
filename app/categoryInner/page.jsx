@@ -1,4 +1,5 @@
 'use client'
+
 import CategoryGrid from '@/components/CategoryGrid'
 import PageLoader from '@/components/PageLoader'
 import MainSlider from '@/components/slider/MainSlider'

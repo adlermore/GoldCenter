@@ -18,7 +18,6 @@ function BrandPage({ params }) {
   const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(false);
 
-
   useEffect(() => {
     request(`${process.env.NEXT_PUBLIC_DATA_API}/user/about_store/${params.slug}`)
       .then((data) => {
@@ -38,17 +37,13 @@ function BrandPage({ params }) {
 
   }, [params.slug, silverMode, offset])
 
-
   if (!brandData || !brandProducts) {
     return <PageLoader />
   }
 
-
-
   const loadMoreProducts = () => {
     setOffset(prevOffset => prevOffset + limit);
   };
-
 
   return (
     <div className='brand_page pt-[160px]'>
