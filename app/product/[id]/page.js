@@ -125,7 +125,6 @@ const ProductPage = ({ params }) => {
 	};
 
 	const getProductName = () => {
-
 		switch (activeLg) {
 			case 'ENG':
 				return product.translation_data?.en.name;
@@ -260,6 +259,7 @@ const ProductPage = ({ params }) => {
 					</div>
 				</div>
 			</div>
+			
 			{/* <div className='mt-[20px] ml-auto w-full text-right text-[#916D50] text-xl'>
 				Read more
 			</div> */}
@@ -315,6 +315,7 @@ const ProductPage = ({ params }) => {
 								<span className="check_label ">Marquise</span>
 							</label>
 						</div>
+
 						<div className="mb-[15px] filter_stone_line">
 							<label htmlFor='filterStone2'>
 								<input type="checkbox" id='filterStone2' />
@@ -356,6 +357,7 @@ const ProductPage = ({ params }) => {
 						</div>
 					</div>
 				</div>
+
 				<div className='ml-auto flex items-center gap-[30px] pt-[30px]'>
 					<div className='ml-auto text-[30px]'>{getProducCurrency()}</div>
 					<button className='border-none bg-[#D3BA87] text-black text-xl h-[60px] ml-auto duration-300 cursor-pointer hover:opacity-70 w-[240px] ' onClick={handleAddToCart}>Add To Cart</button>
