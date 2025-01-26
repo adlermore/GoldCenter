@@ -43,16 +43,19 @@ export default function Home() {
   return (
     <div className="home_page">
       <MainSlider sliderData={homeSliderData} />
+      
       <div className="custom_container">
         <div className="my-[42px] flex items-center justify-center">
           <SiteSwitch />
         </div>
       </div>
+
       <CategoryGrid category={categoryGrid} />
       <ProductSlider sliderContent={productResponse.best_sales} title='BEST SALES' />
       <ParentSlider>
         {brandsData && brandsData.map((store, i) => (
           <div key={i}>
+
             <ChildSlider gallery={[store.logo , ...store.pictures]} />
             <div className="mt-[30px] laptop:mt-20 text-[20px] text-center">
               {store.company_name}

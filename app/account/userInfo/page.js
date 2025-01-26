@@ -20,7 +20,7 @@ export default function UserInfoPage() {
 
   //sumbition Data
   const userInfoSubmit = async (dataForm) => {
-    // console.log('dataForm', dataForm);
+    console.log('dataForm', dataForm);
   };
 
   return (
