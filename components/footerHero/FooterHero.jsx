@@ -26,10 +26,10 @@ function FooterHero() {
           <div className="flex items-center text-xl mt-[35px] gap-[30px] laptopHorizontal:mt-20 laptopHorizontal:gap-20 laptopHorizontal:text-base">
             <IconFooterHero1 />A Pre-qualified & Trusted Network
           </div>
-          <div className="flex items-center text-xl mt-[35px] gap-[30px] laptopHorizontal:mt-20 laptopHorizontal:gap-20 laptopHorizontal:text-base">
+          {/* <div className="flex items-center text-xl mt-[35px] gap-[30px] laptopHorizontal:mt-20 laptopHorizontal:gap-20 laptopHorizontal:text-base">
             <IconFooterHero2 />
             Item Quality Assurance
-          </div>
+          </div> */}
           <div className="flex items-center text-xl mt-[35px] gap-[30px] laptopHorizontal:mt-20 laptopHorizontal:gap-20 laptopHorizontal:text-base">
             <IconFooterHero3 />
             Rich Abundance of Choices

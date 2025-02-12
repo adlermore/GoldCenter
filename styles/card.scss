@@ -216,6 +216,21 @@
         }
     }
 
+    .fix_section{
+        position: fixed;
+        right: 0;
+        background: white;
+        border-radius: 15px;
+        padding: 20px 15px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        >div{
+            flex: 1;
+        }
+    }
+
     .subtotal_block {
         display: flex;
         justify-content: space-between;
