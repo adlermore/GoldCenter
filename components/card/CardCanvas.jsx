@@ -66,7 +66,6 @@ function CardCanvas() {
   };
 
 
-  //Login Popup Open
   const loginPopupOpen = () => {
     const scrollBarWidth = detectScrollBarWidth();
     document.body.style.overflow = "hidden";
@@ -80,9 +79,8 @@ function CardCanvas() {
     });
   };
 
-    const wishlist = useSelector(state => state.wishlist.items);
-
-
+  const wishlist = useSelector(state => state.wishlist.items);
+  
   const handleAddToWishlist = (product ,callback) => {    
     if (isAuth) {
       if (callback) {
