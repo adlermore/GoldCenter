@@ -99,8 +99,7 @@ function AccountToggle() {
                   className="p-[10px] mt-[10px]  duration-300 cursor-pointer hover:opacity-50"
                   onClick={handleLogout}
                 >
-                  {" "}
-                  Logout{" "}
+                  Logout
                 </div>
               </div>
             </div>
