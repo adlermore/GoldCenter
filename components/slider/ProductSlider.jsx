@@ -6,39 +6,40 @@ import IconArrowLeft from "@/public/icons/IconArrowLeft";
 import IconArrowRight from "@/public/icons/IconArrowRight";
 import Product from "../product/Product";
 
-function ProductSlider({ sliderContent  , title}) {
-  
+function ProductSlider({ sliderContent, title, setmode }) {
+
   let dragging = false;
 
   function SampleNextArrow(props) {
-    const { style, onClick } = props;
+    const { className, style, onClick } = props;
     return (
       <div
-        className="custom_slider_arr_right"
+        className={`${className} custom_slider_arr_right ${className.includes("slick-disabled") ? "disabled" : ""
+          }`}
         style={{ ...style }}
         onClick={onClick}
       >
-        <IconArrowRight  />
+        <IconArrowRight />
       </div>
     );
   }
 
   function SamplePrevArrow(props) {
-    const { style, onClick } = props;
+    const { className, style, onClick } = props;
     return (
       <div
-        className="custom_slider_arr_left"
+        className={`${className} custom_slider_arr_left ${className.includes("slick-disabled") ? "disabled" : ""
+          }`}
         style={{ ...style }}
         onClick={onClick}
       >
-        {" "}
-        <IconArrowLeft/>
+        <IconArrowLeft />
       </div>
     );
   }
 
   const settings = {
-    infinite: true,
+    infinite: false,
     dots: false,
     autoplay: false,
     speed: 500,
@@ -85,21 +86,27 @@ function ProductSlider({ sliderContent  , title}) {
 
   return (
     <div className="w-full relative product_slider py-[70px] laptopHorizontal:py-[60px] tablet:py-[30px]">
-      <div className="custom_container">
-        <div className="  text-[32px] text-black uppercase mb-[50px] laptopHorizontal:text-[24px]">
-       {title}
+      <div className={` ${setmode ? 'setSilder' : ''} custom_container`}>
+        <div className="  section_title text-[32px] mobile:text-[20px] text-black uppercase mb-[50px] laptopHorizontal:text-[24px]">
+          {title}
         </div>
         <Slider {...settings}>
           {sliderContent && sliderContent.map((product, i) => (
-            <Product  key={i}  product={product} onClick={(e) => dragging && e.preventDefault()} />
+            <Product key={i} product={product} onClick={(e) => dragging && e.preventDefault()} />
           ))}
+          {!setmode &&
+            <div className="slider_block products_link">
+              <div className="product_image h-[388px] laptopHorizontal:h-[350px] tablet:h-[300px] overflow-hidden laptop:h-[320px] bg-white w-full flex justify-center items-center relative">
+                <Link
+                  href="/productListing?category=ring"
+                  className="w-full h-full flex justify-center link_inner items-center relative !opacity-1"
+                >
+                  <span>Products page</span>
+                </Link>
+              </div>
+            </div>
+          }
         </Slider>
-        <Link
-          href="/productListing?category=ring"
-          className=" loadmore_btn mt-[58px] h-[50px] w-full max-w-[276px] bg-transparent border-white text-xl flex items-center justify-center border-2 text-white mx-auto  cursor-pointer hover:bg-siteCrem hover:border-siteCrem duration-300"
-        >
-          Load More
-        </Link>
       </div>
     </div>
   );

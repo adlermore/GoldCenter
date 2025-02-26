@@ -1,4 +1,6 @@
-async function request(url, method = "GET", body) {
+import Cookies from 'js-cookie';
+
+async function request(url, method = "GET", body , auth = false) {
   let config = {
     method: method,
     headers: {
@@ -8,6 +10,11 @@ async function request(url, method = "GET", body) {
   if (body) {
     config.body = JSON.stringify(body);
   }
+  
+  if (auth) {
+    config.headers["Authorization"] = `Bearer ${Cookies.get("token")}`;
+  }
+
   try {
     const response = await fetch(url, config);
     const result_1 = await response.json();

@@ -1,22 +1,39 @@
 'use client'
 
 import IconChecked from '@/public/icons/IconChecked'
-import { filterCategory, filterColors, filterFineness, filterOrigin, filterStyle, filterSubCategory, filterType } from '@/utils/data/productList'
-import Link from 'next/link'
-import { Suspense, useState } from 'react';
+import { filterColors, filterFineness, filterOrigin, filterSubCategory, filterType } from '@/utils/data/productList'
+import { Suspense, useEffect, useState } from 'react';
 import PageLoader from '@/components/PageLoader';
 import ProductList from '@/components/product/ProductList';
+import { useSearchParams } from 'next/navigation';
+import IconClose from '@/public/icons/IconClose';
 
 export default function ProductListing() {
+	const searchParams = useSearchParams();
+
+	const [activeFilter, setActiveFilter] = useState(false);
+
+	const initialSubcategory = searchParams.get('subcategory') || '';
+	const initialType = searchParams.get('type') || '';
 
 	const [filters, setFilters] = useState({
-		subcategory: '',
-		type: '',
+		subcategory: initialSubcategory,
+		type: initialType,
 		origin: [],
 		fineness: [],
 		colors: [],
 		stoneLine: []
 	});
+
+	useEffect(() => {
+		if (initialSubcategory || initialType) {
+			setFilters(prevFilters => ({
+				...prevFilters,
+				subcategory: initialSubcategory,
+				type: initialType,
+			}));
+		}
+	}, [initialSubcategory, initialType]);
 
 	const handleFilterChange = (filterType, value) => {
 		setFilters(prevFilters => {
@@ -42,20 +59,27 @@ export default function ProductListing() {
 			colors: [],
 			stoneLine: []
 		});
+		setActiveFilter(false)
 	};
 
+	const handleFilterToggle = () => {
+		setActiveFilter(!activeFilter)
+	}
 
-
+	const handleCloseFilter = () =>{
+		setActiveFilter(false)
+	}
 
 	return (
-		<div className='product_page pb-[50px]'>
-			<div className='cover_container !mt-[150px] text-[24px] uppercase !pl-[335px]'>
+		<div className='product_page pb-[50px] laptopHorizontal:pb-[30px]'>
+			<div className='cover_container !mt-[150px] tablet:!mt-[140px] tablet:text-[18px] laptopHorizontal:!mt-[120px] text-[24px] laptopHorizontal:text-[22px] laptop:!pl-[30px] laptopHorizontal:!pl-[280px] uppercase !pl-[335px]'>
 				PRODUCTS
 			</div>
-			<div className='cover_container flex gap-[25px] !mt-[70px]'>
-				<div className='filter_block border border-1 border-[#F8F6F5] p-[25px] max-w-[290px] h-fit w-full'>
+			<button className='filter_toggle' onClick={handleFilterToggle}>Filter</button>
+			<div className='cover_container laptop:flex-col-reverse relative flex gap-[25px] !mt-[70px] laptopHorizontal:!mt-[40px]'>
+				<div className={`filter_block border border-1 border-[#F8F6F5] p-[25px] max-w-[290px] h-fit w-full ${activeFilter ? 'filter_opened' : ''}`}>
 					<div className='mb-[30px]' >
-						<div className='text-xl  text-[#333333] mb-20'>Category</div>
+						<div className='text-xl  inline_categoryy text-[#333333] mb-20'>Category <span className='icon_closee' onClick={handleCloseFilter}><IconClose /></span></div>
 						{filterSubCategory.map((filter, index) => (
 							<div key={index} className="mb-[10px] filter_line radio_line">
 								<label htmlFor={`filter1${filter}`}>
@@ -213,7 +237,6 @@ export default function ProductListing() {
 					</div>
 					<div className='flex w-full btn_line'>
 						<button className='clear_btn ' onClick={clearAllFilters}>Clear</button>
-						{/* <button className='apply_btn'>Apply</button> */}
 					</div>
 				</div>
 				<div className='w-full'>

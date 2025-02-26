@@ -82,10 +82,7 @@ module.exports = {
       addComponents({
         ".card": {
           backgroundColor: theme("colors.siteColor"),
-          borderRadius: theme("borderRadius.lg"),
           fontFamily: theme("fontFamily.bold"),
-          padding: theme("spacing.6"),
-          boxShadow: theme("boxShadow.xl"),
         }
       });
       addUtilities({

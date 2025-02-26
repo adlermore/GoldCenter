@@ -23,8 +23,8 @@ function ChildSlider({ gallery }) {
   return (
     <div className="multyChild_slider" ref={sliderContainerRef}>
       <Slider ref={sliderRef} {...childSettings}>
-        {gallery && gallery.map((gallery, i) => (
-          <div key={i} className="h-[476px] laptopHorizontal:h-[400px] p-[40px] tablet:h-[320px] bg-white flex items-center  justify-center w-full relative" >
+        {gallery && gallery.slice(0,3).map((gallery, i) => (
+          <div key={i} className="h-[230px] laptopHorizontal:h-[230px] p-[20px] tablet:h-[320px] bg-white flex items-center  justify-center w-full relative" >
             <div className="relative w-full h-full">
             <Image
               src={gallery}
@@ -35,7 +35,6 @@ function ChildSlider({ gallery }) {
               className="w-full object-contain"
             />
             </div>
-   
             <span className="product_links z-[999] flex flex-col items-center absolute top-20 right-15">
               <button className="block" aria-label="Add to Favorite">
                 <IconProductHeartWhite className='w-[26px] ' />

@@ -4,9 +4,9 @@
 @import 'extendsEnd';
 
 
-.productInner_page{
-	.custom_container{
-    max-width: 1400px;
+.productInner_page {
+	.custom_container {
+		max-width: 1400px;
 	}
 }
 
@@ -20,14 +20,15 @@
 		flex: 0 0 50%;
 		max-width: 50%;
 		padding-right: 10px;
-		max-height: 680px;
+		max-height: 600px;
 	}
 
 	.img_block {
 		width: 100%;
 		height: 100%;
 		position: relative;
-		video{
+
+		video {
 			position: absolute;
 			top: 0;
 			bottom: 0;
@@ -53,7 +54,7 @@
 		.slide_block {
 			padding: 10px 0;
 			height: 100%;
-			height: 240px;
+			height: 210px;
 		}
 
 		.slick-track {
@@ -83,7 +84,7 @@
 
 				&.slick-next {
 					position: absolute;
-					top: 92% !important;
+					top: 90% !important;
 					margin-left: -5px;
 					transform: rotate(90deg);
 				}
@@ -120,7 +121,7 @@
 		width: 50%;
 		padding-left: 23px;
 		overflow: hidden;
-		max-height: 680px;
+		max-height: 600px;
 		height: 100%;
 		@include slider();
 
@@ -132,7 +133,7 @@
 
 			.img_block {
 				background-color: $white;
-				max-height: 680px;
+				max-height: 600px;
 				display: block;
 				@extend %standardNarrow;
 			}
@@ -171,23 +172,112 @@
 			@include transStyle(rotate(90deg));
 		}
 	}
-	.product_table{
-		margin-top: 30px;
+
+	.product_table {
+		margin-top: 20px;
 		width: 100%;
-		.table_line{
+
+		.table_line {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			font-size: 20px;
-			line-height: 24px;
+			font-size: 18px;
+			line-height: 20px;
 			color: $black;
-			padding-bottom: 20px;
-			margin-bottom: 20px;
-			border-bottom: 2px solid #D3BA87;
+			padding-bottom: 17px;
+			transition: 0.3s;
+			margin-bottom: 17px;
+			border-bottom: 1px solid #D3BA87;
 		}
 	}
 
 }
+
+.quality_block {
+	border: 1px solid #D3BA87;
+	background: transparent;
+	border-radius: 0;
+	height: 45px;
+	width: 150px;
+}
+
+.silverMode .product_section {
+	.product_table {
+		.table_line {
+			border-bottom: 1px solid #D1D4D7;
+		}
+	}
+
+	.quality_block {
+		border: 1px solid #D1D4D7;
+	}
+}
+
+.zoom_popup {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgb(0 0 0 / 60%);
+	z-index: 999999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px;
+
+	.zoom_inner {
+		background: white;
+		border-radius: 5px;
+		padding: 10px;
+		width: 1100px;
+		height: 700px;
+		position: relative;
+		overflow: hidden;
+
+		// box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+		a {
+			position: absolute;
+			right: 10px;
+			top: 10px;
+			z-index: 99;
+		}
+	}
+
+	.react-transform-wrapper {
+		display: flex;
+		margin: 0 auto;
+		// width: 100%;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.zoom_control {
+		margin-bottom: 20px;
+		display: flex;
+		justify-content: center;
+
+		button {
+			font-size: 12px;
+			padding: 0 20px !important;
+			min-width: 100px;
+			height: 35px;
+		}
+	}
+
+	.react-transform-component {
+		// height: 500px !important;
+		margin: 0 auto;
+	}
+
+	.inner_div {
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+		position: relative;
+	}
+}
+
 
 @media #{$until1440} {
 	.product_section {
@@ -314,89 +404,6 @@
 			flex: none;
 			padding: 0;
 			max-height: none;
-		}
-
-		.small_images {
-			width: 100%;
-			padding: 0;
-			max-width: 100%;
-			margin: 0 auto;
-
-			.images_slider {
-				@include slider();
-
-				&:before,
-				&:after {
-					top: 0;
-					height: 100%;
-					width: 20px;
-					background: $white;
-					z-index: 1;
-				}
-
-				&:before {
-					left: -10px;
-				}
-
-				&:after {
-					right: -10px;
-				}
-
-				&.slick-slider {
-					overflow: visible;
-				}
-
-				.slide_block {
-					height: 100%;
-					max-height: none;
-					vertical-align: top;
-					@include slide;
-					max-height: none;
-					padding: 0 10px;
-
-					.img_block {
-						&.selected {
-							opacity: 1 !important;
-						}
-
-						&::before {
-							padding-bottom: 120%;
-						}
-					}
-				}
-			}
-
-			.slick-arrow {
-				margin-left: 0;
-
-				&:before {
-					font-size: 2.6rem;
-				}
-
-				&.slick-prev {
-					left: -16px;
-					transform: rotate(90deg) !important;
-					top: 50%;
-					margin-top: -8px;
-				}
-
-				&.slick-next {
-					left: auto;
-					right: -16px;
-					top: 50%;
-					margin-top: -8px;
-					bottom: auto !important;
-					transform: rotate(-90deg);
-				}
-			}
-		}
-
-		.big_images {
-			width: 100%;
-			max-width: 600px;
-			padding: 0;
-			margin: 0 auto 20px;
-			display: none;
 		}
 	}
 

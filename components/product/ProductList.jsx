@@ -10,28 +10,29 @@ function ProductList({ filters }) {
     const { silverMode } = useContext(JsonContext);
     const [listingData, setListingData] = useState([]);
     const [offset, setOffset] = useState(0);
-    const [limit] = useState(12); // Set your limit here
+    const [limit] = useState(12); 
     const [hasMore, setHasMore] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const searchParams = useSearchParams();
-    let subcategory = searchParams.get('subcategory');
-    let category = searchParams.get('category');
+
+    let subcategory = searchParams.get('subcategory') || '';
+    let filter = searchParams.get('filter') || '';
+    let category = searchParams.get('type') || '';
     let origin;
     let fineness;
     let colors;
 
-
     const getOriginString = () => {
-        return filters.origin.length > 0 ? `&origin=${filters.origin.join(',')}` : '';
+        return filters?.origin.length > 0 ? `&origin=${filters?.origin.join(',')}` : '';
     };
     
     const getFinenessString = () => {
-        return filters.fineness.length > 0 ? `&fineness=${filters.fineness.join(',')}` : '';
+        return filters?.fineness.length > 0 ? `&fineness=${filters?.fineness.join(',')}` : '';
     };
     
     const getColorsString = () => {
-        return filters.colors.length > 0 ? `&colors=${filters.colors.join(',')}` : '';
+        return filters?.colors.length > 0 ? `&colors=${filters?.colors.join(',')}` : '';
     };
 
     useEffect(() => {
@@ -55,18 +56,15 @@ function ProductList({ filters }) {
         // Fetch products based on current offset and limit
         setLoading(true); // Set loading to true when fetching starts
         request(`
-            ${process.env.NEXT_PUBLIC_DATA_API}/products/catalog?metal=${silverMode ? 'silver' : 'gold'}&type=${category || 'other'}&subcategory=${subcategory}${origin}${fineness}${colors}&limit=${limit}&offset=${offset}`)
+            ${process.env.NEXT_PUBLIC_DATA_API}/products/catalog?metal=${silverMode ? 'silver' : 'gold'}&filter=${filter || ''}&type=${category || ''}&subcategory=${subcategory || ''}${origin}${fineness}${colors}&limit=${limit}&offset=${offset}`)
             .then((data) => {
                 setListingData(prevData => [...prevData, ...data.catalog]);
                 setHasMore(data.catalog.length === limit);
             })
-            .catch(error => {
-                console.log(error);
-            })
             .finally(() => {
                 setLoading(false);
             });
-    }, [silverMode, subcategory, category, offset, filters, limit]);
+    }, [silverMode, searchParams, subcategory, category, offset, filters, limit]);
 
     const loadMoreProducts = () => {
         setOffset(prevOffset => prevOffset + limit);
@@ -74,7 +72,7 @@ function ProductList({ filters }) {
 
     return (
         <>
-            <div className='grid grid-cols-4 gap-[15px]'>
+            <div className='grid grid-cols-4 gap-[15px] product_grid_block'>
                 {listingData.length > 0 ?
                     listingData.map((product, index) => (
                         <Product key={index} product={product} />
@@ -86,7 +84,7 @@ function ProductList({ filters }) {
             {hasMore && (
                 <button
                     disabled={loading}
-                    className="loadmore_btn mt-[58px] relative h-[50px] w-full max-w-[276px] mx-auto bg-transparent border-white text-xl flex items-center justify-center border text-white cursor-pointer hover:bg-siteCrem hover:border-siteCrem duration-300"
+                    className="loadmore_btn mt-[58px] relative h-[50px] w-full max-w-[276px] mx-auto bg-transparent border-white text-xl flex items-center justify-center border text-white cursor-pointer hover:bg-siteCrem borderSilver hover:border-siteCrem duration-300"
                     onClick={loadMoreProducts}
                 >
                     {loading && (

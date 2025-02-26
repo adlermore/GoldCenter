@@ -11,6 +11,8 @@
 /.next/
 /out/
 
+*.rar
+
 # production
 /build
 

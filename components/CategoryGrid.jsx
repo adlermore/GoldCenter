@@ -6,19 +6,19 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useContext } from "react";
 
-function CategoryGrid({ category , subcategory }) {
-  const { silverMode} = useContext(JsonContext);
+function CategoryGrid({ category, subcategory }) {
+  const { silverMode } = useContext(JsonContext);
 
   return (
     <div className="grid gap-[15px] grid-cols-4 w-full laptop:grid-cols-2 mobile:gap-[5px] ">
       {category && category.map((category, i) => (
         <Link
-          href={`/productListing?category=${category.title.toLowerCase().slice(0, -1)}&subcategory=${subcategory || ''}`}
+          href={`/productListing?type=${category.title !== 'Accessories' ? category.title.toLowerCase().slice(0, -1) : category.title.toLowerCase()}`}
           key={i}
           className="h-[420px] w-full block relative category_block laptopHorizontal:h-[350px] mobile:h-[200px]"
         >
           <Image
-            src={silverMode ? category.imageSilver  : category.image}
+            src={silverMode ? category.imageSilver : category.image}
             unoptimized={true}
             alt="category_Image"
             fill
@@ -29,7 +29,6 @@ function CategoryGrid({ category , subcategory }) {
             {category.title}
             <span className="flex items-center relative  w-fit text-sm">
               Shop Now
-              <IconArrowBottom className="absolute  rotate-[-90deg] duration-300 mt-[2px] right-[-15px]" />
             </span>
           </span>
         </Link>

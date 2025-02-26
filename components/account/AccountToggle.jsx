@@ -7,6 +7,8 @@ import IconUser from "@/public/icons/IconUser";
 import useOnClickOutside from "@/utils/hooks/useOnClickOutside";
 import Link from "next/link";
 import { resetWishlist } from "@/redux/wishlistSlice";
+import Cookies from "js-cookie";
+
 
 function AccountToggle() {
   const isAuth = useSelector((state) => state.auth.isAuthenticated);
@@ -14,7 +16,7 @@ function AccountToggle() {
   const [dropActive, setDropActive] = useState(false);
   const accountRef = useRef();
   const dispatch = useDispatch();
-
+  
   const detectScrollBarWidth = () => {
     const documentWidth = document.documentElement.clientWidth;
     const windowWidth = window.innerWidth;
@@ -63,6 +65,7 @@ function AccountToggle() {
       dispatch(setAuthenticated(false));
       dispatch(resetWishlist());
       localStorage.removeItem("token");
+      Cookies.remove("token");
       window.location.reload();
     }, 300);
   };
@@ -78,13 +81,13 @@ function AccountToggle() {
   });
 
   return (
-    <div className="account_toggle flex justify-center items-center">
+    <div className="account_toggle flex justify-center items-center ">
       <div
         className={`${dropActive && "drop_opened"} account_drop`}
         ref={accountRef}
       >
         <div className="drop_btn cursor-pointer" onClick={dropToggle}>
-          <div className="flex relative">
+          <div className="flex relative duration-300 cursor-pointer hover:opacity-70">
             <IconUser className="text-white [&>path]:fill-white" />
           </div>
         </div>
@@ -92,21 +95,22 @@ function AccountToggle() {
           {isAuth ? (
             <div className="drop_ist" onClick={(e) => e.stopPropagation()}>
               <div className="drop_inner">
-                <div className="border-[#D3BA87] border-b-2 pb-[5px]">{`Hi ${user?.name || "User"
+                <div className="border-[#D3BA87] border-b-2 pb-[5px] borderSilver">{`Hi ${user?.firstname || "User"
                   }`}</div>
                 <Link href='/account/userInfo' className="mt-[10px]"> My Account</Link>
                 <div
-                  className="p-[10px] mt-[10px]  duration-300 cursor-pointer hover:opacity-50"
+                  className="p-[5px] mt-[10px]  duration-300 cursor-pointer hover:opacity-50"
                   onClick={handleLogout}
                 >
-                  Logout
+                  {" "}
+                  Logout{" "}
                 </div>
               </div>
             </div>
           ) : (
             <div className="drop_ist">
               <div className="drop_inner">
-                <div className="border-[#D3BA87] border-b-2 pb-[5px]">
+                <div className="border-[#D3BA87] border-b-2 pb-[5px] borderSilver">
                   My Account
                 </div>
                 <a

@@ -6,9 +6,11 @@ import { useRouter } from "next/navigation";
 function SearchToggle() {
 	
   const [searchOpened, setsearchOpened] = useState(false);
+
   const SearchRef = useRef(null);
 
   const ref = useRef();
+
   const router = useRouter();
 
   useOnClickOutside(ref, () => {

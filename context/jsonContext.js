@@ -7,7 +7,7 @@ const JsonContext = createContext();
 const JsonContextProvider = ({ children }) => {
   const [silverMode, setSilverMode] = useState(false);
   const [currency, setCurrency ] = useState('amd');
-  const [activeLg, setActiveLg] = useState("EN"); 
+  const [activeLg, setActiveLg] = useState("en-Us"); 
 
   useEffect(() => {
     
@@ -20,7 +20,7 @@ const JsonContextProvider = ({ children }) => {
     return () => {
       document.body.classList.remove("silverMode");
     };
-  }, [silverMode]);
+  }, [silverMode , activeLg]);
 
   return (
     <JsonContext.Provider

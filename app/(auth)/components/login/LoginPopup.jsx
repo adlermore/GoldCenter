@@ -10,10 +10,8 @@ import useOnClickOutside from "@/utils/hooks/useOnClickOutside";
 import IconClose from "@/public/icons/IconClose.jsx";
 
 function LoginPopup() {
-  
   const ref = useRef();
   const dispatch = useDispatch();
-
   const [showPass, setShowPass] = useState(false);
 
   const { status } = useSelector((state) => state.auth);
@@ -35,7 +33,6 @@ function LoginPopup() {
     }
   });
 
-  //Popup Close
   const closeLogin = () => {
     document.body.style.overflow = "";
     document.body.style.paddingRight = "";
@@ -46,13 +43,12 @@ function LoginPopup() {
     });
   };
 
-  //Sumbition Data
+  //sumbition Data
   const loginSubmit = async (dataForm) => {
     dispatch(login(dataForm));
     reset();
   };
 
-  //Show Pass Toggle
   const passToggle = () => {
     setShowPass(!showPass);
   };
@@ -115,7 +111,7 @@ function LoginPopup() {
                 Password
               </div>
               <input
-                placeholder="Enter full name"
+                placeholder="Enter password"
                 autoComplete="on"
                 className="form-control"
                 name="password"
@@ -165,11 +161,11 @@ function LoginPopup() {
                   fill="#1C64F2"
                 ></path>
               </svg>
-              {status === "loading" ? "Login ..." : " Login"}
+              {status === "loading" ? "" : " Login"}
             </button>
-            <a href="/" className="mt-[15px] text-sm text-center block">
+            {/* <a href="/" className="mt-[15px] text-sm text-center block">
               Forgot Your Password ?
-            </a>
+            </a> */}
           </form>
         </div>
       </div>

@@ -34,7 +34,7 @@ function SiteSwitch({ isHeader }) {
           </div>
         </div>
       ) : (
-        <div className="tablet:ml-0 justify-start  laptop:ml-20  items-center gap-[8px] ml-auto inline-flex pt-[5px] ">
+        <div className="tablet:ml-0 justify-start  laptop:ml-20  items-center gap-[8px] ml-[40px] inline-flex pt-[5px] ">
           <div className="text-center text-[#d3b987]">Gold</div>
           <div
             className="w-[22.08px] h-[13.25px] relative cursor-pointer"

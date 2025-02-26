@@ -23,7 +23,7 @@ function MainSlider({sliderData}) {
   };
 
   return (
-    <div className="w-full relative slick_wrapper laptop:mt-[85px]">
+    <div className="w-full relative slick_wrapper laptop:mt-[80px] tablet:mt-[110px] ">
       <Slider {...settings} >
         {sliderData.map((slider , index ) => (
           <div key={index} className='slider_container h-[606px] w-full relative laptopHorizontal:h-[500px] laptop:h-[400px] mobile:h-[300px]'>

@@ -11,65 +11,70 @@ import FooterHero from "@/components/footerHero/FooterHero";
 import { homeSliderData } from "@/utils/data/homeData";
 import { categoryGrid } from "@/utils/data/homeData";
 import { useContext, useEffect, useState } from "react";
-import PageLoader from "@/components/PageLoader";
 import request from "@/utils/hooks/request";
 import { JsonContext } from "@/context/jsonContext";
+import SliderSceleton from "@/components/slider/SliderSceleton";
+import HomeSearch from "@/components/search/HomeSearch";
 
 export default function Home() {
 
-  const [productResponse , setProductResponse] = useState(null);
-  const [brandsData , setBrandsData] = useState(null);
+  const [productResponse, setProductResponse] = useState(null);
+  const [brandsData, setBrandsData] = useState(null);
+
   const { silverMode } = useContext(JsonContext);
 
-  useEffect(()=>{
-    request(`${process.env.NEXT_PUBLIC_DATA_API}/catalog/top/${silverMode ? 'silver' : 'gold' }`)
-    // request(`${process.env.NEXT_PUBLIC_DATA_API}/catalog/top`)
-    .then((data) => {
-      setProductResponse(data);
-    })
+  useEffect(() => {
+    request(`${process.env.NEXT_PUBLIC_DATA_API}/catalog/top/${silverMode ? 'silver' : 'gold'}`)
+      .then((data) => {
+        setProductResponse(data);
+      })
     request(`${process.env.NEXT_PUBLIC_DATA_API}/brands`)
-    .then((data) => {
-      setBrandsData(data.brands);
-    })
-    .catch(error => {
-        console.log(error);
-    })
-  },[silverMode])
+      .then((data) => {
+        setBrandsData(data.brands);
+      })
+  }, [silverMode])
 
-  if(!productResponse || !setBrandsData){
-    return <PageLoader />
-  }
-  
+
   return (
     <div className="home_page">
       <MainSlider sliderData={homeSliderData} />
-      
-      <div className="custom_container">
-        <div className="my-[42px] flex items-center justify-center">
+       <div className="custom_container">
+        <div className="mt-[50px] flex items-center justify-center">
+          <HomeSearch />
+        </div>
+        <div className="my-[40px] flex items-center justify-center">
           <SiteSwitch />
         </div>
       </div>
-
       <CategoryGrid category={categoryGrid} />
-      <ProductSlider sliderContent={productResponse.best_sales} title='BEST SALES' />
-      <ParentSlider>
-        {brandsData && brandsData.map((store, i) => (
-          <div key={i}>
-
-            <ChildSlider gallery={[store.logo , ...store.pictures]} />
-            <div className="mt-[30px] laptop:mt-20 text-[20px] text-center">
+      {productResponse ?
+        <ProductSlider sliderContent={productResponse.best_sales} title='BEST SELLERS' />
+        :
+        <SliderSceleton title='BEST SELLERS' />
+      }
+      {brandsData && <ParentSlider>
+        {brandsData.map((store, i) => (
+          <Link
+            className="inactive_link"
+            key={i}
+            href={`/brand/${store?.id}`}
+          >
+            <ChildSlider gallery={[store.logo, ...store.pictures]} />
+            <div className="mt-[20px] laptop:mt-20  text-[18px] text-center">
               {store.company_name}
             </div>
-            <Link
-              href={`/brand/${store?.id}`}
-              className="visitStore_btn flex items-center w-[215px] mx-auto h-[50px] text-[#916D50] text-[24px] bg-[#F8F6F5] justify-center mt-[25px] laptop:mt-15  laptop:text-base"
-            >
-              Visit Store
-            </Link>
-          </div>
+          </Link>
         ))}
-      </ParentSlider>
-      <ProductSlider sliderContent={productResponse.most_viewed} title='MOST VIEWED' />
+
+
+
+        
+      </ParentSlider>}
+      {productResponse ?
+        <ProductSlider sliderContent={productResponse.most_viewed} title='MOST VIEWED' />
+        :
+        <SliderSceleton title='MOST VIEWED' />
+      }
       <FooterHero />
     </div>
   );
