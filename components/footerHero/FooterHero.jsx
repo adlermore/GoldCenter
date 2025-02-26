@@ -11,8 +11,6 @@ import { JsonContext } from "@/context/jsonContext";
 function FooterHero() {
   
   const { silverMode } = useContext(JsonContext);
-
-
   return (
     <div className="flex bg-white relative tablet:pb-[40px]">
       <div className="custom_container flex justify-between overflow-hidden h-[650px] laptopHorizontal:h-[500px] tablet:flex-col tablet:h-auto">
@@ -25,6 +23,10 @@ function FooterHero() {
           </div>
           <div className="flex items-center text-xl mt-[35px] gap-[30px] laptopHorizontal:mt-20 laptopHorizontal:gap-20 laptopHorizontal:text-base">
             <IconFooterHero1 />A Pre-qualified & Trusted Network
+          </div>
+          <div className="flex items-center text-xl mt-[35px] gap-[30px] laptopHorizontal:mt-20 laptopHorizontal:gap-20 laptopHorizontal:text-base">
+            <IconFooterHero2 />
+            Item Quality Assurance
           </div>
           <div className="flex items-center text-xl mt-[35px] gap-[30px] laptopHorizontal:mt-20 laptopHorizontal:gap-20 laptopHorizontal:text-base">
             <IconFooterHero3 />

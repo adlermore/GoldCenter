@@ -72,24 +72,26 @@ function Product({ product, onClick }) {
     }
   };
 
-  const getProducCurrency = () => {
+  const getProductCurrency = () => {
+    const formattedPrice = product.price.toLocaleString('en-US') + ' ֏'; 
     switch (currency) {
       case 'amd':
-        return product.price +'֏';
+        return product.price.toLocaleString('en-US') + ' ֏';
       case 'rub':
-        return product.price_rub +'₽' || product.price+'֏';
+        return (product.price_rub?.toLocaleString('en-US') || formattedPrice) + ' ₽';
       case 'usd':
-        return product.price_usd +'$' || product.price+'֏';
+        return (product.price_usd?.toLocaleString('en-US') || formattedPrice) + ' $';
       case 'eur':
-        return product.price_eur +'€' || product.price+'֏';
+        return (product.price_eur?.toLocaleString('en-US') || formattedPrice) + ' €';
       default:
-        return product.price+'֏';
+        return formattedPrice;
     }
   };
+  
 
   return (
     <div className="slider_block">
-      <div className="product_image h-[388px] laptopHorizontal:h-[350px] tablet:h-[300px] overflow-hidden laptop:h-[320px] bg-white w-full flex justify-center items-center relative">
+      <div className="product_image h-[388px] mobile:h-[230px] laptopHorizontal:h-[350px] tablet:h-[300px] overflow-hidden laptop:h-[320px] bg-white w-full flex justify-center items-center relative">
         <Link
           href={`/product/${product.link}`}
           onClick={onClick}
@@ -100,8 +102,11 @@ function Product({ product, onClick }) {
             unoptimized
             alt={product.name}
             priority
-            fill
-            className="object-contain"
+            // fill
+            width={220}
+             layout="responsive"
+            height={220}
+            className="object-cover"
           />
           <span className="product_inner">
             <Image
@@ -117,7 +122,7 @@ function Product({ product, onClick }) {
             />
           </span>
         </Link>
-        <span className="product_links z-[999] flex flex-col items-center absolute top-20 right-15">
+        <span className="product_links z-[999] flex flex-col items-center mobile:top-[10px] mobile:right-[10px] absolute top-20 right-15">
           <button
             className={`block`}
             aria-label={isInWishlist ? "Remove from Wishlist" : "Add to Wishlist"}
@@ -130,14 +135,14 @@ function Product({ product, onClick }) {
             onClick={handleAddToCart}
             aria-label="Add to Cart"
           >
-            <IconProductCard className='fill-none' />
+            <IconProductCard className='color-[##6a6969] fill-none' />
           </button>
         </span>
       </div>
-      <div className="mt-[12px] text-black text-[18px] truncate">
+      <div className="mt-[12px] text-black text-[18px] mobile:text-[14px] mobile:max-w-[120px] truncate">
         {getProductName()}
       </div>
-      <div className="font-bold mt-[5px] text-black">{getProducCurrency()}</div>
+      <div className="font-bold mt-[5px] mobile:text-[14px] text-black">{getProductCurrency()}</div>
     </div>
   );
 }

@@ -32,17 +32,17 @@ function PriceToggle() {
   return (
     <div className={`currency_toggle ${dropActive && "drop_opened"}`} ref={ref}>
       <div
-        className="currency_button uppercase flex items-center cursor-pointer duration-300 hover:opacity-70 text-white gap-[7px]"
+        className="currency_button uppercase  font-light text-[15px] flex items-center cursor-pointer duration-300 hover:opacity-70 text-white gap-[7px]"
         onClick={dropToggle}
       >
         {activecurrency} <IconArrowBottom />
       </div>
       <div className="currency_list">
-        <div className="currency_inner">
+        <div className="currency_inner font-light text-[15px]">
           {currencyList.map((item, i) => (
             <div
               key={i}
-              className={`currency_item 	${
+              className={`currency_item borderSilver	${
                 item.currency === activecurrency && "active_currency"
               }`}
             >

@@ -15,7 +15,7 @@ function ParentSlider({ children }) {
         style={{ ...style }}
         onClick={onClick}
       >
-        <IconArrowRight className='[&>path]:stroke-blakc'/>
+        <IconArrowRight className='[&>path]:stroke-blakc' />
       </div>
     );
   }
@@ -33,23 +33,22 @@ function ParentSlider({ children }) {
     );
   }
 
-
   const parentSettings = {
     dots: false,
     infinite: true,
     arrows: true,
     speed: 500,
     autoplay: true,
-    slidesToShow: 3,
-    slidesToScroll: 3,
+    slidesToShow: 5,
+    slidesToScroll: 5,
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
     responsive: [
       {
         breakpoint: 991,
         settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
+          slidesToShow: 3,
+          slidesToScroll: 3,
         }
       },
       {
@@ -68,15 +67,17 @@ function ParentSlider({ children }) {
   return (
     <div className='multiSlider_container'>
       <div className='custom_container'>
-        <div className="  text-[32px] text-black laptopHorizontal:text-[24px] uppercase mb-[50px]">New stores</div>
+        <div className="  text-[32px] section_title text-black laptopHorizontal:text-[24px] uppercase mb-[50px]">New stores</div>
       </div>
-      <Slider {...parentSettings}>
-        {React.Children.map(children, (child, index) => (
-          <div key={index} onMouseDown={stopPropagation} onTouchStart={stopPropagation}>
-            {child}
-          </div>
-        ))}
-      </Slider>
+      <div className='custom_container'>
+        <Slider {...parentSettings}>
+          {React.Children.map(children, (child, index) => (
+            <div key={index} onMouseDown={stopPropagation} onTouchStart={stopPropagation}>
+              {child}
+            </div>
+          ))}
+        </Slider>
+      </div>
     </div>
   )
 }

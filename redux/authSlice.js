@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import Cookies from "js-cookie";
 import { toast } from "react-hot-toast";
 
 const initialState = {
@@ -32,6 +33,8 @@ export const login = createAsyncThunk(
       const data = await response.json();
       if (typeof window !== "undefined") {
         localStorage.setItem("token", data.token);
+        Cookies.set("token", data.token, { expires: 7 });
+
       }
 
       return data;
@@ -99,8 +102,8 @@ export const logout = createAsyncThunk(
       // Remove token from localStorage
       if (typeof window !== "undefined") {
         localStorage.removeItem("token");
+        Cookies.remove("token");
       }
-
       return {};
     } catch (error) {
       return rejectWithValue(error.message);
@@ -176,8 +179,8 @@ const authSlice = createSlice({
         });
       })
       .addCase(login.rejected, (state, action) => {
-        state.status = "failed";
-        state.error = action.payload || action.error.message;
+        state.status = "failed";        
+        state.error = action.payload.detail || action.error.message;
         toast.error(`Login failed: ${state.error}`);
       });
 
@@ -194,11 +197,11 @@ const authSlice = createSlice({
         toast.success("Registration successful!");
 
         document.body.classList.remove("register_opened");
-        document.body.classList.add("success_opened");
+        // document.body.classList.add("success_opened");
       })
       .addCase(register.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload || action.error.message;
+        state.error = action.payload.detail || action.error.message;
         toast.error(`Registration failed: ${state.error}`);
 
         document.body.classList.remove("register_opened");
@@ -217,7 +220,7 @@ const authSlice = createSlice({
       })
       .addCase(logout.rejected, (state, action) => {
         state.status = "failed";
-        state.error = action.payload || action.error.message;
+        state.error = action.payload.detail || action.error.message;
         toast.error(`Logout failed: ${state.error}`);
       });
 

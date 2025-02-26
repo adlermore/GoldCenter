@@ -5,8 +5,10 @@ import Product from '@/components/product/Product';
 import { JsonContext } from '@/context/jsonContext';
 import request from '@/utils/hooks/request';
 import Image from 'next/image';
-import Link from 'next/link';
+import aldoroBanner from '@/public/images/aldoroBanner.png';
+
 import React, { useContext, useEffect, useState } from 'react'
+import StoreSlider from '@/components/slider/StoreSlider';
 
 function BrandPage({ params }) {
 
@@ -18,6 +20,7 @@ function BrandPage({ params }) {
   const [hasMore, setHasMore] = useState(false);
   const [loading, setLoading] = useState(false);
 
+
   useEffect(() => {
     request(`${process.env.NEXT_PUBLIC_DATA_API}/user/about_store/${params.slug}`)
       .then((data) => {
@@ -28,14 +31,12 @@ function BrandPage({ params }) {
         setBrandProducts(prevData => [...prevData, ...data.catalog]);
         setHasMore(data.catalog.length === limit);
       })
-      .catch(error => {
-        console.log(error);
-      })
       .finally(() => {
         setLoading(false);
       });
 
   }, [params.slug, silverMode, offset])
+
 
   if (!brandData || !brandProducts) {
     return <PageLoader />
@@ -44,25 +45,26 @@ function BrandPage({ params }) {
   const loadMoreProducts = () => {
     setOffset(prevOffset => prevOffset + limit);
   };
-
+  
   return (
-    <div className='brand_page pt-[160px]'>
+    <div className='brand_page pt-[80px] tablet:pt-[110px]'>
+      <div className='relative w-full  mx-auto  h-[500px] laptopHorizontal:h-[420px] laptop:h-[380px] tablet:h-[300px]'>
+        <Image
+          // src={brandData.user_info.logo}
+          src={aldoroBanner}
+          alt="Ricardo portrait"
+          fill
+          quality="100"
+          priority={true}
+          className="h-full w-full object-cover"
+        />
+      </div>
       <div className='custom_container'>
-        <div className='text-2xl'>{brandData.user_info.company_name}</div>
-        <div className='relative w-full max-w-[400px] mx-auto mt-[40px] h-[300px]'>
-          <Image
-            src={brandData.user_info.logo}
-            alt="Ricardo portrait"
-            fill
-            quality="100"
-            priority={true}
-            className="h-full w-full object-contain"
-          />
-        </div>
-        <div className='mt-[30px] text-2xl'>{brandData.user_info.firstname}</div>
-        <div className='mt-[30px] text-base leading-7 '>{brandData.user_info.description_en}</div>
-        <div className='text-xl mt-[40px]'>{brandData.user_info.company_name} PRODUCTS</div>
-        <div className='grid grid-cols-4 mt-[50px] gap-[15px]'>
+        <div className='text-2xl mobile:text-xl mobile:mt-[30px] mx-auto text-center mt-[60px] uppercase'>{brandData.user_info.company_name}</div>
+        {/* <div className='mt-[30px] text-2xl'>{brandData.user_info.firstname}</div> */}
+        <div className='mt-[50px] mobile:mt-[20px] mobile:text-[14px] text-base leading-7 text-center'>{brandData.user_info.description_en}</div>
+        <div className='text-xl mobile:mt-[20px] mobile:text-base mt-[40px]'>{brandData.user_info.company_name} PRODUCTS</div>
+        <div className='grid grid-cols-4 laptopHorizontal:grid-cols-3 mobile:grid-cols-2 mobile:mt-[30px] mt-[50px] gap-[15px]'>
           {brandProducts.map((product, index) => (
             <Product key={index} product={product} />
           ))}
@@ -70,7 +72,7 @@ function BrandPage({ params }) {
         {hasMore && (
           <button
             disabled={loading}
-            className="loadmore_btn mt-[58px] relative h-[50px] w-full max-w-[276px] mx-auto bg-transparent border-white text-xl flex items-center justify-center border text-white cursor-pointer hover:bg-siteCrem hover:border-siteCrem duration-300"
+            className="loadmore_btn mt-[58px] relative h-[50px] w-full max-w-[276px] mx-auto bg-transparent border-white text-xl flex items-center justify-center border text-white cursor-pointer hover:bg-siteCrem hover:border-siteCrem borderSilver duration-300"
             onClick={loadMoreProducts}
           >
             {loading && (
@@ -95,21 +97,11 @@ function BrandPage({ params }) {
             {!loading && "Load More"}
           </button>
         )}
-        <div className='mt-[50px] pb-[120px]'>
+
+        <div className='mt-[50px] pb-[120px] mobile:pb-[40px]'>
           <div className='text-2xl'>Similar stores</div>
-          <div className='mt-[30px] grid grid-cols-3 gap-[30px]'>
-            {brandData.similar_stores.map((brand, index) => (
-              <Link href={`/brand/${brand?.store_id}`} scroll={true} key={index} className='relative h-[200px]'>
-                <Image
-                  src={brand.logo}
-                  alt="Ricardo portrait"
-                  fill
-                  quality="100"
-                  priority={true}
-                  className="h-full w-full object-cover"
-                />
-              </Link>
-            ))}
+          <div className='mt-[30px] gap-[30px]'>
+            <StoreSlider sliderContent={brandData.similar_stores} />
           </div>
         </div>
       </div>

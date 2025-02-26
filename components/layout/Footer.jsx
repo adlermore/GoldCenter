@@ -9,7 +9,7 @@ async function Footer({ settingsData }) {
       <div className='custom_container '>
         <div className='flex footer_menu items-center gap-20 justify-between tablet:grid tablet:grid-cols-2 tablet:gap-40 mobile:grid-cols-1'>
           <div className="menu_block">
-            <h2 className="text-xl uppercase text-siteCrem pb-[2px]">Categories</h2>
+            <h2 className="text-xl uppercase text-siteCrem pb-[2px]">CategoriesTEST</h2>
             <Link href="/">Men</Link>
             <Link href="/">Women</Link>
             <Link href="/">Kids</Link>
@@ -27,8 +27,7 @@ async function Footer({ settingsData }) {
           </div>
           <div className="menu_block">
             <h2 className="text-xl uppercase text-siteCrem pb-[2px]">Payment methods</h2>
-            <Link href="/" className="pay_title">Visa \ Master \ Idram \ easypay</Link>
-            <div className='flex items-center gap-[15px]'>
+            <div className='flex items-center gap-[15px] mt-[20px]'>
               {PaymentIcons.map((icons, i) => (
                 <div key={i} className='w-[40px] h-[25px] relative'>
                   <Image
@@ -43,8 +42,8 @@ async function Footer({ settingsData }) {
                 </div>
               ))}
             </div>
-            <Link href="/">Social Media</Link>
-            <div className='flex items-center gap-[18px]'>
+            <span className="mt-[100px] block">Social Media</span>
+            <div className='flex items-center gap-[18px] mt-[-10px]'>
               {FooterSocials.map((icons, i) => (
                 <Link href="/" key={i} className='w-[35px] h-[35px] relative'>
                   <Image
@@ -63,7 +62,7 @@ async function Footer({ settingsData }) {
         </div>
         <div className='pt-[16px] mt-[60px] relative laptopHorizontal:mt-[30px]'>
           <div className='flex justify-center text-center items-center gap-20 laptopHorizontal:flex-col'>
-            @Copyright 2024
+            {`Copyright ©  ${new Date().getFullYear()}`}
           </div>
         </div>
        <ScrollToTop />

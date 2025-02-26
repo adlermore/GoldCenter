@@ -1,29 +1,43 @@
-'use client'
+'use client';
 
 import { useState, useRef, useEffect, useContext } from 'react';
 import Slider from 'react-slick';
 import Image from 'next/image';
 import "@/styles/product_inner.scss";
 import { filterColors } from '@/utils/data/productList';
-// import { belongsProducts, bestProducts } from '@/utils/data/homeData';
-// import AlsoLikeSlider from '@/components/slider/AlsoLikeSlider';
-// import BelongsSlider from '@/components/slider/BelongsSlider';
-import { useDispatch } from 'react-redux';
-import { addToCart } from '@/redux/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addToCart, updateCartQuantity } from '@/redux/cartSlice';
 import PageLoader from '@/components/PageLoader';
 import { JsonContext } from '@/context/jsonContext';
 import ProductSlider from '@/components/slider/ProductSlider';
+import IconPlay from '@/public/icons/IconPlay';
+import IconClose from '@/public/icons/IconClose';
+import toast from 'react-hot-toast';
 
 const ProductPage = ({ params }) => {
 
-	const { activeLg, currency } = useContext(JsonContext);
+	const [productCount, setProductCount] = useState(1);
 
+	const incrementCount = () => {
+		setProductCount((prevCount) => prevCount + 1);
+	};
+
+	const decrementCount = () => {
+		setProductCount((prevCount) => (prevCount > 1 ? prevCount - 1 : 1));
+	};
+
+
+	const { activeLg, currency } = useContext(JsonContext);
+	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
 	const bigSliderRef = useRef(null);
 
-	const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+	const items = useSelector((state) => state.cart.items);
+
 	const [product, setProduct] = useState(null);
 	const [makeLike, setMakeLike] = useState(null);
 	const [assortment, setAssortment] = useState(null);
+	const [zoomUrl, setZommUrl] = useState(null);
+	const zoomInnerRef = useRef(null);
 
 	const smallImagesOpts = {
 		centerPadding: 0,
@@ -42,6 +56,8 @@ const ProductPage = ({ params }) => {
 			{
 				breakpoint: 1200,
 				settings: {
+					verticalSwiping: false,
+					vertical: false,
 					slidesToShow: 3
 				}
 			},
@@ -64,9 +80,9 @@ const ProductPage = ({ params }) => {
 				settings: {
 					vertical: false,
 					verticalSwiping: false,
-					slidesToShow: 1,
+					slidesToShow: 2,
 					dots: true,
-					arrows: false,
+					// arrows: false,
 				}
 			}
 		],
@@ -89,12 +105,29 @@ const ProductPage = ({ params }) => {
 		setSelectedImageIndex(index);
 	};
 
+
 	const dispatch = useDispatch();
 
 	const handleAddToCart = (e) => {
 		e.preventDefault();
-		dispatch(addToCart(product));
+		const productToAdd = {
+			...product,
+			quantity: 1
+		};
+
+		const existingItemIndex = items.findIndex(item => item.id === product.id);
+
+		if (existingItemIndex >= 0) {
+			dispatch(updateCartQuantity({ productId: product.id, amount: productCount }));
+			setProductCount((prevCount) => prevCount + 1);
+			toast.success(`${product.name} quantity updated in your cart.`);
+		} else {
+			dispatch(addToCart(productToAdd));
+		}
+
+		setProductCount(1);
 	};
+
 
 	const fetchProduct = async () => {
 		const response = await fetch(`${process.env.NEXT_PUBLIC_DATA_API}/product/page/${params?.id}`);
@@ -108,23 +141,46 @@ const ProductPage = ({ params }) => {
 		fetchProduct();
 	}, [params?.id]);
 
+	const closeZoom = () => {
+		setZommUrl(null)
+	}
+
+	// Handle click outside of popup to close it
+	useEffect(() => {
+		const handleClickOutside = (event) => {
+			if (zoomInnerRef.current && !zoomInnerRef.current.contains(event.target)) {
+				closeZoom();
+			}
+		};
+
+		document.addEventListener('mousedown', handleClickOutside);
+
+		return () => {
+			document.removeEventListener('mousedown', handleClickOutside);
+		};
+	}, []);
+
+	const handleZommActive = (url) => {
+		setZommUrl(url)
+	}
 
 	const getProducCurrency = () => {
 		switch (currency) {
 			case 'amd':
-				return product.price + '֏';
+				return product.price.toLocaleString('en-US') + '֏';
 			case 'rub':
-				return product.price_rub + '₽';
+				return product.price_rub.toLocaleString('en-US') + '₽';
 			case 'usd':
-				return product.price_usd + '$';
+				return product.price_usd.toLocaleString('en-US') + '$';
 			case 'eur':
-				return product.price_eur + '€';
+				return product.price_eur.toLocaleString('en-US') + '€';
 			default:
-				return product.price + '֏';
+				return product.price.toLocaleString('en-US') + '֏';
 		}
 	};
 
 	const getProductName = () => {
+
 		switch (activeLg) {
 			case 'ENG':
 				return product.translation_data?.en.name;
@@ -156,9 +212,37 @@ const ProductPage = ({ params }) => {
 
 	return (
 		<div className='cover_container !mt-[140px] productInner_page'>
-			<div className=' text-[24px] uppercase '>
+			<div className=' text-[24px] uppercase mobile:text-[20px] mobile:pt-[20px]'>
 				Product
 			</div>
+			{zoomUrl &&
+				<div className='zoom_popup'>
+					<div className='zoom_inner' ref={zoomInnerRef}>
+						<a
+							href="/#"
+							className="popup_close absolute right-[20px] top-[20px] cursor-pointer"
+							onClick={(e) => {
+								e.preventDefault();
+								closeZoom();
+							}}
+						>
+							<IconClose />
+						</a>
+						<div className='absolute inner_div'>
+							<Image
+								src={zoomUrl}
+								fill
+								alt='image'
+								unoptimized
+								sizes="50vw, 100vw"
+								style={{
+									objectFit: 'contain',
+								}}
+							/>
+						</div>
+					</div>
+				</div>
+			}
 			<div className="product_section">
 				<div className="product_images">
 					<div className="small_images">
@@ -171,9 +255,12 @@ const ProductPage = ({ params }) => {
 											onClick={() => handleSmallImageClick(index)}
 										>
 											{image.is_video ? (
-												<video>
-													<source src={image.path} type="video/mp4" />
-												</video>
+												<div className='absolute left-0 right-0 top-0 bottom-0 flex items-center justify-center'>
+													<span className='z-50'><IconPlay /></span>
+													<video>
+														<source src={image.path} type="video/mp4" />
+													</video>
+												</div>
 											) : (
 												<Image
 													src={image.path}
@@ -181,7 +268,7 @@ const ProductPage = ({ params }) => {
 													fill
 													sizes="50vw, 100vw"
 													style={{
-														objectFit: 'contain',
+														objectFit: 'cover',
 													}}
 												/>
 											)}
@@ -196,7 +283,7 @@ const ProductPage = ({ params }) => {
 							<Slider {...bigImagesOpts} ref={bigSliderRef}>
 								{product?.pictures.map((image, index) => (
 									<div className="slide_block" key={index}>
-										<div className="img_block">
+										<div className="img_block" onClick={() => handleZommActive(image.path)}>
 											{image.is_video ? (
 												<video controls >
 													<source src={image.path} type="video/mp4" />
@@ -219,14 +306,14 @@ const ProductPage = ({ params }) => {
 						</div>
 					</div>
 				</div>
-				<div className='product_info w-full pl-[25px]'>
-					<div className='text-black text-xl'>
+				<div className='product_info w-full pl-[25px] laptopHorizontal:pl-[20px] mobile:pl-0 '>
+					<div className='text-black text-xl mobile:pt-[30px]'>
 						{getProductName()}
 					</div>
-					<div className='mt-[30px] text-base font-light'>
+					<div className='mt-[20px] text-base font-light'>
 						{getProductDesc()}
 					</div>
-					<div className='mt-[30px] text-[#916D50]'>Technical</div>
+					<div className='mt-[20px] text-[#916D50]'>Technical</div>
 					<div className='product_table'>
 						<div className='table_line'>
 							<div>Fineness:</div>
@@ -257,15 +344,20 @@ const ProductPage = ({ params }) => {
 							<div>{product?.gemstone}</div>
 						</div>
 					</div>
+					<div className='ml-auto flex items-center gap-[30px] pt-[20px]'>
+						<div className='flex quality_block items-center justify-between h-[35px] bg-[#D9D9D9] bg-opacity-40 rounded-[5px] max-w-[110px]'>
+							<button onClick={decrementCount} className='py-[10px] text-2xl w-[40px] h-full flex items-center justify-center'>-</button>
+							<span>{productCount}</span>
+							<button onClick={incrementCount} className='py-[10px] text-2xl w-[40px] h-full flex items-center justify-center'>+</button>
+						</div>
+						<div className='ml-auto text-[30px] tablet:text-[24px] mobile:text-[18px]'>{getProducCurrency()}</div>
+						<button className='border-none site_button bg-[#D3BA87] text-black text-xl h-[60px] ml-auto duration-300 cursor-pointer hover:opacity-70 w-[240px] ' onClick={handleAddToCart}>Add To Cart</button>
+					</div>
 				</div>
 			</div>
-			
-			{/* <div className='mt-[20px] ml-auto w-full text-right text-[#916D50] text-xl'>
-				Read more
-			</div> */}
 
-			<div className='flex items-center mt-[60px]'>
-				<div className='relative border-r-2 pr-[50px] border-siteCrem'>
+			{/* <div className='flex items-center mt-[60px]'>
+				<div className='relative border-r-2 pr-[50px] borderSilver border-siteCrem'>
 					<div className='text-xl text-black'>Metal</div>
 					<div className='mt-20 gap-[35px] flex items-center'>
 						<div className='filter_color_line'>
@@ -315,7 +407,6 @@ const ProductPage = ({ params }) => {
 								<span className="check_label ">Marquise</span>
 							</label>
 						</div>
-
 						<div className="mb-[15px] filter_stone_line">
 							<label htmlFor='filterStone2'>
 								<input type="checkbox" id='filterStone2' />
@@ -357,14 +448,9 @@ const ProductPage = ({ params }) => {
 						</div>
 					</div>
 				</div>
+			</div> */}
 
-				<div className='ml-auto flex items-center gap-[30px] pt-[30px]'>
-					<div className='ml-auto text-[30px]'>{getProducCurrency()}</div>
-					<button className='border-none bg-[#D3BA87] text-black text-xl h-[60px] ml-auto duration-300 cursor-pointer hover:opacity-70 w-[240px] ' onClick={handleAddToCart}>Add To Cart</button>
-				</div>
-			</div>
-
-			<ProductSlider sliderContent={assortment} title='OTHER ASSORTMENT LIST' />
+			<ProductSlider sliderContent={assortment.slice(0,3)} setmode={true} title='VIEW SET' />
 			<ProductSlider sliderContent={makeLike} title='YOU MAY LIKE LIST' />
 
 		</div>

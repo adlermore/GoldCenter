@@ -2,6 +2,7 @@
 
 import React, { useContext, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import { JsonContext } from '@/context/jsonContext';
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { registerSchema } from "@/validation/registerSchema";
@@ -10,12 +11,13 @@ import useOnClickOutside from '@/utils/hooks/useOnClickOutside';
 import IconClose from '@/public/icons/IconClose.jsx';
 import InputMask from "react-input-mask";
 
+
 function RegisterPopup() {
 
   const ref = useRef();
   const dispatch = useDispatch();
 
-  const { status } = useSelector((state) => state.auth);
+  const { status, error } = useSelector((state) => state.auth);
 
   //Close Popup after outside click
   useOnClickOutside(ref, () => {
@@ -24,7 +26,6 @@ function RegisterPopup() {
     }
   });
 
-  //Popup Close
   const closeRegister = () => {
     document.body.style.overflow = "";
     document.body.style.paddingRight = "";
@@ -36,7 +37,7 @@ function RegisterPopup() {
   }
 
   //validation init
-  const { register: registerForm, reset, handleSubmit: handleSubmitForm, formState: { errors: errorsRegister } } = useForm({
+  const { register: registerForm, reset, setError, handleSubmit: handleSubmitForm, formState: { errors: errorsRegister } } = useForm({
     resolver: zodResolver(registerSchema)
   });
 
@@ -119,8 +120,8 @@ function RegisterPopup() {
                 </div>
                 <InputMask
                   {...registerForm("phone", { required: true })}
-                  mask="(999)-999-9999"
-                  placeholder="Enter your password"
+                  mask="(999)-999-999"
+                  placeholder="Enter phone"
                   type="tel"
                   autoComplete="on"
                   className="form-control"
@@ -136,7 +137,7 @@ function RegisterPopup() {
                 Password
               </div>
               <input
-                placeholder="Enter full name"
+                placeholder="Enter password"
                 autoComplete="on"
                 className="form-control"
                 name="password"
@@ -174,7 +175,7 @@ function RegisterPopup() {
               <svg
                 aria-hidden="true"
                 role="status"
-                className="absolute left-[calc(50%-60px)] inline mr-2 w-4 h-4 text-gray-200 animate-spin dark:text-gray-600"
+                className="absolute left-[calc(50%-10px)] inline mr-2 w-4 h-4 text-gray-200 animate-spin dark:text-gray-600"
                 viewBox="0 0 100 101"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -188,7 +189,7 @@ function RegisterPopup() {
                   fill="#1C64F2"
                 ></path>
               </svg>
-              {status === 'loading' ? "Registration ..." : " Registration"}
+              {status === 'loading' ? "" : "Registration"}
             </button>
           </form>
         </div>  

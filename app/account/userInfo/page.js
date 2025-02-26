@@ -1,5 +1,4 @@
-'use client'
-
+'use client';
 import userImg from '@/public/images/userImg.png';
 import Image from 'next/image';
 import { userScheme } from '@/validation/userScheme';
@@ -7,12 +6,16 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import InputMask from "react-input-mask";
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import request from '@/utils/hooks/request';
 
 export default function UserInfoPage() {
+
 
   const { status } = useSelector((state) => state.auth);
   const user = useSelector((state) => state.auth.user);
 
+  const [loader, setLoader] = useState(false);
   //validation init
   const { register: userInfo, handleSubmit: handleSubmitForm, formState: { errors: errorUser } } = useForm({
     resolver: zodResolver(userScheme)
@@ -20,7 +23,23 @@ export default function UserInfoPage() {
 
   //sumbition Data
   const userInfoSubmit = async (dataForm) => {
-    console.log('dataForm', dataForm);
+    setLoader(true)
+    const body = {
+      address: dataForm?.address,
+      email: dataForm?.email,
+      firstname: dataForm?.namefirst,
+      lastname: dataForm?.surname,
+      phone: dataForm?.phone
+    }
+    request(process.env.NEXT_PUBLIC_DATA_API + '/user/update_user_info', 'PUT', body , true)
+      .then((data) => {
+        console.log('data', data);
+      }).catch((err)=>{
+        console.log('err' ,err);
+        
+      }).finally(() => {
+        setLoader(false)
+      })
   };
 
   return (
@@ -43,116 +62,116 @@ export default function UserInfoPage() {
       </div>
 
       <form onSubmit={handleSubmitForm(userInfoSubmit)} className="w-full">
-        <div className='grid grid-cols-3 gap-[30px] userInfoForm'>
-        <div className={errorUser?.namefirst ? "form_block has_error" : "form_block"}>
-          <div className="userInfo_label text-base font-light mb-[10px]">
-            Name
+        <div className='grid grid-cols-3 gap-[30px] laptop:gap-[20px] tablet:grid-cols-2 mobile:grid-cols-1 userInfoForm'>
+          <div className={errorUser?.namefirst ? "form_block has_error" : "form_block"}>
+            <div className="userInfo_label text-base font-light mb-[10px]">
+              Name
+            </div>
+            <input
+              placeholder="Enter name"
+              autoComplete="on"
+              // defaultValue={user?.name.split(' ')[0]}
+              className="form-control"
+              name="name"
+              {...userInfo("namefirst", { required: true, minLength: 5 })}
+            />
+            <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
+              {errorUser?.namefirst?.message}
+            </p>
           </div>
-          <input
-            placeholder="Enter name"
-            autoComplete="on"
-            // defaultValue={user?.name.split(' ')[0]}
-            className="form-control"
-            name="name"
-            {...userInfo("namefirst", { required: true, minLength: 5 })}
-          />
-          <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-            {errorUser?.namefirst?.message}
-          </p>
-        </div>
-        <div className={errorUser?.surname ? "form_block has_error" : "form_block"}>
-          <div className="userInfo_label text-base font-light mb-[10px]">
-            Surname
+          <div className={errorUser?.surname ? "form_block has_error" : "form_block"}>
+            <div className="userInfo_label text-base font-light mb-[10px]">
+              Surname
+            </div>
+            <input
+              placeholder="Enter surname"
+              autoComplete="on"
+              // defaultValue={user?.name.split(' ')[1]}
+              className="form-control"
+              name="name"
+              {...userInfo("surname", { required: true, minLength: 5 })}
+            />
+            <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
+              {errorUser?.surname?.message}
+            </p>
           </div>
-          <input
-            placeholder="Enter surname"
-            autoComplete="on"
-            // defaultValue={user?.name.split(' ')[1]}
-            className="form-control"
-            name="name"
-            {...userInfo("surname", { required: true, minLength: 5 })}
-          />
-          <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-            {errorUser?.surname?.message}
-          </p>
-        </div>
-        <div className={errorUser?.email ? "form_block has_error" : "form_block"}  >
-          <div className="userInfo_label text-base font-light mb-[10px]">
-            Email
+          <div className={errorUser?.email ? "form_block has_error" : "form_block"}  >
+            <div className="userInfo_label text-base font-light mb-[10px]">
+              Email
+            </div>
+            <input
+              placeholder="Enter your email address"
+              autoComplete="on"
+              className="form-control"
+              defaultValue={user?.email}
+              name="email"
+              {...userInfo("email", {
+                required: true,
+                pattern: /^\S+@\S+$/i,
+              })}
+            />
+            <p className="form_error form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
+              {errorUser?.email?.message}
+            </p>
           </div>
-          <input
-            placeholder="Enter your email address"
-            autoComplete="on"
-            className="form-control"
-            defaultValue={user?.email}
-            name="email"
-            {...userInfo("email", {
-              required: true,
-              pattern: /^\S+@\S+$/i,
-            })}
-          />
-          <p className="form_error form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-            {errorUser?.email?.message}
-          </p>
-        </div>
-        <div
-          className={errorUser.phone ? "form_block has_error" : "form_block"}
-        >
-          <div className="userInfo_label text-base font-light mb-[10px]">
-            Phone
-          </div>
-          <InputMask
-            {...userInfo("phone", { required: true })}
-            placeholder="Enter your password"
-            type="tel"
-            autoComplete="on"
-            className="form-control"
-            value={user?.phone}
-            mask="(999)-999-9999"
+          <div
+            className={errorUser.phone ? "form_block has_error" : "form_block"}
+          >
+            <div className="userInfo_label text-base font-light mb-[10px]">
+              Phone
+            </div>
+            <InputMask
+              {...userInfo("phone", { required: true })}
+              placeholder="Enter your phone"
+              type="tel"
+              autoComplete="on"
+              className="form-control"
+              defaultValue={user?.phone}
+              mask="(999)-999-999"
 
-          />
-          <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-            {errorUser?.phone?.message}
-          </p>
-        </div>
-        <div className={errorUser?.address ? "form_block has_error" : "form_block"}>
-          <div className="userInfo_label text-base font-light mb-[10px]">
-            Address
+            />
+            <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
+              {errorUser?.phone?.message}
+            </p>
           </div>
-          <input
-            placeholder="Enter address"
-            autoComplete="on"
-            className="form-control"
-            name="name"
-            {...userInfo("address", { required: true, minLength: 5 })}
-          />
-          <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-            {errorUser?.address?.message}
-          </p>
-        </div>
-        <div className={errorUser?.postalCode ? "form_block has_error" : "form_block"}>
-          <div className="userInfo_label text-base font-light mb-[10px]">
-            Postal Code
+          <div className={errorUser?.address ? "form_block has_error" : "form_block"}>
+            <div className="userInfo_label text-base font-light mb-[10px]">
+              Address
+            </div>
+            <input
+              placeholder="Enter address"
+              autoComplete="on"
+              className="form-control"
+              name="name"
+              {...userInfo("address", { required: true, minLength: 5 })}
+            />
+            <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
+              {errorUser?.address?.message}
+            </p>
           </div>
-          <input
-            placeholder="Enter postalCode"
-            autoComplete="on"
-            className="form-control"
-            name="name"
-            {...userInfo("postalCode", { required: true, minLength: 5 })}
-          />
-          <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
-            {errorUser?.postalCode?.message}
-          </p>
-        </div>
+          <div className={errorUser?.postalCode ? "form_block has_error" : "form_block"}>
+            <div className="userInfo_label text-base font-light mb-[10px]">
+              Postal Code
+            </div>
+            <input
+              placeholder="Enter postalCode"
+              autoComplete="on"
+              className="form-control"
+              name="name"
+              {...userInfo("postalCode", { required: true, minLength: 5 })}
+            />
+            <p className="form_error text-xs absolute right-0 text-siteRed font-semibold duration-300 opacity-0">
+              {errorUser?.postalCode?.message}
+            </p>
+          </div>
         </div>
         <button
           type="submit"
-        className={
-          status === 'loading'
-            ? " mt-[35px] max-w-fit min-w-[160px] px-[30px] !opacity-50 pointer-events-none [&>svg]:opacity-100 relative submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-black duration-300 hover:opacity-70 ml-auto justify-center flex items-center"
-            : " mt-[35px] max-w-fit min-w-[160px] px-[30px] relative [&>svg]:opacity-0 submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-black duration-300 hover:opacity-70 ml-auto justify-center flex items-center"
-        }
+          className={
+            status === 'loading'
+              ? " mt-[35px] max-w-fit min-w-[160px] px-[30px] !opacity-50 pointer-events-none [&>svg]:opacity-100 relative submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-black duration-300 hover:opacity-70 ml-auto justify-center flex items-center"
+              : " mt-[35px] max-w-fit min-w-[160px] px-[30px] relative [&>svg]:opacity-0 submit_btn h-[40px] w-full bg-siteCrem text-base font-semibold text-black duration-300 hover:opacity-70 ml-auto justify-center flex items-center"
+          }
         >
           <svg
             aria-hidden="true"
@@ -171,7 +190,7 @@ export default function UserInfoPage() {
               fill="#1C64F2"
             ></path>
           </svg>
-          {status === 'loading' ? " " : " Save Changes"}
+          {loader ? " " : " Save Changes"}
         </button>
       </form>
 

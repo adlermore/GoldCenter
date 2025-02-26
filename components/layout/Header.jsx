@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
-import { HeaderLinks } from '@/utils/routes'
 import { usePathname } from 'next/navigation'
 import { Twirl as Hamburger } from "hamburger-react";
 import SiteSwitch from '../SiteSwitch'
@@ -20,6 +19,7 @@ import IconGroup from '@/public/icons/IconGroup'
 import { initializeCart } from '@/redux/cartSlice'
 import { useRouter } from 'next/navigation';
 import { initializeWishlist } from '@/redux/wishlistSlice'
+import HeaderMenu from '../menu/HeaderMenu'
 
 function Header() {
 
@@ -30,6 +30,7 @@ function Header() {
   const wishListItems = useSelector((state) => state.wishlist.items);
   const [isOpen, setOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
     if (document.body.classList.contains('menu_opened')) {
@@ -37,12 +38,13 @@ function Header() {
     }
     if (window.scrollY > 10) {
       setIsScrolled(true);
-    } 
+    }
     if (isOpen) {
       document.body.style.overflow = "hidden";
       document.body.classList.add('menu_opened');
     } else {
       document.body.classList.remove('menu_opened');
+      document.body.style.overflow = "visible";
     }
 
     dispatch(initializeAuth());
@@ -52,14 +54,14 @@ function Header() {
     const handleScroll = () => {
       if (window.scrollY > 10) {
         setIsScrolled(true);
-      } else if(pathname == '/'){
+      } else if (pathname == '/') {
         setIsScrolled(false);
       }
     };
 
-    if (pathname !== '/' || window.scrollY > 10){
+    if (pathname !== '/' || window.scrollY > 10) {
       setIsScrolled(true);
-    }else{
+    } else {
       setIsScrolled(false);
     }
 
@@ -94,53 +96,60 @@ function Header() {
   };
 
 
-  const handelFavoriteDirect = () =>{
-    if(isAuth){
+  const handelFavoriteDirect = () => {
+    if (isAuth) {
       router.push('/account/wishList');
-    }else{
+    } else {
       loginPopupOpen()
     }
   }
 
+  // Trigger animation when cartItems.length changes
+  useEffect(() => {
+    if (wishListItems.length > 0) {
+      setAnimate(true); // Start animation
+      const timer = setTimeout(() => setAnimate(false), 500); 
+      return () => clearTimeout(timer); // Cleanup timer
+    }
+  }, [wishListItems.length]);
+
   return (
-    <header className={`fixed fixed-element duration-500 transition-colors ${isScrolled && 'bg-[#0C1B20]'} top-0 h-[85px] left-0 right-0 z-[9999] laptop:bg-[#0C1B20]`}>
-      <div className='cover_container h-full justify-between flex items-center  gap-20 '  >
+    <header className={`fixed fixed-element duration-500 transition-colors ${isScrolled && 'bg-[#0C1B20]'} top-0 h-[85px] tablet::h-[70px] left-0 right-0 z-[9999] laptop:bg-[#0C1B20]`}>
+      <div className='cover_container header_inner h-full justify-between flex items-center  gap-20 '  >
         <Link href='/' className='z-20'>
           <Image
+            width={67}
+            height={44}
             src={mainLogo}
             alt="Ricardo portrait"
             priority={true}
           />
         </Link>
         <SiteSwitch isHeader />
-        <div className={isOpen ? 'menu-open laptop:fixed  z-20 ml-auto  laptop:z-0 laptop:w-full laptop:ml-0   laptop:h-full laptop:bottom-0 overflow-hidden  laptop:right-0  duration-[0.7s] mobile:duration-[0.5s]  ' : ' mobile:duration-[0.5s] duration-[0.7s] laptop:right-0 laptop:fixed  z-20 ml-auto  laptop:z-0 laptop:w-0 laptop:ml-0   laptop:h-full laptop:bottom-0 overflow-hidden  '}>
-          <div className='ml-auto laptop:w-full  w-full laptop:m-0 laptop:flex laptop:justify-end laptop:z-[-1] tablet:w-[calc(100vw)] laptop:left-0 laptop:h-full z-20 laptop:bg-blueDark1 laptop:bg-opacity-35   tablet:bg-white mobile:bg-transparent tablet:text-black laptop:top-[86px] relative  '>
-            <div className={`${isScrolled && 'isScrolled'} mobile_container relative flex items-center gap-32 laptop:min-w-[350px] tablet:min-w-[calc(100%-32px)] laptop:overflow-y-auto mobile:w-full   laptop:bg-[#f4faff] laptopHorizontal:gap-20 laptop:flex-col laptop:pt-[30px] laptop:mr-0  laptop:gap-[30px]`}>
-              {HeaderLinks.map((link, i) => (
-                <Link
-                  key={i}
-                  href={link.href}
-                  className={`${pathname === link.href && ' pointer-events-none'}  tablet:w-[calc(100%-16px)]  laptop:text-[16px] flex justify-center items-center gap-[20px] laptop:text-center laptop:w-[350px] whitespace-nowrap laptop:font-bold laptop:text-black laptopHorizontal:text-sm text-white text-base `}
-                >
-                  {link.title}
-                  <span className='laptop:block hidden'>
-                    {'>'}
-                  </span>
-                </Link>
-              ))}
-            </div>
+        <div className={isOpen ? 'menu-open laptop:fixed  z-20 ml-auto  laptop:z-0 laptop:w-full laptop:ml-0   laptop:h-full laptop:bottom-0  laptop:right-0  duration-[0.7s] mobile:duration-[0.5s]  ' : ' mobile:duration-[0.5s] duration-[0.7s] laptop:right-0 laptop:fixed  z-20 ml-auto  laptop:z-0 laptop:w-0 laptop:ml-0   laptop:h-full laptop:bottom-0  '}>
+          <div className='ml-auto header_wrapp laptop:w-full  w-full laptop:m-0 laptop:flex laptop:justify-end laptop:z-[-1] tablet:w-[calc(100vw)] laptop:left-0 laptop:h-full z-20 laptop:bg-blueDark1 laptop:bg-opacity-35   tablet:bg-white mobile:bg-transparent tablet:text-black laptop:top-[86px] tablet:top-[100px] relative  '>
+            <HeaderMenu isScrolled={isScrolled} />
           </div>
         </div>
-        <div className='flex items-center ml-auto gap-[20px] tablet:hidden'>
-          {/* <div><IconGroup /></div> */}
-          <div><SearchToggle /> </div>
+        <div className='flex items-center ml-auto gap-[20px]  action_block'>
+          <div className='duration-300 relative cursor-pointer hover:opacity-70'>
+            <Link
+              href='/account/personalList'
+              className={pathname === '/account/personalList' ? ' pointer-events-none' : ''}
+            >
+              <IconGroup />
+            </Link>
+          </div>
+          <div className='tablet:hidden'><SearchToggle /> </div>
           <div onClick={handelFavoriteDirect} className='favorite_btn duration-300 relative cursor-pointer hover:opacity-70'>
-            <IconHeart
-              className='text-white [&>path]:fill-white'
-            />
-                  {wishListItems.length > 0 && 
-           <span className="red_count">{wishListItems.length}</span>
-        }
+            <div className={animate ? "animate-icon" : ""}>
+              <IconHeart
+                className='text-white [&>path]:fill-white'
+              />
+              {wishListItems.length > 0 &&
+                <span className="red_count">{wishListItems.length}</span>
+              }
+            </div>
           </div>
           <CardCanvas />
           <AccountToggle />
